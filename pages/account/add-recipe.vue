@@ -33,7 +33,7 @@
             <UFormGroup label="Recipe Title" required>
               <UInput placeholder="Pasta" size="xl" v-model="newRecipe.image" />
             </UFormGroup>
-            <img :src="newRecipe.image" alt="" class="object-cover h-72 w-full shadow-xl  ">
+            <img :src="imageDisplay" alt="" class="object-cover h-72 w-full shadow-xl  ">
             <div class="border-4  border-orange-400 border-dashed  ">
               <!-- <label for="photoInput" class="relative cursor-pointer  overflow-hidden group w-full ">
                 <input type="file" accept=".png, .jpeg" name="photo" id="fileInput" class="hidden"
@@ -159,7 +159,7 @@ const selectedPrepTime = ref(times[0])
 const selectedCookTime = ref(times[0])
 const publicRecipe = ref(false)
 
-
+const imageDisplay = computed(() => newRecipe.value.image)
 
 const createNewRecipe = async () => {
   try {
@@ -168,8 +168,8 @@ const createNewRecipe = async () => {
       body: newRecipe.value
     })
 
-    console.log(response.data
-      .value)
+    // console.log(response.data
+    //   .value)
   } catch (error) {
     console.error(error)
   }
