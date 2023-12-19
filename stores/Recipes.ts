@@ -13,10 +13,21 @@ export const useMyRecipesStore = defineStore({
     async fetchRecipes() {
       try {
         const response = await recipesService.getAllRecipes();
-        this.setRecipes(response.data);
+      
+        return response as Recipe[];
       } catch (error) {
         console.error("Error fetching recipes:", error);
       }
     },
+
+    async fetchRecipe(id:string){
+      try {
+        const response = await recipesService.getRecipe(id);
+      
+        return response 
+      } catch (error) {
+        console.error("Error fetching recipe:", error);
+      }
+    }
   },
 });

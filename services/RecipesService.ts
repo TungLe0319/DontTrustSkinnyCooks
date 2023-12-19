@@ -2,20 +2,29 @@
 
 import type { Recipe } from "@prisma/client";
 
-
-
 const BASE_URL = "/api/recipes";
 
 class RecipesService {
- getAllRecipes  = async () => useFetch(BASE_URL);
-
-
-
-   createRecipe =  async (newRecipe:Recipe) => useFetch(BASE_URL, {
-    body:newRecipe
-  });
-
+  async getAllRecipes() {
+    try {
+      const response = await useFetch("/api/recipes/get");
+//  console.log(response.data.value);
  
+      return response.data.value;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async getRecipe(id: string) {
+    try {
+      const response = await useFetch(`/api/recipes/${id}`);
+
+      return response.data.value;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }
 
-export const recipesService =  new RecipesService();
+export const recipesService = new RecipesService();
