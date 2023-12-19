@@ -13,24 +13,29 @@ const items = ref([
 
 
 const profileDropdownItems = [
-  [{
-    label: session ? session.value.user?.email : '',
-    slot: 'account',
-    disabled: true,
-  }],
-  [{
-    label: 'Profile',
-    icon: 'i-heroicons-user',
-  }],
-  [{
-    label: 'Settings',
-    icon: 'i-heroicons-cog-8-tooth',
-  }],
-  [{
-    label: 'Sign Out',
-    icon: 'i-heroicons-arrow-left-on-rectangle',
-  }],
-]
+  [
+    {
+      label: session.value?.user ? session.value.user.email : '',
+      slot: 'account',
+      disabled: true,
+    },
+  ],
+  [
+    {
+      label: 'Profile',
+      icon: 'i-heroicons-user',
+      link: `/profiles/${session.value?.user ? session.value.user._id : ''}`
+    },
+  ],
+  [
+    {
+      label: 'Sign Out',
+      icon: 'i-heroicons-arrow-left-on-rectangle',
+      click: signOut,
+    },
+  ],
+];
+
 const indicatorPosition = ref(0)
 
 onMounted(() => {
@@ -46,10 +51,34 @@ function updateIndicatorPosition() {
 
 
 const drawerIsOpen = ref(false)
+
+const showAlert = ref(true);
+
+const handleAlertClose = () => {
+  showAlert.value = false;
+};
 </script>
 
 <template>
-  <div class="w-full h-16 flex items-center justify-center shadow-md bg-zinc-800 text-white py-0 px-5 fixed top-0 z-50">
+ 
+  <UAlert
+      v-if="showAlert"
+      :close-button="{ icon: 'i-heroicons-x-mark-20-solid', color: 'gray', variant: 'link', padded: false }"
+    
+      @close="handleAlertClose"
+      class="bg-gradient-to-r from-orange-500 via-rose-300 to-indigo-600 rounded-none "
+    >
+ 
+
+      <template #description>
+      <span class="text-xl  ">
+         Unlock Gourmet Recipes! Sign up now to explore our savory display ads and create a personalized collection of culinary wonders.
+      </span>
+      </template>
+    </UAlert>
+  <div class="w-full h-16 flex items-center justify-center shadow-md bg-zinc-800 text-white py-0 px-5 ">
+  
+
     <div class="flex w-full h-full space-x-4 justify-between">
       <div class="px-5 flex space-x-4 items-center justify-center">
         <Icon name="game-icons:fat" class="text-5xl" />
@@ -84,10 +113,16 @@ const drawerIsOpen = ref(false)
               </p>
             </div>
           </template>
-          <template #item="{ item }">
-            <span class="truncate">{{ item.label }}</span>
-            <UIcon :name="item.icon" class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500 ms-auto" />
-          </template>
+      <template #item="{ item }">
+        <NuxtLink v-if="item.link" :to="item.link" class="flex items-center justify-between w-full">
+          <span class="truncate">{{ item.label }}</span>
+          <UIcon v-if="item.icon" :name="item.icon" class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500 ms-auto" />
+        </NuxtLink>
+        <a v-else-if="item.click" @click="item.click" class="flex items-center justify-between w-full cursor-pointer">
+          <span class="truncate">{{ item.label }}</span>
+          <UIcon v-if="item.icon" :name="item.icon" class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500 ms-auto" />
+        </a>
+      </template>
         </UDropdown>
       </div>
       <!-- MOBIlE MENU -->
