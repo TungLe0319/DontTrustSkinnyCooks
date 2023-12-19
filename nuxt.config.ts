@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxt/ui", "@hebilicious/authjs-nuxt"],
+  modules: ["@nuxt/ui", "@hebilicious/authjs-nuxt", "@pinia/nuxt"],
 
   alias: {
     cookie: "cookie",
@@ -16,11 +16,11 @@ export default defineNuxtConfig({
       clientSecret: process.env.NUXT_GITHUB_CLIENT_SECRET,
     },
 
-    google:{
+    google: {
       clientId: process.env.NUXT_GOOGLE_CLIENT_ID,
       clientSecret: process.env.NUXT_GOOGLE_CLIENT_SECRET,
     },
-  
+
     public: {
       authJs: {
         baseUrl: process.env.NUXT_NEXTAUTH_URL, // The URL of your deployed app (used for origin Check in production)

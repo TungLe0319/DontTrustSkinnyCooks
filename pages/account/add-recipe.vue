@@ -97,23 +97,38 @@
         <div class=" flex items-center justify-between">
           <div class="flex gap-2 items-end">
             <UFormGroup label="Prep Time" required>
-              <UInput type="number" placeholder="0" size="xl" />
+              <UInput type="number" placeholder="0" size="xl" v-model="newRecipe.prepTime" />
             </UFormGroup>
-            <USelectMenu v-model="selectedTime" :options="times" size="xl" />
+            <USelectMenu v-model="selectedPrepTime" :options="times" size="xl" />
           </div>
           <div class="flex gap-2 items-end">
             <UFormGroup label="Cook Time (Optional)">
               <UInput type="number" placeholder="0" size="xl" v-model="newRecipe.cookTime" />
             </UFormGroup>
-            <USelectMenu v-model="newRecipe.selectedTime" :options="times" size="xl" />
+            <USelectMenu v-model="selectedCookTime" :options="times" size="xl" />
           </div>
         </div>
         <hr class="my-5">
         <div class="space-y-3">
           <p>Notes (Optional)</p>
           <p class="text-gray-500">Add any helpful tips about ingredient substitutions, serving, or storage here.</p>
-          <UButton icon="i-heroicons-pencil-square" size="xl" color="primary" variant="solid" label="Add Note"
-            :trailing="false" />
+
+
+
+    <div class="space-y-3 my-3">
+              <UInput v-for="(note, index) in newRecipe.notes" :key="index" color="white" variant="outline"
+                size="xl" :placeholder="index === 0 ? 'e.g. dont whisk too hard...' : 'New Note...'" :value="note"
+                @input="updateNote(index, $event)" />
+            </div>
+            <div class="">
+              <UButton icon="i-heroicons-plus-circle" size="xl" color="primary" variant="solid" label="Add Note"
+                :trailing="false" @click="addNewNote" />
+            </div>
+
+
+
+
+      
         </div>
         <hr class="my-5">
         <div class=" flex flex-col ">
@@ -126,7 +141,7 @@
           <div class="flex justify-end gap-2">
             <UButton size="xl" color="primary" variant="link" label="Cancel" />
             <UButton icon="i-heroicons-plus-circle" size="xl" color="primary" variant="solid" label="Submit Recipe"
-              :trailing="false" />
+              :trailing="false" @click="createNewRecipe" />
           </div>
         </div>
         <hr class="my-5">
@@ -144,9 +159,25 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 const times = ['minutes', 'hours', 'days']
-const selectedTime = ref(times[0])
+const selectedPrepTime = ref(times[0])
+const selectedCookTime = ref(times[0])
 const publicRecipe = ref(false)
 
+
+
+const createNewRecipe = async () => {
+try {
+  const response = await fetch('/api/recipes', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newRecipe.value)
+  })
+  } catch (error) {
+  console.error(error)
+  }
+}
 
 const newRecipe = ref({
   title: '',
@@ -156,11 +187,11 @@ const newRecipe = ref({
   servingSize: '',
   yield: '',
   prepTime: '',
-  cookTime: '',
-  notes: '',
+  cookTime: '' ,
+  notes: [''],
 
   publicRecipe: false,
-  selectedTime: times[0]
+  
 
 })
 
@@ -187,7 +218,7 @@ const addNewIngredient = () => {
 };
 
 const updateIngredient = (index, value) => {
-  newRecipe.value.ingredients[index] = value;
+  newRecipe.ingredients[index] = value;
 };
 
 const addNewDirection = () => {
@@ -195,7 +226,15 @@ const addNewDirection = () => {
 }
 
 const updateDirection = (index, value) => {
-  newRecipe.value.directions[index] = value;
+  newRecipe.directions[index] = value;
+}
+
+const addNewNote = () => {
+  newRecipe.value.notes.push('')
+}
+
+const updateNote = (index, value) => {
+  newRecipe.notes[index] = value;
 }
 </script>
 
