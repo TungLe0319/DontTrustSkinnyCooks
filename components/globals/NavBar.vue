@@ -5,7 +5,7 @@ const { signIn, signOut, session, status, cookies, getProviders } = useAuth()
 // generate a list of links that has to an id, to which will be home,tournaments,leagues,clubs,courses,series,videos,trading post,contact
 const items = ref([
   { name: 'Home', href: '/' },
-  { name: 'Users', href: '/profiles' },
+  { name: 'Users', href: '/profile' },
   { name: 'Recipes', href: '/recipes' },
   { name: 'Add Recipe', href: '/account/add-recipe' },
 
@@ -24,7 +24,7 @@ const profileDropdownItems = [
     {
       label: 'Profile',
       icon: 'i-heroicons-user',
-      link: `/profiles/${session.value?.user ? session.value.user._id : ''}`
+      link: `/profile/${session.value?.user ? session.value.user._id : ''}`
     },
   ],
   [
@@ -62,7 +62,7 @@ const handleAlertClose = () => {
 <template>
  
   <UAlert
-      v-if="showAlert"
+      v-if="showAlert && ! session.user"
       :close-button="{ icon: 'i-heroicons-x-mark-20-solid', color: 'gray', variant: 'link', padded: false }"
     
       @close="handleAlertClose"
@@ -95,14 +95,14 @@ const handleAlertClose = () => {
       </div>
       <div class=" hidden lg:flex items-center justify-center space-x-4">
         <div class="flex gap-5">
-          <a href="/api/auth/signin" class="buttonPrimary">Sign in</a>
+          <a v-if="!session.user" href="/api/auth/signin" class="buttonPrimary">Sign in</a>
           <!-- <button v-if="session.user" @click="signOut()">
             Sign Out
           </button> -->
         </div>
         <UDropdown v-if="session?.user" :items="profileDropdownItems"
           :ui="{ item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom-start' }">
-          <UAvatar :src="session.user?.image || 'https://i.pravatar.cc/150?img=69'" />
+          <UAvatar  size="md" :src="session.user?.image || 'https://i.pravatar.cc/150?img=69'" />
           <template #account="{ item }">
             <div class="text-left">
               <p>

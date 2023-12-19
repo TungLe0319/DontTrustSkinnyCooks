@@ -1,51 +1,46 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model Recipe {
-  id           Int        @id @default(autoincrement())
-  title        String
-  description  String
-  ingredients  String[] 
-  directions   String[]
-  servingSize  Int
-  yield        String?
-  prepTime     Int
-  cookTime     String?
-  notes        String[]
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String
+  ingredients String
+  directions  String
+  servingSize Int
+  yield       String?
+  prepTime    Int
+  cookTime    String?
+  notes       String
+  image       String?
+  userId      Int
+  user        User       @relation(fields: [userId], references: [id])
+  categories  Category[] @relation("CategoryToRecipe")
 
-  userId       Int
-  user         User       @relation(fields: [userId], references: [id])
-  categories   Category[]
+  @@index([userId], map: "Recipe_userId_fkey")
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  username String
-  email    String   @unique
-  image   String?
-  bio      String?
+  id           Int      @id @default(autoincrement())
+  username     String
+  email        String   @unique
+  image        String?
+  bio          String?
   personalSite String?
-  instagram String?
-  facebook String?
-  x String?
-  recipes  Recipe[]
-  
-  // Add other user-related fields as needed
+  instagram    String?
+  facebook     String?
+  x            String?
+  recipes      Recipe[]
 }
 
 model Category {
   id      Int      @id @default(autoincrement())
   name    String
-  recipes Recipe[]
-
-  // Add other category-related fields as needed
+  recipes Recipe[] @relation("CategoryToRecipe")
 }

@@ -1,7 +1,7 @@
 <template>
   <main class="min-h-screen">
     <div class="flex items-center justify-center p-24 gap-10">
-<NuxtLink :to="`profiles/${u.uuid}`" v-for="u in users" class="p-5 shadow-xl rounded-md hover:shadow-2xl hover:bg-zinc-800 transition-all duration-300  hover:text-white" >
+<NuxtLink :to="`profile/${u.uuid}`" v-for="u in users" class="p-5 shadow-xl rounded-md hover:shadow-2xl hover:bg-zinc-800 transition-all duration-300  hover:text-white" >
 
   <div class="flex items-center justify-center">
     <div class="flex-shrink-0">

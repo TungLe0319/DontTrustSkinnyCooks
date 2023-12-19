@@ -1,11 +1,11 @@
 <template>
-    <main v-if="session?.user" class="profile-page pt-16">
+    <main v-if="session?.user" class="profile-page ">
         <div class="container mx-auto my-5 p-5">
             <div class="md:flex no-wrap md:-mx-2 ">
                 <!-- Left Side -->
                 <div class="w-full md:w-3/12 md:mx-2">
                     <!-- Profile Card -->
-                    <div class="bg-white p-3 border-t-4 border-green-400">
+                    <div class="bg-white p-3 border-t-4 border-green-400 shadow-xl">
                         <div class="image overflow-hidden">
                             <img class="h-auto w-full mx-auto"
                                 src="https://lavinephotography.com.au/wp-content/uploads/2017/01/PROFILE-Photography-112.jpg"
@@ -34,7 +34,9 @@
                         </ul>
                     </div>
                     <!-- End of profile card -->
-                    <div class="my-4"></div>
+                    <div class="my-4">
+                      <AdOne/>
+                    </div>
                  
                 </div>
                 <!-- Right Side -->
@@ -71,7 +73,10 @@
 </template>
 
 <script lang="ts" setup>
+import AdOne from '../../components/profile/AdOne.vue';
+
 const { signIn, signOut, session, status, cookies, getProviders } = useAuth()
 </script>
 
-<style></style>
+<style scoped>
+</style>

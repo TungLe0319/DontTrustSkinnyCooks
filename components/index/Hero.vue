@@ -31,11 +31,18 @@
 
       <div class=" w-full flex gap-5">
     
-            <div class="flex items-center justify-center bg-black/10 p-5 rounded-3xl h-1/2">
-    <p class="text-8xl font-extrabold text-center">
-     Reliable Recipes
-    </p>
-            </div>
+     <div class="gap-5 flex flex-col">
+             <div class="flex items-center justify-center bg-black/10 p-5 rounded-3xl h-1/2">
+      <p class="text-8xl font-extrabold text-center">
+       Reliable Recipes
+      </p>
+              </div>
+                     <div class="flex items-center justify-center bg-black/10 p-5 rounded-3xl h-1/2">
+        <p class="text-8xl font-extrabold text-center">
+         Collective Hub
+        </p>
+                </div>
+     </div>
        <div class=" w-11/12 flex items-center justify-center bg-black/10 p-5 rounded-3xl h-1/2 ">
     <img src="https://images.unsplash.com/photo-1496412705862-e0088f16f791?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded-3xl w-full h-auto object-fit"/>
       
