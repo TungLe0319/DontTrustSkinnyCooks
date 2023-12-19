@@ -30,8 +30,12 @@
             <p class="text-sm text-gray-700 font-medium  mb-2">
               Photo(Optional)
             </p>
+            <UFormGroup label="Recipe Title" required>
+              <UInput placeholder="Pasta" size="xl" v-model="newRecipe.image" />
+            </UFormGroup>
+            <img :src="newRecipe.image" alt="" class="object-cover h-72 w-full shadow-xl  ">
             <div class="border-4  border-orange-400 border-dashed  ">
-              <label for="photoInput" class="relative cursor-pointer  overflow-hidden group w-full ">
+              <!-- <label for="photoInput" class="relative cursor-pointer  overflow-hidden group w-full ">
                 <input type="file" accept=".png, .jpeg" name="photo" id="fileInput" class="hidden"
                   @change="handleFileChange">
                 <img
@@ -40,7 +44,7 @@
                 <div
                   class="absolute w-full  scale-0 group-hover:scale-100 transition-all duration-300 h-full font-extrabold text-white text-5xl bg-black/20 backdrop-blur-sm top-0 flex items-center justify-center   ">
                   Select File</div>
-              </label>
+              </label> -->
             </div>
           </div>
         </div>
@@ -84,7 +88,7 @@
         <div class="flex  justify-between gap-5">
           <div class="w-1/2">
             <UFormGroup label="Serving Size" required>
-              <UInput placeholder="e.g. 4" size="xl" v-model="newRecipe.servingSize" />
+              <UInput type="number" placeholder="e.g. 4" size="xl" v-model="newRecipe.servingSize" />
             </UFormGroup>
           </div>
           <div class="w-1/2">
@@ -112,23 +116,15 @@
         <div class="space-y-3">
           <p>Notes (Optional)</p>
           <p class="text-gray-500">Add any helpful tips about ingredient substitutions, serving, or storage here.</p>
-
-
-
-    <div class="space-y-3 my-3">
-              <UInput v-for="(note, index) in newRecipe.notes" :key="index" color="white" variant="outline"
-                size="xl" :placeholder="index === 0 ? 'e.g. dont whisk too hard...' : 'New Note...'" :value="note"
-                @input="updateNote(index, $event)" />
-            </div>
-            <div class="">
-              <UButton icon="i-heroicons-plus-circle" size="xl" color="primary" variant="solid" label="Add Note"
-                :trailing="false" @click="addNewNote" />
-            </div>
-
-
-
-
-      
+          <div class="space-y-3 my-3">
+            <UInput v-for="(note, index) in newRecipe.notes" :key="index" color="white" variant="outline" size="xl"
+              :placeholder="index === 0 ? 'e.g. dont whisk too hard...' : 'New Note...'" :value="note"
+              @input="updateNote(index, $event)" />
+          </div>
+          <div class="">
+            <UButton icon="i-heroicons-plus-circle" size="xl" color="primary" variant="solid" label="Add Note"
+              :trailing="false" @click="addNewNote" />
+          </div>
         </div>
         <hr class="my-5">
         <div class=" flex flex-col ">
@@ -166,36 +162,35 @@ const publicRecipe = ref(false)
 
 
 const createNewRecipe = async () => {
-try {
-  const response = await fetch('/api/recipes', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(newRecipe.value)
-  })
+  try {
+    const response = await useFetch('/api/recipes/post', {
+      method:'POST',
+      body: newRecipe.value
+    })
+
+    console.log(response.data
+      .value)
   } catch (error) {
-  console.error(error)
+    console.error(error)
   }
 }
 
 const newRecipe = ref({
-  title: '',
-  description: '',
-  ingredients: ['', '', ''],
-  directions: ['', '', ''],
-  servingSize: '',
-  yield: '',
-  prepTime: '',
-  cookTime: '' ,
-  notes: [''],
-
-  publicRecipe: false,
-  
+  title: 'Steak & Fries',
+  description: '  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt architecto et ducimus suscipit voluptatum saepe aut, aliquid dolorum quo consequatur sed! Odio dignissimos magnam mollitia.',
+  ingredients: ['16oz Steak (Room Temp)', '1 bag of fries', ' 1oz of Basil (chopped Fine)', '1oz of Olive Oil'],
+  directions: ['Salt and pepper the steak and let it sit till room temperature.', 'Preheat a cast iron pan till it starts smoking.', 'Add the Olive Oil to the preheated pan and add the steak.', 'Cook the steak for 3 minutes on each side.', 'Let the steak rest for 5 minutes before serving.'],
+  servingSize: 1,
+  yield: '1 16Oz Steak',
+  prepTime: 24,
+  cookTime: 10,
+  notes: ['Having the steak room temp makes cooking it evenly alot smoother.', 'Make sure to let the steak rest before serving.', 'Make sure to preheat the pan before adding the steak.'],
+  image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  public:true
 
 })
 
-const handleFileChange = (event) => {
+const handleFileChange = (event: any) => {
   const file = event.target.files[0];
 
   if (file) {

@@ -1,6 +1,10 @@
 <template>
   <main v-if="recipe" class="flex   justify-center gap-3">
  <div class="w-1/2  p-5 space-y-5">
+
+
+
+
    <div class=" space-y-4">
         <h1 class="text-5xl font-extrabold mb-5">
           {{ recipe?.title }}
@@ -67,9 +71,10 @@
     <div class="">
       <h2 class="text-3xl font-extrabold">Ingredients</h2>
       <ul class="">
-        <li class="" v-for="ingredient in recipe.ingredients.split(',')">
-  {{ ingredient }}
-        </li>
+         <li class="my-3" v-for="ingredient in JSON.parse(recipe.ingredients)">
+        {{ ingredient }}
+      </li>
+
       </ul>
     </div>
 
@@ -77,7 +82,7 @@
     <div class="">
         <h2 class="text-3xl font-extrabold">Directions</h2>
         <ul class="">
-          <li class="flex flex-col my-3" v-for="(direction, index) in recipe.directions.split(',')">
+          <li class="flex flex-col my-3" v-for="(direction, index) in JSON.parse(recipe.directions)">
   <span class="font-extrabold">Step {{ index+1 }} </span>
 
   <span>
@@ -90,7 +95,7 @@
    <div class="">
           <h2 class="text-3xl font-extrabold">Extra Notes</h2>
           <ul class="">
-            <li class="flex flex-col my-3" v-for="(note, index) in recipe.notes.split(',')">
+            <li class="flex flex-col my-3" v-for="(note, index) in JSON.parse(recipe.notes)">
     <span class="font-extrabold">Note {{ index+1 }} </span>
 
     <span>
@@ -102,9 +107,9 @@
 
  </div>
  <div class="w-1/3 ">
-  <div class="p-2 bg-gray-100 shadow-xl sticky top-5 ">
-    Ad Here
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus, est.
+  <div class="p-2 bg-gray-100 shadow-xl sticky top-5 rounded ">
+   <span class="text-3xl font-extrabold">Advertisement Two</span>
+    <img src="https://images.unsplash.com/photo-1557858310-9052820906f7?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="advertisement building" class=" rounded object-cover">
   </div>
  </div>
   </main>

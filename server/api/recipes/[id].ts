@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
 
     const recipe = await prisma.recipe.findUnique({
       where: {
-        id: 1,
+        id: 3,
       },
       include:{
         user:true

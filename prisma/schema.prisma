@@ -10,16 +10,17 @@ datasource db {
 model Recipe {
   id          Int        @id @default(autoincrement())
   title       String
-  description String
-  ingredients String
-  directions  String
+  description String     @db.LongText
+  ingredients String     @db.LongText
+  directions  String     @db.LongText
   servingSize Int
-  yield       String?
   prepTime    Int
   cookTime    String?
   notes       String
   image       String?
   userId      Int
+  public      Boolean?   @default(false)
+  yieldAmount String?
   user        User       @relation(fields: [userId], references: [id])
   categories  Category[] @relation("CategoryToRecipe")
 

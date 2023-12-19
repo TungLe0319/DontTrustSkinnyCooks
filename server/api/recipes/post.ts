@@ -5,38 +5,49 @@ const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
   try {
-   const { title, ingredients, directions,description,image,notes,servingSize,yieldAmount,prepTime } = await readBody(event);
+    const {
+      title,
+      ingredients,
+      directions,
+      description,
+      image,
+      notes,
+      servingSize,
+      prepTime,
+    } = await readBody(event);
 
-   
+    // Convert arrays to JSON strings
+    const ingredientsJSON = JSON.stringify(ingredients);
+    const directionsJSON = JSON.stringify(directions);
+    const notesJSON = JSON.stringify(notes);
 
-    
-    // Create a new recipe in the database
+    // Log the JSON strings
+    console.log("Ingredients JSON:", ingredientsJSON);
+    console.log("Directions JSON:", directionsJSON);
+    console.log("Notes JSON:", notesJSON);
+
     const newRecipe = await prisma.recipe.create({
       data: {
         title,
-        ingredients: JSON.stringify(ingredients),
-        directions:JSON.stringify(directions),
+        ingredients: ingredientsJSON,
+        directions: directionsJSON,
         description,
         image,
-        notes:JSON.stringify(notes),
+        notes: notesJSON,
         servingSize,
-        yield:yieldAmount,
         prepTime,
-        user:{
-          connect:{
-            id:1
-          }
-        }
-
+        user: {
+          connect: {
+            id: 1,
+          },
+        },
       },
     });
 
-    return newRecipe
+    return newRecipe;
   } catch (error) {
     console.error("Error creating recipe:", error);
-
   } finally {
     await prisma.$disconnect(); // Disconnect from the Prisma client
   }
 });
-// /api/recipes/post.ts
