@@ -1,19 +1,20 @@
 <script  setup>
 import { onMounted, ref } from 'vue';
 import SignInModal from './SignInModal.vue';
-
+const { signIn, signOut, session, status, cookies, getProviders } = useAuth()
 // generate a list of links that has to an id, to which will be home,tournaments,leagues,clubs,courses,series,videos,trading post,contact
 const items = ref([
   { name: 'Home', href: '/' },
   { name: 'Users', href: '/profiles' },
   { name: 'Recipes', href: '/recipes' },
   { name: 'Add Recipe', href: '/account/add-recipe' },
- 
+
 ])
+
 
 const profileDropdownItems = [
   [{
-    label: 'ben@example.com',
+    label: session ? session.value.user?.email : '',
     slot: 'account',
     disabled: true,
   }],
@@ -26,7 +27,7 @@ const profileDropdownItems = [
     icon: 'i-heroicons-cog-8-tooth',
   }],
   [{
-    label: 'Sign out',
+    label: 'Sign Out',
     icon: 'i-heroicons-arrow-left-on-rectangle',
   }],
 ]
@@ -51,7 +52,7 @@ const drawerIsOpen = ref(false)
   <div class="w-full h-16 flex items-center justify-center shadow-md bg-zinc-800 text-white py-0 px-5 fixed top-0 z-50">
     <div class="flex w-full h-full space-x-4 justify-between">
       <div class="px-5 flex space-x-4 items-center justify-center">
-      <Icon name="game-icons:fat" class="text-5xl" />
+        <Icon name="game-icons:fat" class="text-5xl" />
         <span class="font-extrabold lg:text-2xl">
           Don't Trust Skinny Cooks
         </span>
@@ -64,12 +65,15 @@ const drawerIsOpen = ref(false)
         <!-- <span class="indicator" :style="{ transform: 'translateX(' + indicatorPosition + 'px)' }"></span> -->
       </div>
       <div class=" hidden lg:flex items-center justify-center space-x-4">
-        <div>
-          <SignInModal />
+        <div class="flex gap-5">
+          <a href="/api/auth/signin" class="buttonPrimary">Sign in</a>
+          <!-- <button v-if="session.user" @click="signOut()">
+            Sign Out
+          </button> -->
         </div>
-        <UDropdown :items="profileDropdownItems" :ui="{ item: { disabled: 'cursor-text select-text' } }"
-          :popper="{ placement: 'bottom-start' }">
-          <UAvatar src="https://avatars.githubusercontent.com/u/739984?v=4" />
+        <UDropdown v-if="session?.user" :items="profileDropdownItems"
+          :ui="{ item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom-start' }">
+          <UAvatar :src="session.user?.image || 'https://i.pravatar.cc/150?img=69'" />
           <template #account="{ item }">
             <div class="text-left">
               <p>
