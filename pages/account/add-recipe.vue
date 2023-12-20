@@ -190,6 +190,7 @@
         {{ newRecipe }}
       </div> -->
     </div>
+    
   </main>
 </template>
 
@@ -249,7 +250,7 @@ const createNewRecipe = async () => {
     })
 
         toast.add({
-      id: `Created_Recipe`,
+      id: `Created_Recipe ${response.data.value.id}`,
       title: 'Successfully Created Recipe',
 
       icon: 'i-heroicons-check-circle',

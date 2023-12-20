@@ -28,7 +28,7 @@ console.log(recipe);
   } catch (error) {
     console.error("Error getting recipe:", error);
   } finally {
-    await prisma.$disconnect(); // Disconnect from the Prisma client
+    await prisma.$disconnect()
   }
 });
-// /api/recipes/post.ts
+

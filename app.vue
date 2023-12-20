@@ -10,6 +10,7 @@ import NavBar from './components/globals/NavBar.vue';
       <NuxtPage />
     </UContainer>
     <UNotifications />
+    <NuxtLoadingIndicator :height="6"/>
   </div>
 </template>
 
