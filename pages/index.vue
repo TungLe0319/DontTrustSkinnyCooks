@@ -2,7 +2,7 @@
   <main class="min-h-screen">
     <Hero/>
 
-<button @click="seedCategories">Seed Categories</button>
+<!-- <button @click="seedCategories">Seed Categories</button> -->
   </main>
 </template>
 
