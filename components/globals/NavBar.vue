@@ -111,10 +111,10 @@ const isDark = computed( {
         </span>
       </div>
       <div class="lg:flex space-x-4  items-center relative hidden  ">
-        <!-- <NuxtLink v-for="item in items" :key="item.name" :to="item.href" class="text-lg" active-class="active"
+        <NuxtLink v-for="item in items" :key="item.name" :to="item.href" class="text-lg" active-class="active"
           @click="updateIndicatorPosition">
           {{ item.name }}
-        </NuxtLink> -->
+        </NuxtLink>
     
       </div>
       <div class=" hidden lg:flex items-center justify-center space-x-4">
@@ -123,7 +123,7 @@ const isDark = computed( {
           <!-- {{ user }} -->
        
         </div>
-        <!-- <UDropdown v-if="session?.user" :items="profileDropdownItems"
+        <UDropdown v-if="session?.user" :items="profileDropdownItems"
           :ui="{ item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom-start' }">
           <UAvatar  size="md" :src="session.user?.image || 'https://i.pravatar.cc/150?img=69'" />
           <template #account="{ item }">
@@ -146,7 +146,7 @@ const isDark = computed( {
           <UIcon v-if="item.icon" :name="item.icon" class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500 ms-auto" />
         </a>
       </template>
-        </UDropdown> -->
+        </UDropdown>
 
 
     <ClientOnly>
