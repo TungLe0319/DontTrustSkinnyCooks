@@ -12,28 +12,37 @@ import { prisma } from "../../utils/prisma";
 
 const runtimeConfig = useRuntimeConfig();
 
+const adapter = PrismaAdapter(prisma())
+
 // Refer to Auth.js docs for more details
 export const authOptions: AuthConfig = {
   secret: runtimeConfig.authJs.secret,
-  adapter: PrismaAdapter(prisma()),
+  session:{
+    strategy: "jwt"
+  },
+  adapter,
   providers: [
     CredentialsProvider({
-      async authorize(credentials) {
-        const authResponse = await fetch("/users/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(credentials),
-        })
-
-        if (!authResponse.ok) {
-          return null
+       // The name to display on the sign in form (e.g. 'Sign in with...')
+    name: 'Credentials',
+    // The credentials is used to generate a suitable form on the sign in page.
+    // You can specify whatever fields you are expecting to be submitted.
+    // e.g. domain, username, password, 2FA token, etc.
+    // You can pass any HTML attribute to the <input> tag through the object.
+    credentials: {
+      email: { label: "email", type: "text", placeholder: "jsmith@gmail.com", },
+      password: { label: "Password", type: "password" }
+    },
+      async authorize(credentials, req) {
+        
+        let user = await adapter.getUserByEmail!(credentials.email as string)
+        if (!user) {
+          user = await adapter.createUser!({
+            email: credentials.email as string,
+            password: credentials.password as string,
+          })
         }
-
-        const user = await authResponse.json()
-
-        return user
+        return user;
       },
     }),
     GoogleProvider({
@@ -41,6 +50,16 @@ export const authOptions: AuthConfig = {
       clientSecret: runtimeConfig.google.clientSecret,
     }),
   ],
+
+  callbacks: {
+    session(params) {
+      if (params.session.user) {
+        params.session.user.id = params.token.sub ?? 'NOUSER'
+      }
+      console.log({ params , session:params.session});
+      return params.session
+    },
+  },
 };
 
 export default NuxtAuthHandler(authOptions, runtimeConfig);

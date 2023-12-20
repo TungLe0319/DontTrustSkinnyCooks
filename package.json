@@ -9,6 +9,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "migrate": "pnpm dlx prisma migrate dev && pnpm dlx prisma generate",
+    "studio": "pnpm dlx prisma studio",
     "pull":"pnpm dlx prisma db pull"
   },
   "devDependencies": {
