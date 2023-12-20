@@ -1,7 +1,7 @@
 <template>
  
    <NuxtLink :to="`recipes/${recipe.id}`"
-          class=" shadow-xl hover:bg-zinc-800 hover:text-white  transition-all duration-300 group hover:shadow-2xl hover:shadow-black group">
+          class=" shadow-xl hover:bg-zinc-800 hover:text-white  transition-all duration-300 group hover:shadow-2xl hover:shadow-black group dark:bg-gray-800 dark:hover:bg-white dark:hover:text-gray-800 dark:hover:shadow-white/20">
           <div class="flex items-center mb-2 relative h-72 w-full overflow-hidden">
             <img :src="recipe.image || ''" alt="Recipe Picture"
               class="absolute w-full h-full object-cover shadow-2xl  transition-all duration-150  group-hover:grayscale">

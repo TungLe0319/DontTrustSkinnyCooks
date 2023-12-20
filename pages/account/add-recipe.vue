@@ -6,7 +6,7 @@
         alt="multiple ingredients laid out" class="absolute w-full h-full object-cover">
     </div>
     <div class="flex justify-center">
-      <div class=" shadow-2xl w-1/2 -translate-y-5 z-10 bg-white p-10">
+      <div class=" shadow-2xl w-1/2 -translate-y-5 z-10 bg-white dark:bg-gray-800 p-10">
         <div class="space-y-5">
           <div class="flex gap-2">
             <Icon name="uil:plus-circle" class="text-3xl text-rose-400" />
@@ -145,9 +145,9 @@
           you found this recipe in a magazine, cookbook, or on a website, we can't publish it. Published recipes are
           subject to our <strong>Terms of Service.</strong></p>
       </div>
-      <div class="w-1/2 p-5 sticky top-5 h-full">
+      <!-- <div class="w-1/2 p-5 sticky top-5 h-full">
         {{ newRecipe }}
-      </div>
+      </div> -->
     </div>
   </main>
 </template>
