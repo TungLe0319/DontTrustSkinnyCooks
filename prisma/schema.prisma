@@ -7,6 +7,59 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId], map: "Account_userId_fkey")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], map: "Session_userId_fkey")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String?   @unique
+  image         String?
+  bio           String?
+  personalSite  String?
+  instagram     String?
+  facebook      String?
+  x             String?
+  emailVerified DateTime?
+  name          String?
+  accounts      Account[]
+  recipes       Recipe[]
+  sessions      Session[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
 model Recipe {
   id          Int        @id @default(autoincrement())
   title       String
@@ -18,26 +71,13 @@ model Recipe {
   cookTime    String?
   notes       String
   image       String?
-  userId      Int
+  userId      String
   yieldAmount String?
   isPublic    Boolean?   @default(false)
-  user        User       @relation(fields: [userId], references: [id])
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   categories  Category[] @relation("CategoryToRecipe")
 
   @@index([userId], map: "Recipe_userId_fkey")
-}
-
-model User {
-  id           Int      @id @default(autoincrement())
-  username     String
-  email        String   @unique
-  image        String?
-  bio          String?
-  personalSite String?
-  instagram    String?
-  facebook     String?
-  x            String?
-  recipes      Recipe[]
 }
 
 model Category {
