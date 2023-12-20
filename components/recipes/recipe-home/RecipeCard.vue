@@ -68,7 +68,7 @@
       <UBadge
        
         size="xs"
-        class="shadow-md hover:scale-[1.01] hover:shadow-xl transition-all duration-300 hover:cursor-pointer bg-red-500/40"
+        class="shadow-md hover:scale-[1.01] hover:shadow-xl transition-all duration-300 hover:cursor-pointer bg-gray-500/40"
         :class="selectedCategories.includes(category.name) ? 'bg-green-500 text-white' : ''"
       >
         {{ category.name }}
