@@ -35,6 +35,7 @@
                 </UBadge>
               </span>
             </div>
+            
             <USelectMenu v-model="selectedCategories" :options="Categories" multiple placeholder="Select Categories"
               searchable searchable-placeholder="Search a Category..." size="xl" value-attribute="name"
               option-attribute="name"
@@ -102,8 +103,8 @@ const filteredRecipes = computed(() => {
   if (selectedCategories.value.length === 0) return data.value;
 
   return data.value?.filter((recipe) => {
-    // Check if any of the selected categories match any of the recipe categories
-    return recipe.categories?.some((category) =>
+   //@ts-ignore
+    return recipe.categories?.some((category:any) =>
       selectedCategories.value.includes(category.name)
     );
   });

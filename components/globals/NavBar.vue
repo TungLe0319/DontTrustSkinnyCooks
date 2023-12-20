@@ -184,7 +184,7 @@ const isDark = computed({
 }
 
 .active {
-  @apply text-emerald-500 transition-all duration-300;
+  @apply text-orange-400 transition-all duration-300;
 }
 
 .indicator {

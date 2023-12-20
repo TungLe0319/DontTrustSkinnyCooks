@@ -15,7 +15,7 @@ import NavBar from './components/globals/NavBar.vue';
 </template>
 
 
-<style scoped>
+<style>
 
 .page-enter-active,
 .page-leave-active {

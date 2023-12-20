@@ -53,8 +53,8 @@
             <Icon name="material-symbols:bookmark-add" class="text-xl  hover:text-orange-400 hover:cursor-pointer "
               @click="saveRecipe" />
           </UTooltip>
-          <div class="ml-auto flex items-center gap-1">
-      <Icon v-for="i in 5" name="game-icons:fat" class="" />
+          <div class="ml-auto flex items-center gap-1 text-orange-400 hover:text-orange-300 transition-all duration-300">
+      <Icon v-for="i in 5" name="game-icons:fat"  />
   </div>
         </div>
         
