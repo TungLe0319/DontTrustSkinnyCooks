@@ -1,7 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxt/ui", "@hebilicious/authjs-nuxt", "@pinia/nuxt"],
+  pageTransition: { name: 'page', mode: 'out-in' },
+  modules: [
+    "@nuxt/ui",
+    "@hebilicious/authjs-nuxt",
+    "@pinia/nuxt",
+    "@formkit/auto-animate/nuxt",
+  ],
 
   alias: {
     cookie: "cookie",
