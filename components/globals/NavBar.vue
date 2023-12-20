@@ -95,7 +95,7 @@ const isDark = computed({
       </span>
       </template>
     </UAlert>
-  <div class="w-full h-16 flex items-center justify-center shadow-md bg-zinc-800 text-white py-0 px-5 ">
+  <div class="w-full h-16 flex items-center justify-center shadow-md dark:bg-zinc-800 dark:text-white  py-0 px-5 ">
   
 
     <div class="flex w-full h-full space-x-4 justify-between">

@@ -1,6 +1,6 @@
 
 <template>
-  <main class="min-h-screen px-20 ">
+  <main class="min-h-screen  ">
     <h1 class="text-8xl font-extrabold  text-center ">Recipes</h1>
     <div class=" my-14">
      

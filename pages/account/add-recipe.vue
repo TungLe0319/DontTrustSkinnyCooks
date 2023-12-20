@@ -5,8 +5,10 @@
         src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         alt="multiple ingredients laid out" class="absolute w-full h-full object-cover">
     </div>
+
+   
     <div class="flex justify-center">
-      <div class=" shadow-2xl w-1/2 -translate-y-5 z-10 bg-white dark:bg-gray-800 p-10">
+      <div class=" shadow-2xl w-10/12 -translate-y-5 z-10 bg-white dark:bg-gray-800 p-10">
         <div class="space-y-5">
           <div class="flex gap-2">
             <Icon name="uil:plus-circle" class="text-3xl text-rose-400" />
@@ -50,15 +52,28 @@
         </div>
         <hr class="my-5">
         <div>
-          <p class="font-medium text-sm  mb-2">Ingredients </p>
+          <p class="font-extrabold text-3xl  mb-2">Ingredients </p>
           <p class="text-gray-500">Enter one ingredient per line. Include the quantity (i.e. cups, tablespoons) and any
             special preparation
             (i.e. sifted, softened, chopped). Use optional headers to organize the different parts of the recipe (i.e.
             Cake, Frosting, Dressing).</p>
           <div class="space-y-3 my-3">
-            <UInput v-for="(ingredient, index) in newRecipe.ingredients" :key="index" color="white" variant="outline"
-              size="xl" :placeholder="'e.g. ' + (index + 1) + ' cups'" :value="ingredient"
-              @input="updateIngredient(index, $event)" />
+            <div v-for="(ingredient, index) in newRecipe.ingredients" :key="index" class="flex gap-5 w-full">
+     <div class="w-11/12">
+       <UInput  color="white" variant="outline"
+                  size="xl" :placeholder="'e.g. ' + (index + 1) + ' cups'" :value="ingredient"
+                  @input="updateIngredient(index, $event)" />
+
+
+     </div>
+                 <div class="w-1/12 flex items-center">
+      <UTooltip text="Delete Ingredient"  :popper="{ arrow: true }">
+     <Icon name="uil:minus-circle" class="text-3xl hover:shadow-xl transition-all duration-300 rounded-full hover:cursor-pointer hover:text-red-400" @click="deleteIngredient(index)"/>
+      </UTooltip>
+   
+     </div>
+            </div>
+        
           </div>
           <div class="">
             <UButton icon="i-heroicons-plus-circle" size="xl" color="primary" variant="solid" label="Add Ingredient"
@@ -67,17 +82,31 @@
         </div>
         <hr class="my-5">
         <div>
-          <p class="font-medium text-sm  mb-2">Directions </p>
+           <p class="font-extrabold text-3xl  mb-2">
+            Directions </p>
           <p class="text-gray-500">Explain how to make your recipe, including oven temperatures, baking or cooking times,
             and pan sizes, etc.
             Use optional headers to organize the different parts of the recipe (i.e. Prep, Bake, Decorate).</p>
           <div class="space-y-3 my-5">
-            <UFormGroup :label="'Step ' + (index + 1)" required v-for="(ingredient, index) in newRecipe.directions"
-              :key="index">
-              <UTextarea color="white" variant="outline" size="xl"
-                :placeholder="index === 0 ? 'Preheat Oven to 350 degrees F...' : (index === 1 ? 'Combine all dry ingredients in a mixing bowl...' : (index === 2 ? 'Pour into greased trays and bake for 15-20 minutes...' : 'New Direction...'))"
-                :value="ingredient" @input="updateDirection(index, $event)" />
-            </UFormGroup>
+            <div v-for="(direction, index) in newRecipe.directions"
+                :key="index" class="flex items-center gap-5  w-full">
+   <div class="w-11/12">
+     <UFormGroup  
+                  :label="'Step ' + (index + 1)" required
+                  >
+                  <UTextarea color="white" variant="outline" size="xl"
+                    :placeholder="index === 0 ? 'Preheat Oven to 350 degrees F...' : (index === 1 ? 'Combine all dry ingredients in a mixing bowl...' : (index === 2 ? 'Pour into greased trays and bake for 15-20 minutes...' : 'New Direction...'))"
+                    :value="direction" @input="updateDirection(index, $event)" />
+                </UFormGroup>
+   </div>
+   <div class="w-1/12 flex items-center">
+    <UTooltip text="Delete Step"  :popper="{ arrow: true }">
+   <Icon name="uil:minus-circle" class="text-3xl hover:shadow-xl transition-all duration-300 rounded-full hover:cursor-pointer hover:text-red-400" @click="deleteDirection(index)"/>
+    </UTooltip>
+   
+   </div>
+            </div>
+          
             <div class="">
               <UButton icon="i-heroicons-plus-circle" size="xl" color="primary" variant="solid" label="Add Direction"
                 :trailing="false" @click="addNewDirection" />
@@ -114,12 +143,24 @@
         </div>
         <hr class="my-5">
         <div class="space-y-3">
-          <p>Notes (Optional)</p>
+        <p class="font-extrabold text-3xl  mb-2">Notes(Optional)</p>
           <p class="text-gray-500">Add any helpful tips about ingredient substitutions, serving, or storage here.</p>
           <div class="space-y-3 my-3">
-            <UInput v-for="(note, index) in newRecipe.notes" :key="index" color="white" variant="outline" size="xl"
-              :placeholder="index === 0 ? 'e.g. dont whisk too hard...' : 'New Note...'" :value="note"
-              @input="updateNote(index, $event)" />
+
+            <div v-for="(note, index) in newRecipe.notes" :key="index" class="flex items-center w-full">
+              <div class="w-11/12">
+  <UInput  color="white" variant="outline" size="xl"
+                :placeholder="index === 0 ? 'e.g. dont whisk too hard...' : 'New Note...'" :value="note"
+                @input="updateNote(index, $event)" />
+              </div>
+               <div class="w-1/12 flex items-center">
+      <UTooltip text="Delete Note"  :popper="{ arrow: true }">
+     <Icon name="uil:minus-circle" class="text-3xl hover:shadow-xl transition-all duration-300 rounded-full hover:cursor-pointer hover:text-red-400" @click="deleteNote(index)"/>
+      </UTooltip>
+   
+     </div>
+            </div>
+            
           </div>
           <div class="">
             <UButton icon="i-heroicons-plus-circle" size="xl" color="primary" variant="solid" label="Add Note"
@@ -129,10 +170,10 @@
         <hr class="my-5">
         <div class=" flex flex-col ">
           <UFormGroup label="Make Recipe Public?">
-            <UToggle color="primary" size="xl" v-model="publicRecipe" />
+            <UToggle color="primary" size="xl" v-model="newRecipe.isPublic" />
           </UFormGroup>
           <p>
-            {{ publicRecipe }}
+            {{ newRecipe.isPublic }}
           </p>
           <div class="flex justify-end gap-2">
             <UButton size="xl" color="primary" variant="link" label="Cancel" />
@@ -158,12 +199,47 @@ const times = ['minutes', 'hours', 'days']
 const selectedPrepTime = ref(times[0])
 const selectedCookTime = ref(times[0])
 const publicRecipe = ref(false)
-
+const toast = useToast()
 const imageDisplay = computed(() => newRecipe.value.image)
 
 definePageMeta({
     middleware: ['auth']
 })
+
+const deleteIngredient = (index:number) => {
+  newRecipe.value.ingredients.splice(index, 1)
+  toast.add({
+    id: `removed_ingredient ${index}`,
+    title: 'Removed Ingredient',
+  
+    icon: 'i-heroicons-check-circle',
+    timeout: 2000,
+   
+  })
+}
+
+const deleteDirection = (index:number) => {
+  newRecipe.value.directions.splice(index, 1)
+    toast.add({
+    id: `removed_direction ${index}`,
+    title: 'Removed Direction',
+   
+    icon: 'i-heroicons-check-circle',
+    timeout: 2000,
+
+  })
+}
+const deleteNote = (index:number) => {
+  newRecipe.value.notes.splice(index, 1)
+    toast.add({
+    id: `removed_note ${index}`,
+    title: 'Removed Note',
+ 
+    icon: 'i-heroicons-check-circle',
+    timeout: 2000,
+
+  })
+}
 
 const createNewRecipe = async () => {
   try {

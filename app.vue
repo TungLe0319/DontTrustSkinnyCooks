@@ -5,7 +5,11 @@ import NavBar from './components/globals/NavBar.vue';
 <template>
   <div>
     <NavBar />
-    <NuxtPage />
+    <UContainer>
+
+      <NuxtPage />
+    </UContainer>
+    <UNotifications />
   </div>
 </template>
 

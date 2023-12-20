@@ -26,7 +26,7 @@
           <span> |</span>
           <p class="text-gray-500">Created 12/24/2023 </p>
         </div>
-          <div class="flex   bg-gradient-to-r from-orange-500 via-rose-300 to-indigo-600 w-fit shadow-xl ">
+          <div class="flex   bg-gradient-to-r from-orange-500 via-rose-300 to-indigo-600 dark:bg-gradient-to-r dark:from-orange-500 dark:via-rose-300 dark:to-indigo-600  w-fit shadow-xl ">
         <UButton :ui="{ rounded: 'rounded-none' }" size="xl"  icon="i-heroicons-heart" :trailing="true"  class="bg-transparent hover:bg-black/20 transition-all duration-150">Save</UButton>
         <UButton :ui="{ rounded: 'rounded-none' }" size="xl"  icon="i-heroicons-star" :trailing="true" class="bg-transparent hover:bg-black/20 transition-all duration-150">Rate</UButton>
         <UButton :ui="{ rounded: 'rounded-none' }" size="xl"  icon="i-heroicons-share" :trailing="true" class="bg-transparent hover:bg-black/20 transition-all duration-150">Share</UButton>
@@ -41,7 +41,7 @@
     </div>
 
 <hr>
-    <div class="shadow-xl p-2 rounded bg-slate-200 grid grid-cols-2 gap-5 w-1/2">
+    <div class="shadow-xl p-2 rounded bg-slate-200 dark:bg-gray-800 grid grid-cols-2 gap-5 w-1/2">
       <div class="flex gap-3">
         <div class="">
           <p class="font-extrabold">Prep Time:</p>
@@ -111,7 +111,7 @@
 
  </div>
  <div class="w-1/3 ">
-  <div class="p-2 bg-gray-100 shadow-xl sticky top-5 rounded ">
+  <div class="p-2 bg-gray-100 dark:bg-gray-800 shadow-xl sticky top-5 rounded ">
    <span class="text-3xl font-extrabold">Advertisement Two</span>
     <img src="https://images.unsplash.com/photo-1557858310-9052820906f7?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="advertisement building" class=" rounded object-cover">
   </div>
