@@ -36,12 +36,6 @@ export const authOptions: AuthConfig = {
       async authorize(credentials, req) {
         
         let user = await adapter.getUserByEmail!(credentials.email as string)
-        if (!user) {
-          user = await adapter.createUser!({
-            email: credentials.email as string,
-            password: credentials.password as string,
-          })
-        }
         return user;
       },
     }),
