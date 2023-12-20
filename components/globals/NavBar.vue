@@ -24,7 +24,7 @@ const profileDropdownItems = [
     {
       label: 'Profile',
       icon: 'i-heroicons-user',
-      link: `/profile/${ session.value?.user ? session.value.user._id : '' }`
+      link: `/profile/${ session.value?.user ? session.value.user.id : '1' }`
     },
   ],
   [

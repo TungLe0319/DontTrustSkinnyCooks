@@ -4,7 +4,7 @@
     <h1 class="text-8xl font-extrabold  text-center ">Recipes</h1>
     <div class=" my-14">
      
- 
+
    <USelectMenu
    v-if="data"
       v-model="selected"
@@ -37,6 +37,21 @@
       </NuxtLink>
       </template>
     </USelectMenu>
+
+    <div class="my-5 flex gap-4">
+      <span v-for=" (category,index) in selectedCategories">
+     <UBadge @click="selectedCategories = selectedCategories.splice(1,index)" size="lg" class="shadow-md hover:scale-[1.01] hover:shadow-xl hover:bg-emerald-500 transition-all duration-300 hover:cursor-pointer">
+      {{ category }}
+     </UBadge>
+      </span>
+    </div>
+     <USelectMenu v-model="selectedCategories" :options="Categories" multiple placeholder="Select people"   size="xl"  value-attribute="name"
+      option-attribute="name" >
+
+        <template #option="{ option: Categories }">
+<span> {{ Categories.name }} </span>
+        </template>
+     </USelectMenu>
     </div>
     <div  class="grid grid-cols-3  gap-10   ">
       <RecipeCard v-for="(recipe, index) in data" :key="index" :recipe="recipe" />
@@ -54,10 +69,10 @@ import type { Recipe } from '@prisma/client'
 // const data = ref<RecipeWithUser[]>([])
 
 const {data} = await useFetch<RecipeWithUser[]>("/api/recipes/get");
-
+const {data:Categories} = await useFetch<String[]>("/api/categories/get");
   const selected = ref(data.value?.[0] )
-
-
+const categories =ref(Categories?.value?.map((category)=>category.name))
+const selectedCategories = ref([])
 
 
 
