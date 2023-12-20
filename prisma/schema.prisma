@@ -19,8 +19,8 @@ model Recipe {
   notes       String
   image       String?
   userId      Int
-  public      Boolean?   @default(false)
   yieldAmount String?
+  isPublic    Boolean?   @default(false)
   user        User       @relation(fields: [userId], references: [id])
   categories  Category[] @relation("CategoryToRecipe")
 

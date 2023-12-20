@@ -37,7 +37,7 @@
 
   <hr>
     <div class="">
-      <img :src="recipe.image" :alt="recipe.title" class="object-cover w-full   h-full shadow-xl">
+      <img :src="recipe.image || ''" :alt="recipe.title" class="object-cover w-full   h-full shadow-xl">
     </div>
 
 <hr>
@@ -63,7 +63,7 @@
       <div class="flex gap-3">
         <div class="">
           <p class="font-extrabold">Yield Size:</p>
-          <p> {{ recipe.yield}} </p>
+          <p> {{ recipe.yieldAmount}} </p>
         </div>
       </div>
     </div>
@@ -71,8 +71,8 @@
     <div class="">
       <h2 class="text-3xl font-extrabold">Ingredients</h2>
       <ul class="">
-         <li class="my-3" v-for="ingredient in JSON.parse(recipe.ingredients)">
-        {{ ingredient }}
+         <li class="my-3" v-for="ingredient in JSON.parse(recipe.ingredients)" >
+       {{ ingredient }}
       </li>
 
       </ul>
@@ -84,14 +84,18 @@
         <ul class="">
           <li class="flex flex-col my-3" v-for="(direction, index) in JSON.parse(recipe.directions)">
   <span class="font-extrabold">Step {{ index+1 }} </span>
-
-  <span>
-    {{ direction }}
-  </span>
+   <span>
+        {{ direction}}
+      </span>
+  
           </li>
         </ul>
+        <span>
+      
+    </span>
       </div>
       <hr>
+
    <div class="">
           <h2 class="text-3xl font-extrabold">Extra Notes</h2>
           <ul class="">
@@ -99,7 +103,7 @@
     <span class="font-extrabold">Note {{ index+1 }} </span>
 
     <span>
-      {{ note }}
+      {{ note  }}
     </span>
             </li>
           </ul>
@@ -116,26 +120,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { Recipe } from '@prisma/client'
-const store = useMyRecipesStore()
-const route = useRoute()
-const recipe = ref(null)
-const getRecipeData = async () => {
-  try {
-    const id = parseInt(route.query.id as string)
-    const res = await store.fetchRecipe(route.query.id as string)
-    // console.log(res);
-    if (res) {
-      recipe.value = res
-    }
-  } catch (error) {
-    console.error(error)
-  }
-}
 
-onMounted(async () => {
-  await getRecipeData()
-})
+const route = useRoute()
+const {data} = await useFetch<RecipeWithUser>(`/api/recipes/${route.params.id}`)
+const recipe = data.value
 </script>
 
 <style></style>

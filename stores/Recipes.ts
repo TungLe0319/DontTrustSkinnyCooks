@@ -1,10 +1,14 @@
 import { defineStore } from 'pinia'
 import {  recipesService } from '~/services/RecipesService';
-import type { Recipe } from '@prisma/client';
+import type {  Prisma, Recipe } from '@prisma/client';
+
+export type RecipeWithUser = Prisma.RecipeGetPayload<{
+  include: { user: true }
+}>
 export const useMyRecipesStore = defineStore({
   id: "myRecipesStore",
   state: () => ({
-    recipes: [] as Recipe[],
+    recipes: [] as RecipeWithUser[],
   }),
   actions: {
     setRecipes(newRecipes:any) {
@@ -14,7 +18,7 @@ export const useMyRecipesStore = defineStore({
       try {
         const response = await recipesService.getAllRecipes();
       
-        return response as Recipe[];
+        return response   ;
       } catch (error) {
         console.error("Error fetching recipes:", error);
       }
@@ -24,7 +28,7 @@ export const useMyRecipesStore = defineStore({
       try {
         const response = await recipesService.getRecipe(id);
       
-        return response 
+        return response  as RecipeWithUser
       } catch (error) {
         console.error("Error fetching recipe:", error);
       }

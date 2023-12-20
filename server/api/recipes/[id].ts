@@ -4,16 +4,25 @@ const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
   try {
-    const query = getQuery(event);
+    const id = getRouterParam(event, "id");
 
+    if (!id) {
+      return createError("Missing id");
+    }
+
+    console.log(id);
+    
     const recipe = await prisma.recipe.findUnique({
       where: {
-        id: 3,
+        id: Number(id),
       },
-      include:{
-        user:true
-      }
+      include: {
+        user: true,
+      },
     });
+
+console.log(recipe);
+
 
     return recipe;
   } catch (error) {

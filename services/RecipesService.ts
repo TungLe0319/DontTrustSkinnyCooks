@@ -24,7 +24,7 @@ class RecipesService {
     } catch (error) {
       console.error(error);
     }
-  }
+  } 
 }
 
 export const recipesService = new RecipesService();

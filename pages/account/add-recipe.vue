@@ -93,7 +93,7 @@
           </div>
           <div class="w-1/2">
             <UFormGroup label="Yield (Optional)">
-              <UInput placeholder="e.g. 1 9-inch cake" size="xl" v-model="newRecipe.yield" />
+              <UInput placeholder="e.g. 1 9-inch cake" size="xl" v-model="newRecipe.yieldAmount" />
             </UFormGroup>
           </div>
         </div>
@@ -161,6 +161,10 @@ const publicRecipe = ref(false)
 
 const imageDisplay = computed(() => newRecipe.value.image)
 
+definePageMeta({
+    middleware: ['auth']
+})
+
 const createNewRecipe = async () => {
   try {
     const response = await useFetch('/api/recipes/post', {
@@ -181,12 +185,12 @@ const newRecipe = ref({
   ingredients: ['16oz Steak (Room Temp)', '1 bag of fries', ' 1oz of Basil (chopped Fine)', '1oz of Olive Oil'],
   directions: ['Salt and pepper the steak and let it sit till room temperature.', 'Preheat a cast iron pan till it starts smoking.', 'Add the Olive Oil to the preheated pan and add the steak.', 'Cook the steak for 3 minutes on each side.', 'Let the steak rest for 5 minutes before serving.'],
   servingSize: 1,
-  yield: '1 16Oz Steak',
+  yieldAmount: '1 16Oz Steak',
   prepTime: 24,
   cookTime: 10,
   notes: ['Having the steak room temp makes cooking it evenly alot smoother.', 'Make sure to let the steak rest before serving.', 'Make sure to preheat the pan before adding the steak.'],
   image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  public:true
+  isPublic:true
 
 })
 

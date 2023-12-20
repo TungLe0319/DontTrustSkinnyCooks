@@ -3,12 +3,12 @@
   <main class="min-h-screen px-20 ">
     <h1 class="text-8xl font-extrabold  text-center ">Recipes</h1>
     <div class=" my-14">
-      
+     
  
    <USelectMenu
    v-if="data"
       v-model="selected"
-      :options="data"
+      :options="data "
       placeholder="Find a Recipe..."
       searchable
       searchable-placeholder="Search by title or description"
@@ -33,43 +33,29 @@
       </template>
     </USelectMenu>
     </div>
-    <div  v-if="data.length >= 0" class="grid grid-cols-3  gap-10   ">
+    <div  class="grid grid-cols-3  gap-10   ">
       <RecipeCard v-for="(recipe, index) in data" :key="index" :recipe="recipe" />
     
     </div>
-   <div v-else >
+   <!-- <div >
     <h1 class="text-8xl font-extrabold text-center"> No Recipes</h1>
-   </div>
+   </div> -->
   </main>
 </template>
 
 <script lang="ts" setup>
 import RecipeCard from '~/components/recipes/RecipeCard.vue';
 import type { Recipe } from '@prisma/client'
-const data = ref<Recipe[]>([])
+// const data = ref<RecipeWithUser[]>([])
+
+const {data} = await useFetch<RecipeWithUser[]>("/api/recipes/get");
+
+  const selected = ref(data.value?.[0] )
 
 
-const selected = ref(data.value[0])
-const store = useMyRecipesStore()
 
-const fetchRecipes = async () => {
-  try {
-    const res = await store.fetchRecipes()
 
-//  console.log(res);
- 
-    if (res) {
-      data.value = res
-    }
 
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-onMounted(async () => {
- await  fetchRecipes()
-})
 
 
 
