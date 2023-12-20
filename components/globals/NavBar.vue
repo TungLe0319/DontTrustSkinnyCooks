@@ -61,7 +61,7 @@ const handleAlertClose = () => {
 
 <template>
  
-  <!-- <UAlert
+  <UAlert
       v-if="showAlert && ! session.user"
       :close-button="{ icon: 'i-heroicons-x-mark-20-solid', color: 'gray', variant: 'link', padded: false }"
     
@@ -75,7 +75,7 @@ const handleAlertClose = () => {
          Unlock Gourmet Recipes! Sign up now to explore our savory display ads and create a personalized collection of culinary wonders.
       </span>
       </template>
-    </UAlert> -->
+    </UAlert>
   <div class="w-full h-16 flex items-center justify-center shadow-md bg-zinc-800 text-white py-0 px-5 ">
   
 
@@ -98,7 +98,7 @@ const handleAlertClose = () => {
           <a v-if="!session?.user" href="/api/auth/signin" class="buttonPrimary">Sign in</a>
        
         </div>
-        <!-- <UDropdown v-if="session?.user" :items="profileDropdownItems"
+        <UDropdown v-if="session?.user" :items="profileDropdownItems"
           :ui="{ item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom-start' }">
           <UAvatar  size="md" :src="session.user?.image || 'https://i.pravatar.cc/150?img=69'" />
           <template #account="{ item }">
@@ -121,7 +121,7 @@ const handleAlertClose = () => {
           <UIcon v-if="item.icon" :name="item.icon" class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500 ms-auto" />
         </a>
       </template>
-        </UDropdown> -->
+        </UDropdown>
       </div>
       <!-- MOBIlE MENU -->
       <div class="flex items-center lg:hidden ">

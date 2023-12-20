@@ -216,7 +216,7 @@ const addNewIngredient = () => {
   newRecipe.value.ingredients.push('')
 };
 
-const updateIngredient = (index, value) => {
+const updateIngredient = (index:any, value:any) => {
   newRecipe.ingredients[index] = value;
 };
 
