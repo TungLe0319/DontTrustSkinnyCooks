@@ -16,6 +16,8 @@
               <!-- <div class="flex gap0.5">
               <Icon v-for="(rating,index) in recipe.rating" :key="rating" name="game-icons:fat" class="text-2xl" />
             </div> -->
+
+            {{ recipe.user.username }}
             </div>
 
         

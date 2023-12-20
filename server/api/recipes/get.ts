@@ -5,7 +5,9 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   try {
     const recipes = await prisma.recipe.findMany({
-      include: { user: true },
+     include:{
+      user:true
+     }
     });
 
     return recipes;
