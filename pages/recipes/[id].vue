@@ -6,9 +6,15 @@
 
 
    <div class=" space-y-4">
-        <h1 class="text-5xl font-extrabold mb-5">
-          {{ recipe?.title }}
-        </h1>
+      <div class="flex   items-start gap-4">
+          <h1 class="text-5xl font-extrabold mb-5">
+            {{ recipe?.title }}
+          </h1>
+          <div v-if="session?.user?.name === recipe.user.name" class="flex gap-3 items-center justify-center mt-1">
+            <UButton @click="editRecipe" size="xl" class="bg-orange-400  transition-all duration-150 hover:brightness-75 hover:bg-orange-400 hover:scale-95">Edit</UButton>
+            <UButton @click="deleteRecipe" size="xl" class="bg-red-400 transition-all duration-150 hover:brightness-75 hover:bg-red-400 hover:scale-95">Delete</UButton>
+          </div>
+      </div>
         <div class="flex gap-0.5 ">
           <Icon v-for="(rating, index) in 5" :key="rating" name="game-icons:fat" class="text-xl" />
         </div>
@@ -19,9 +25,9 @@
           <p>
             by
           </p>
-          <NuxtLink :to="`profiles/${recipe.user?.username}`"
+          <NuxtLink :to="`/profiles/${recipe.user?.id}`"
             class=" font-extrabold border-b  border-spacing-3 border-orange-400">
-            {{ recipe.user.username }}
+            {{ recipe.user?.name }}
           </NuxtLink>
           <span> |</span>
           <p class="text-gray-500">Created 12/24/2023 </p>
@@ -120,10 +126,24 @@
 </template>
 
 <script lang="ts" setup>
-
+const {session} = useAuth()
 const route = useRoute()
+const router = useRouter()
 const {data} = await useFetch<RecipeWithUser>(`/api/recipes/${route.params.id}`)
 const recipe = data.value
+
+const editRecipe = () => {
+  router.push(`/recipes/${recipe?.id}/edit`)
+}
+
+const deleteRecipe = async () => {
+  const res = await fetch(`/api/recipes/${recipe?.id}`, {
+    method: 'DELETE',
+  })
+  if (res.ok) {
+    router.push('/recipes')
+  }
+}
 </script>
 
 <style></style>

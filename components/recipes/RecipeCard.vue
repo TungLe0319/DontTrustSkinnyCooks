@@ -11,13 +11,19 @@
             </div>
           </div>
           <div class="p-5">
-            <div class="flex flex-wrap gap-5">
+            <div class="flex flex-col gap-5">
               <h2 class="text-xl  font-extrabold">{{ recipe.title }} </h2>
-              <!-- <div class="flex gap0.5">
-              <Icon v-for="(rating,index) in recipe.rating" :key="rating" name="game-icons:fat" class="text-2xl" />
-            </div> -->
+            <div class=" flex items-center gap-3">
+              <UAvatar
+    size="3xs"
+    :src="recipe.user.image"
+    alt="Avatar"
+  />
 
-            {{ recipe.user.username }}
+  <span class="text-xs"> {{ recipe.user.name }} </span>
+            </div>
+          
+            
             </div>
 
         

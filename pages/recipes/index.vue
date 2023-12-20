@@ -24,7 +24,12 @@
       <NuxtLink :to="`recipes/${data.id}`" class="flex gap-5 w-full  items-center ">
         <img :src="data.image" alt="" class="w-1/12 h-14 shadow-md rounded object-cover">
         <div class=" flex flex-col w-11/12">
-            <span class="truncate">{{ data.title }}</span>
+            <div class="flex gap-5 items-center">
+              <span class="truncate">{{ data.title }}</span>
+              <span class="text-xs">
+                {{ data.user.name }}
+              </span>
+            </div>
             <span class="truncate text-sm">{{ data.description }}</span>
 
         </div>

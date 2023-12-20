@@ -248,6 +248,14 @@ const createNewRecipe = async () => {
       body: newRecipe.value
     })
 
+        toast.add({
+      id: `Created_Recipe`,
+      title: 'Successfully Created Recipe',
+
+      icon: 'i-heroicons-check-circle',
+      timeout: 2000,
+
+    })
     // console.log(response.data
     //   .value)
   } catch (error) {

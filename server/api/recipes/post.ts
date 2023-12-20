@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
-
+const session = await getSession(event);
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
@@ -16,6 +16,7 @@ export default defineEventHandler(async (event) => {
       prepTime,
     } = await readBody(event);
 
+    const session = useSession(event)
     // Convert arrays to JSON strings
     const ingredientsJSON = JSON.stringify(ingredients);
     const directionsJSON = JSON.stringify(directions);
@@ -38,7 +39,7 @@ export default defineEventHandler(async (event) => {
         prepTime,
         user: {
           connect: {
-            id: 1,
+            id: session.id,
           },
         },
       },
