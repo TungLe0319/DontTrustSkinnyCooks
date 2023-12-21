@@ -26,14 +26,7 @@
           <UPopover mode="hover" :ui="{ width: 'max-w-72' }">
             <UAvatar size="3xs" :src="recipe.user.image" alt="Avatar" />
             <template #panel>
-              <div class="p-4 text-black z-50">
-                <UAvatar size="xl" :src="recipe.user.image" alt="Avatar" class="shadow-md" />
-                <p class="text-sm font-bold">{{ recipe.user.name }}</p>
-                <p class="text-sm font-bold">{{ recipe.user.email }}</p>
-                <a :href="recipe.user.instagram" class="text-sm">Instagram</a>
-                <p class="text-sm">{{ recipe.user.facebook }}</p>
-                <p class="text-sm">{{ recipe.user.facebook }}</p>
-              </div>
+             <ProfileCard :user="recipe.user"/>
             </template>
           </UPopover>
           <UPopover mode="hover" :ui="{ width: 'max-w-72' }" >
@@ -117,6 +110,8 @@
 </template>
 
 <script lang="ts" setup>
+import ProfileCard from '~/components/globals/ProfileCard.vue';
+
 const route = useRoute()
 defineProps(['recipe']);
 const toast = useToast()

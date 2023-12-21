@@ -4,7 +4,7 @@
             <h1 class="text-5xl font-extrabold mb-5">
               {{ title }}
             </h1>
-            <div v-if="session?.user?.name === user.name" class="flex gap-3 items-center justify-center mt-1">
+            <div v-if="session?.user?.id === user.id" class="flex gap-3 items-center justify-center mt-1">
               <UButton @click="editRecipe" size="xl"
                 class="bg-orange-400  transition-all duration-150 hover:brightness-75 hover:bg-orange-400 hover:scale-95">
                 Edit</UButton>
@@ -12,6 +12,11 @@
                 class="bg-red-400 transition-all duration-150 hover:brightness-75 hover:bg-red-400 hover:scale-95">Delete
               </UButton>
             </div>
+
+
+
+
+
           </div>
           <div class="flex gap-0.5 ">
             <Icon v-for="(rating, index) in 5" :key="rating" name="game-icons:fat" class="text-xl" />
@@ -19,17 +24,25 @@
           <p class=" my-5">
             {{ description }}
           </p>
-          <div class="flex gap-4">
-            <p>
-              by
-            </p>
-            <NuxtLink :to="`/profiles/${user?.id}`"
-              class=" font-extrabold border-b  border-spacing-3 border-orange-400">
-              {{user?.name }}
-            </NuxtLink>
-            <span> |</span>
-            <p class="text-gray-500">Created 12/24/2023 </p>
+       
+          <div class="font-bold text-sm"> Recipe By</div>
+          <div class=" w-fit flex items-center gap-4">
+              <ProfileCard :user="user"/>
+
+              <hr class="h-14 w-0.5   bg-gray-300">
+             
+               <div class=" text-sm my-4 font-semibold  flex flex-col gap-2 ">
+                 <span>
+                 Created  {{ formateDate(createdAt).value }}
+                 </span>
+                  <span class="text-gray-500 text-xs" v-if="createdAt !== updatedAt">
+                    Updated {{ formateDate(updatedAt).value }}
+                   </span>
+                </div>
           </div>
+          
+           
+      
           <div
             class="flex   bg-gradient-to-r from-orange-500 via-rose-300 to-indigo-600 dark:bg-gradient-to-r dark:from-orange-500 dark:via-rose-300 dark:to-indigo-600  w-fit shadow-xl ">
             <UButton :ui="{ rounded: 'rounded-none' }" size="xl" icon="i-heroicons-heart" :trailing="true"
@@ -38,13 +51,18 @@
               class="bg-transparent hover:bg-black/20 transition-all duration-150">Rate</UButton>
             <UButton :ui="{ rounded: 'rounded-none' }" size="xl" icon="i-heroicons-share" :trailing="true"
               class="bg-transparent hover:bg-black/20 transition-all duration-150">Share</UButton>
+
+
+              
           </div>
         </div>
 </template>
 
 <script lang="ts" setup>
+import ProfileCard from '~/components/globals/ProfileCard.vue';
+
 const {session} = useAuth()
-const {id,title,user,description} = defineProps(['title','user','description','id'])
+const {id,title,user,description,createdAt,updatedAt} = defineProps(['title','user','description','id','createdAt','updatedAt'])
 const route = useRoute()
 const router = useRouter()
 const toast = useToast()
@@ -69,6 +87,23 @@ const deleteRecipe = async () => {
         confirmYes.value = true
 
         if (confirmYes.value === true) {
+
+
+if (session.value?.user?.id !== user.id) {
+  toast.add({
+    id:`delete_recipe_error ${id}`,
+    title: 'Error',
+    description: 'You are not authorized to delete this recipe',
+    icon: 'i-heroicons-exclamation-circle',
+    timeout: 2000,
+    color: 'red',
+  })
+}
+
+
+
+
+
           const res = await fetch(`/api/recipes/${id}`, {
             method: 'DELETE',
           })

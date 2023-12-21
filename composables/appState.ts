@@ -7,3 +7,12 @@ export const useSelectedCategory = () =>
   useState<string[]>("selectedCategory", () => []);
 
   export const useSelectedRating = () => useState<number>('selectedRating',()=>0)
+
+  export const formateDate = (date: Date) => useState<string>('formateDate',()=>new Date(date).toLocaleDateString(
+    "en-US",
+    {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }
+  ))

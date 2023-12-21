@@ -1,10 +1,10 @@
 <template>
   <main v-if="recipe" class="flex   justify-center gap-3">
     <div class="w-2/3  p-5 space-y-10">
-      <MainInfo :title="recipe.title" :description="recipe.description" :user="recipe.user" :id="recipe.id" />
+      <MainInfo :title="recipe.title" :description="recipe.description" :user="recipe.user" :id="recipe.id" :created-at="recipe.createdAt" :updated-at="recipe.updatedAt" />
       <hr>
       <div class="">
-        <img :src="recipe.image || ''" :alt="recipe.title" class="object-cover w-full   h-full shadow-xl">
+        <img :src="recipe.image || ''" :alt="recipe.title" class="object-cover w-full   h-full shadow-xl rounded">
       </div>
       <hr>
       <PrepCookServingYield :prep-time="recipe.prepTime" :cook-time="recipe.cookTime" :serving-size="recipe.servingSize"

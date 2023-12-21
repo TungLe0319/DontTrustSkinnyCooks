@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+import Footer from './components/globals/Footer.vue';
 import NavBar from './components/globals/NavBar.vue';
 </script>
 <template>
@@ -9,6 +10,7 @@ import NavBar from './components/globals/NavBar.vue';
 
       <NuxtPage />
     </UContainer>
+    <Footer/>
     <UNotifications />
     <NuxtLoadingIndicator :height="6"/>
   </div>

@@ -3,10 +3,10 @@
     <div class="h-[50vh] w-full relative ">
       <img
         src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="multiple ingredients laid out" class="absolute w-full h-full object-cover">
+        alt="multiple ingredients laid out" class="absolute w-full h-full object-cover rounded shadow-md">
     </div>
     <div class="flex justify-center">
-      <div class=" shadow-2xl w-10/12 -translate-y-5 z-10 bg-white dark:bg-gray-800 p-10">
+      <div class=" shadow-2xl w-10/12 -translate-y-5 z-10 bg-white dark:bg-gray-800 p-5 rounded">
         <div class="space-y-5">
           <div class="flex gap-2">
             <Icon name="uil:plus-circle" class="text-3xl text-rose-400" />
@@ -26,14 +26,14 @@
               <UTextarea color="primary" variant="outline" placeholder="" :rows="10" v-model="newRecipe.description" />
             </UFormGroup>
           </div>
-          <div class="w-1/3 ">
+          <div class="w-1/3 space-y-3 ">
             <p class="text-sm text-gray-700 font-medium  mb-2">
               Photo(Optional)
             </p>
             <UFormGroup label="Recipe Title" required>
               <UInput placeholder="Pasta" size="xl" v-model="newRecipe.image" />
             </UFormGroup>
-            <img :src="imageDisplay" alt="" class="object-cover h-72 w-full shadow-xl  ">
+            <img :src="imageDisplay" alt="" class="object-cover h-72 w-full shadow-xl rounded  ">
             <div class="border-4  border-orange-400 border-dashed  ">
               <!-- <label for="photoInput" class="relative cursor-pointer  overflow-hidden group w-full ">
                 <input type="file" accept=".png, .jpeg" name="photo" id="fileInput" class="hidden"

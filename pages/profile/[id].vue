@@ -106,7 +106,7 @@
 </template>
 
 <script lang="ts" setup>
-import RecipeCard from '~/components/recipes/RecipeCard.vue';
+import RecipeCard from '~/components/recipes/recipe-home/RecipeCard.vue';
 import AdOne from '../../components/profile/AdOne.vue';
 const { data: Recipes } = useFetch('/api/recipes/get')
 const { signIn, signOut, session, status, cookies, getProviders } = useAuth()
