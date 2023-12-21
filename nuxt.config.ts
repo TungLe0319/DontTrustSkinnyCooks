@@ -14,9 +14,9 @@ export default defineNuxtConfig({
   alias: {
     cookie: "cookie",
   },
-  nitro:{
-    preset: 'node-server'
-  },
+  // nitro:{
+  //   preset: 'node-server'
+  // },
 
   runtimeConfig: {
     authJs: {
