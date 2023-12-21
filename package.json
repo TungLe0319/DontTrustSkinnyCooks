@@ -6,6 +6,7 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
+    "generate:prisma":"pnpm dlx prisma generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "migrate": "pnpm dlx prisma migrate dev && pnpm dlx prisma generate",

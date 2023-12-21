@@ -25,6 +25,7 @@ ENV NODE_ENV=production
 # RUN bun test
 RUN pnpm run build
 
+RUN pnpm run generate:prisma
 # copy production dependencies and source code into final image
 FROM node:lts-alpine AS release
 # nuxt packages everything it needs in its .output directory when building
