@@ -853,14 +853,14 @@ packages:
       - supports-color
     dev: false
 
-  /@iconify-json/heroicons@1.1.17:
-    resolution: {integrity: sha512-zI04VPwR8p9FNQsKbUpskz/3LWXrQGXOuRGZXbTMfklG20bGjA1te87E0kbm7mfQteuBMp9RHYNX9ck71NmtDg==}
+  /@iconify-json/heroicons@1.1.19:
+    resolution: {integrity: sha512-uW2F9vdGll59W21ocBl+wR4Ve+/1CsmzBqPTuOaR3CbKzqnJKwzGASvC4Op0uTieFVWfBaevnzcRxwNo73J29g==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: false
 
-  /@iconify/collections@1.0.371:
-    resolution: {integrity: sha512-qLkvDeAYRMpczTvFWSnYm7rG5bEJt6RZGoMDzauvVOzKwVMbDQaerOwfErzv5uol4UWyaFbsplsUwM7TnxdpwA==}
+  /@iconify/collections@1.0.372:
+    resolution: {integrity: sha512-HUQMh8D5d3JTsDm+n9M6NKHmFJmRR5NeeefYEa+AwInzBLoygAMaqZM/AizPlrrT1RpHaBSrBpw5zsRlqI5NEg==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: false
@@ -1147,7 +1147,7 @@ packages:
       scule: 1.1.1
       semver: 7.5.4
       simple-git: 3.21.0
-      sirv: 2.0.3
+      sirv: 2.0.4
       unimport: 3.6.1(rollup@4.9.1)
       vite: 5.0.10
       vite-plugin-inspect: 0.8.1(@nuxt/kit@3.8.2)(vite@5.0.10)
@@ -1255,7 +1255,7 @@ packages:
       '@egoist/tailwindcss-icons': 1.7.1(tailwindcss@3.4.0)
       '@headlessui/tailwindcss': 0.2.0(tailwindcss@3.4.0)
       '@headlessui/vue': 1.7.16(vue@3.3.13)
-      '@iconify-json/heroicons': 1.1.17
+      '@iconify-json/heroicons': 1.1.19
       '@nuxt/kit': 3.8.2
       '@nuxtjs/color-mode': 3.3.2
       '@nuxtjs/tailwindcss': 6.10.1
@@ -1477,7 +1477,6 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
-      napi-wasm: 1.1.0
     bundledDependencies:
       - napi-wasm
 
@@ -4279,8 +4278,8 @@ packages:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
 
-  /mrmime@1.0.1:
-    resolution: {integrity: sha512-hzzEagAgDyoU1Q6yg5uI+AorQgdvMCur3FcKf7NhMKWsaYg+RnbTyHRa/9IlLF9rf455MOCtcqqrQQ83pPP7Uw==}
+  /mrmime@2.0.0:
+    resolution: {integrity: sha512-eu38+hdgojoyq63s+yTpN4XMBdt5l8HhMhc4VKLO9KM5caLIBvUm4thi7fFaxyTmCKeNnXZ5pAlBwCUnhA09uw==}
     engines: {node: '>=10'}
 
   /ms@2.0.0:
@@ -4309,9 +4308,6 @@ packages:
     resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
     engines: {node: ^14 || ^16 || >=18}
     hasBin: true
-
-  /napi-wasm@1.1.0:
-    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
 
   /negotiator@0.6.3:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
@@ -4573,7 +4569,7 @@ packages:
   /nuxt-icon@0.6.7(nuxt@3.8.2)(vite@5.0.10)(vue@3.3.13):
     resolution: {integrity: sha512-0QnQM0yqJCb8PWt+gAn6RiXy1/CHScFuOPbsfIIwHMvyKkea+blj5/unq7F9ZHMkfrHozyCID8ErFPSzwEYLeA==}
     dependencies:
-      '@iconify/collections': 1.0.371
+      '@iconify/collections': 1.0.372
       '@iconify/vue': 4.1.1(vue@3.3.13)
       '@nuxt/devtools-kit': 1.0.6(nuxt@3.8.2)(vite@5.0.10)
       '@nuxt/kit': 3.8.2
@@ -5673,12 +5669,12 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /sirv@2.0.3:
-    resolution: {integrity: sha512-O9jm9BsID1P+0HOi81VpXPoDxYP374pkOLzACAoyUQ/3OUVndNpsz6wMnY2z+yOxzbllCKZrM+9QrWsv4THnyA==}
+  /sirv@2.0.4:
+    resolution: {integrity: sha512-94Bdh3cC2PKrbgSOUqTiGPWVZeSiXfKOVZNJniWoqrWrRkB1CJzBU3NEbiTsPcYy1lDsANA/THzS+9WBiy5nfQ==}
     engines: {node: '>= 10'}
     dependencies:
       '@polka/url': 1.0.0-next.24
-      mrmime: 1.0.1
+      mrmime: 2.0.0
       totalist: 3.0.1
 
   /sisteransi@1.0.5:
@@ -6404,7 +6400,7 @@ packages:
       fs-extra: 11.2.0
       open: 9.1.0
       picocolors: 1.0.0
-      sirv: 2.0.3
+      sirv: 2.0.4
       vite: 5.0.10
     transitivePeerDependencies:
       - rollup
