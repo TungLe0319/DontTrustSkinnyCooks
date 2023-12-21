@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import RecipeCard from '~/components/recipes/recipe-home/RecipeCard.vue'
 import Search from '~/components/recipes/recipe-home/Search.vue'
-
-const { data } = await useFetch<RecipeWithUser[]>('/api/recipes/get')
+import {Prisma} from '@prisma/client'
+const { data } = await useFetch< Prisma.RecipeGetPayload<{
+  include: { user: true; categories: true };
+}>[]>('/api/recipes/get')
 
 const selectedCategories = useSelectedCategory()
 
@@ -11,7 +13,7 @@ const filteredRecipes = computed(() => {
     return data.value
 
   return data.value?.filter((recipe) => {
-    // @ts-expect-error
+    
     return recipe.categories?.some((category: any) =>
       selectedCategories.value.includes(category.name),
     )

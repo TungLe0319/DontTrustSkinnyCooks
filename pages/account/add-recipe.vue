@@ -1,28 +1,15 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-
+const {session} = useAuth()
 const toast = useToast()
 const imageDisplay = computed(() => newRecipe.value.image)
-
 const { data: categories } = await useFetch('/api/categories/get')
-definePageMeta({
-  middleware: ['auth'],
-})
-
-// const newRecipe = ref({
-//   title: 'Steak & Fries',
-//   description: '  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt architecto et ducimus suscipit voluptatum saepe aut, aliquid dolorum quo consequatur sed! Odio dignissimos magnam mollitia.',
-//   ingredients: ['16oz Steak (Room Temp)', '1 bag of fries', ' 1oz of Basil (chopped Fine)', '1oz of Olive Oil'],
-//   directions: ['Salt and pepper the steak and let it sit till room temperature.', 'Preheat a cast iron pan till it starts smoking.', 'Add the Olive Oil to the preheated pan and add the steak.', 'Cook the steak for 3 minutes on each side.', 'Let the steak rest for 5 minutes before serving.'],
-//   servingSize: 1,
-//   yieldAmount: '1 16oz Steak',
-//   prepTime: '24 Minutes',
-//   cookTime: '15 Minutes',
-//   notes: ['Having the steak room temp makes cooking it evenly alot smoother.', 'Make sure to let the steak rest before serving.', 'Make sure to preheat the pan before adding the steak.'],
-//   image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-//   isPublic: true,
-//   categories: [] as string[]
+// definePageMeta({
+//   middleware: ['auth'],
 // })
+
+
+
 
 const newRecipe = ref({
   title: '',
@@ -38,6 +25,14 @@ const newRecipe = ref({
   isPublic: true,
   categories: [] as string[],
 })
+
+
+
+
+
+
+
+
 
 const calculateProgress = computed(() => {
   const excludedFields = ['isPublic', 'yieldAmount', 'cookTime', 'notes', 'image']
@@ -68,7 +63,7 @@ const calculateProgress = computed(() => {
   return (filledFields / totalFields) * 100
 })
 
-function validateCategories(newVal: string[], oldVal: string[]) {
+function validateCategories(newVal: string[], oldVal: string[],newRecipe:any) {
   // Define your contradictory combinations
   const contradictoryCombinations = [
     ['Vegetarian', 'Poultry'],
@@ -114,84 +109,15 @@ function validateCategories(newVal: string[], oldVal: string[]) {
       })
       console.error('Contradictory combination detected:', intersection)
       // For example, you could reset the selection or show an error message
-      newRecipe.value.categories = oldVal
+      newRecipe.categories = oldVal
     }
   }
 }
 
-// Watch for changes in selectedCategories
+
 watch(newRecipe.value.categories, validateCategories)
-interface ValidationResults {
-  isValid: boolean
-  missingFields: string[]
-}
 
-function validateForm(recipe: Object): ValidationResults {
-  const excludedFields = ['image', 'notes', 'yieldAmount', 'cookTime']
-  const validationResults: ValidationResults = {
-    isValid: true,
-    missingFields: [],
-  }
 
-  for (const [key, value] of Object.entries(recipe)) {
-    // Skip validation for excluded fields
-    if (excludedFields.includes(key))
-      continue
-
-    // Validate non-excluded fields
-    if (Array.isArray(value)) {
-      // Check if the array contains at least one non-empty string
-      if (!value.some(item => typeof item === 'string' && item.trim() !== '')) {
-        validationResults.isValid = false
-        validationResults.missingFields.push(key)
-      }
-    }
-    else {
-      // Validate non-array fields
-      if (value === undefined || value === null || value === '') {
-        validationResults.isValid = false
-        validationResults.missingFields.push(key)
-      }
-    }
-  }
-
-  return validationResults
-}
-
-function deleteIngredient(index: number) {
-  newRecipe.value.ingredients.splice(index, 1)
-  toast.add({
-    id: `removed_ingredient ${index}`,
-    title: 'Removed Ingredient',
-
-    icon: 'i-heroicons-check-circle',
-    timeout: 2000,
-
-  })
-}
-
-function deleteDirection(index: number) {
-  newRecipe.value.directions.splice(index, 1)
-  toast.add({
-    id: `removed_direction ${index}`,
-    title: 'Removed Direction',
-
-    icon: 'i-heroicons-check-circle',
-    timeout: 2000,
-
-  })
-}
-function deleteNote(index: number) {
-  newRecipe.value.notes.splice(index, 1)
-  toast.add({
-    id: `removed_note ${index}`,
-    title: 'Removed Note',
-
-    icon: 'i-heroicons-check-circle',
-    timeout: 2000,
-
-  })
-}
 
 async function createNewRecipe() {
   try {
@@ -203,7 +129,7 @@ async function createNewRecipe() {
         id: `invalid_recipe_submission ${newRecipe.value.title}`,
         title: 'Invalid Form for new Recipe',
         description: `You have missing required inputs 
-         ${validationResults.missingFields.map(field => `<br> <strong>${field}</strong>`).join('')}
+         ${validationResults.missingFields.map((field:string) => `<br> <strong>${field}</strong>`).join('')}
         `,
         icon: 'i-heroicons-information-circle',
         timeout: 5000,
@@ -232,59 +158,9 @@ async function createNewRecipe() {
   }
 }
 
-function handleFileChange(event: any) {
-  const file = event.target.files[0]
 
-  if (file) {
-    console.log(file)
-    const validExtensions = ['.png', '.jpeg']
-    const extension = file.name.slice(((file.name.lastIndexOf('.') - 1) >>> 0) + 2)
 
-    if (validExtensions.includes(`.${extension.toLowerCase()}`)) {
-      // Handle the valid file
-      // You can add additional logic or emit an event as needed
-    }
-    else {
-      // Invalid file type, you may want to display a message or handle it accordingly
-      console.error('Invalid file type. Please choose a .png or .jpeg file.')
-    }
-  }
-}
 
-function addNewIngredient() {
-  newRecipe.value.ingredients.push('')
-}
-
-function updateIngredient(index: number, event: InputEvent) {
-  // Assuming you are working with an input element, extract the value
-  const value = (event.target as HTMLInputElement).value
-
-  // Update the ingredient in the newRecipe object
-  newRecipe.value.ingredients[index] = value
-}
-function addNewDirection() {
-  newRecipe.value.directions = [...newRecipe.value.directions, '']
-}
-
-function updateDirection(index: number, event: InputEvent) {
-  // Assuming you are working with an input element, extract the value
-  const value = (event.target as HTMLInputElement).value
-
-  // Update the ingredient in the newRecipe object
-  newRecipe.value.directions[index] = value
-}
-
-function addNewNote() {
-  newRecipe.value.notes.push('')
-}
-
-function updateNote(index: number, event: InputEvent) {
-  // Assuming you are working with an input element, extract the value
-  const value = (event.target as HTMLInputElement).value
-
-  // Update the ingredient in the newRecipe object
-  newRecipe.value.notes[index] = value
-}
 </script>
 
 <template>
@@ -295,6 +171,8 @@ function updateNote(index: number, event: InputEvent) {
         alt="multiple ingredients laid out" class="absolute w-full h-full object-cover rounded shadow-md"
       >
     </div>
+
+    
     <div class="flex justify-center">
       <div class=" shadow-2xl w-10/12 -translate-y-5 z-10 bg-white dark:bg-gray-800 p-5 rounded">
         <div class="space-y-5">
@@ -373,7 +251,7 @@ function updateNote(index: number, event: InputEvent) {
                   <UInput
                     color="white" variant="outline" size="xl"
                     :placeholder="index === 0 ? '1 Cup of Flour, Sifted...' : (index === 1 ? '1 Pkg Bacon, 12 strips...' : (index === 2 ? '2 Tablespoons salt' : 'New Ingredient...'))"
-                    :value="ingredient" @input="updateIngredient(index, $event)"
+                    :value="ingredient" @input="updateIngredient(index, $event,newRecipe)"
                   />
                 </UFormGroup>
               </div>
@@ -382,7 +260,7 @@ function updateNote(index: number, event: InputEvent) {
                   <Icon
                     name="material-symbols:delete"
                     class="text-3xl hover:shadow-xl transition-all duration-300 rounded-full hover:cursor-pointer hover:text-red-400"
-                    @click="deleteIngredient(index)"
+                    @click="deleteIngredient(index,newRecipe)"
                   />
                 </UTooltip>
               </div>
@@ -392,7 +270,7 @@ function updateNote(index: number, event: InputEvent) {
             <UButton
               icon="i-heroicons-plus-circle" size="xl" variant="solid" label="Add Ingredient" :trailing="false"
               class="bg-orange-400 hover:bg-orange-300 duration-150 transition-all hover:scale-[1.01]"
-              @click="addNewIngredient"
+              @click="addNewIngredient(newRecipe)"
             />
           </div>
         </div>
@@ -421,7 +299,7 @@ function updateNote(index: number, event: InputEvent) {
                   <UTextarea
                     color="white" variant="outline" size="xl"
                     :placeholder="index === 0 ? 'Preheat Oven to 350 degrees F...' : (index === 1 ? 'Combine all dry ingredients in a mixing bowl...' : (index === 2 ? 'Pour into greased trays and bake for 15-20 minutes...' : 'New Direction...'))"
-                    :value="direction" @input="updateDirection(index, $event)"
+                    :value="direction" @input="updateDirection(index, $event,newRecipe)"
                   />
                 </UFormGroup>
               </div>
@@ -430,7 +308,7 @@ function updateNote(index: number, event: InputEvent) {
                   <Icon
                     name="material-symbols:delete"
                     class="text-3xl hover:shadow-xl transition-all duration-300 rounded-full hover:cursor-pointer hover:text-red-400"
-                    @click="deleteDirection(index)"
+                    @click="deleteDirection(index,newRecipe)"
                   />
                 </UTooltip>
               </div>
@@ -439,7 +317,7 @@ function updateNote(index: number, event: InputEvent) {
               <UButton
                 icon="i-heroicons-plus-circle" size="xl"
                 class="bg-orange-400 hover:bg-orange-300 duration-150 transition-all hover:scale-[1.01]" variant="solid"
-                label="Add Direction" :trailing="false" @click="addNewDirection"
+                label="Add Direction" :trailing="false" @click="addNewDirection(newRecipe)"
               />
             </div>
           </div>
@@ -499,7 +377,7 @@ function updateNote(index: number, event: InputEvent) {
                   <UInput
                     color="white" variant="outline" size="xl"
                     :placeholder="index === 0 ? 'e.g. dont whisk too hard...' : 'New Note...'" :value="note"
-                    @input="updateNote(index, $event)"
+                    @input="updateNote(index, $event,newRecipe)"
                   />
                 </UFormGroup>
               </div>
@@ -508,7 +386,7 @@ function updateNote(index: number, event: InputEvent) {
                   <Icon
                     name="material-symbols:delete"
                     class="text-3xl hover:shadow-xl transition-all duration-300 rounded-full hover:cursor-pointer hover:text-red-400"
-                    @click="deleteNote(index)"
+                    @click="deleteNote(index,newRecipe)"
                   />
                 </UTooltip>
               </div>
@@ -518,7 +396,7 @@ function updateNote(index: number, event: InputEvent) {
             <UButton
               icon="i-heroicons-plus-circle" size="xl"
               class="bg-orange-400 hover:bg-orange-300 duration-150 transition-all hover:scale-[1.01]" variant="solid"
-              label="Add Note" :trailing="false" @click="addNewNote"
+              label="Add Note" :trailing="false" @click="addNewNote(newRecipe)"
             />
           </div>
         </div>
@@ -577,6 +455,7 @@ function updateNote(index: number, event: InputEvent) {
               label="Cancel"
             />
             <UButton
+            :disabled="!session?.user"
               icon="i-heroicons-plus-circle" size="xl"
               class="bg-orange-400 hover:bg-orange-300 duration-150 transition-all hover:scale-[1.01]" variant="solid"
               label="Submit Recipe" :trailing="false" @click="createNewRecipe"

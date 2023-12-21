@@ -23,3 +23,4 @@ export function formateDate(date: Date) {
   ))
 }
 export const useCategories = () => useState<Category[]>('categories', () => [])
+

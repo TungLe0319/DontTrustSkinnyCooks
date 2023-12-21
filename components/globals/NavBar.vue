@@ -11,14 +11,6 @@ const items = ref([
 
 ])
 
-const breadCrumbItems = ref([
-  { name: 'Home', label: 'Home', icon: 'i-heroicons-home', href: '/', to: '/' },
-  { name: 'Users', label: 'profile', icon: 'i-heroicons-home', href: '/profile' },
-  { name: 'Recipes', label: 'recipes', icon: 'i-heroicons-home', href: '/recipes' },
-  { name: 'Add Recipe', label: 'add-recipe', icon: 'i-heroicons-home', href: '/account/add-recipe' },
-
-])
-console.log({ session: session.value, user: user.value })
 
 const profileDropdownItems = [
   [
@@ -84,8 +76,8 @@ const isDark = computed({
     class="bg-gradient-to-r from-orange-500 via-rose-300 to-indigo-600 rounded-none " @close="handleAlertClose"
   >
     <template #description>
-      <span class="text-xl  ">
-        Unlock Gourmet Recipes! Sign up now to explore our savory display ads and create a personalized collection of
+      <span class="drop-shadow-md  ">
+        Unlock Gourmet Recipes! <strong class="border-b  border-spacing-6 border-white pb-0.5"> Sign up</strong> now to explore our savory display ads and create a personalized collection of
         culinary wonders.
       </span>
     </template>
