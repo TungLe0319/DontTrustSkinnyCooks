@@ -1,7 +1,10 @@
 <template>
   <div class="flex flex-col  space-y-10 ">
    <div class=" flex flex-col  space-y-3">
-     <span class="text-4xl font-extrabold">Review this Recipe</span>
+    <div class="flex gap-3">
+      <Icon name="ic:baseline-rate-review" class="text-4xl text-orange-400" />
+      <span class="text-4xl font-extrabold">Review this Recipe</span>
+    </div>
       <span class=" text-gray-500">Please be respectful when writing a review.</span>
     
    </div>
@@ -119,8 +122,16 @@ const resetHover = () => {
 const click = (value: number) => {
   hoverRating.value = value;
   selectedRating.value = value;
-
+toast.add({
+  id: `rating ${value}`,
+  title: 'Rating',
+  description: `You rated this recipe ${value} stars.`,
+  color:'green',
+  timeout: 5000,
+})
 };
+
+
 
 const starIcon = (index: number) => {
   return index + 1 <= (hoverRating.value || selectedRating.value) ? 'game-icons:fat' : 'material-symbols:emoji-people-rounded';

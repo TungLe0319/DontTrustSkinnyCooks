@@ -10,7 +10,7 @@
         <div class="space-y-5">
           <div class="flex gap-2">
             <Icon name="uil:plus-circle" class="text-3xl text-rose-400" />
-            <h1 class="text-4xl font-extrabold ">Add Recipe</h1>
+            <h1 class="text-6xl font-extrabold ">Add Recipe</h1>
           </div>
           <p class="text-gray-500">Uploading personal recipes is easy! Add yours to your favorites, share with friends,
             family, or the
@@ -50,50 +50,29 @@
         </div>
         <hr class="my-5">
         <div>
-        
-
-     <div class="space-y-3 flex flex-col">
-              <p class="font-extrabold text-3xl  mb-2">
-                Ingredients </p>
-              <p class="text-gray-500">Enter one ingredient per line. Include the quantity (i.e. cups, tablespoons) and any
+          <div class="space-y-3 flex flex-col">
+            <p class="font-extrabold text-3xl  mb-2 text-orange-400">
+              Ingredients </p>
+            <p class="text-gray-500">Enter one ingredient per line. Include the quantity (i.e. cups, tablespoons) and any
               special preparation
               (i.e. sifted, softened, chopped).
-               </p>
-
-                  <div class="flex items-center gap-2 text-gray-500">
-                  <Icon name="fluent:important-12-filled" class="" />
-                  <p class="text-sm"> Add or Remove ingredients!</p>
-                 </div>
+            </p>
+            <div class="flex items-center gap-2 text-gray-500">
+              <Icon name="fluent:important-12-filled" class="" />
+              <p class="text-sm"> Add or Remove ingredients!</p>
+            </div>
           </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          <div class="space-y-3 my-5">
-            <div v-for="(ingredient, index) in newRecipe.ingredients" :key="index" class="flex gap-5 w-full">
-             
+          <div class="space-y-3 my-5" v-auto-animate>
+            <div v-for="(ingredient, index) in newRecipe.ingredients" :key="index" class="flex gap-5 w-full items-center">
               <div class="w-11/12">
-                  <UFormGroup :label="'Ingredient ' + (index + 1)"  :required="index <= 0">
-   <UInput color="white" variant="outline" size="xl" :placeholder="'e.g. ' + (index + 1) + ' cups'"
+                <UFormGroup :label="'Ingredient ' + (index + 1)" :required="index <= 0">
+                  <UInput color="white" variant="outline" size="xl" :placeholder="'e.g. ' + (index + 1) + ' cups'"
                     :value="ingredient" @input="updateIngredient(index, $event)" />
-                  </UFormGroup>
-               
+                </UFormGroup>
               </div>
-              <div class="w-1/12 flex items-center">
+              <div class="w-1/12 flex items-center mt-6">
                 <UTooltip text="Delete Ingredient" :popper="{ arrow: true }">
-                  <Icon name="uil:minus-circle"
+                  <Icon name="material-symbols:delete"
                     class="text-3xl hover:shadow-xl transition-all duration-300 rounded-full hover:cursor-pointer hover:text-red-400"
                     @click="deleteIngredient(index)" />
                 </UTooltip>
@@ -108,23 +87,19 @@
         </div>
         <hr class="my-5">
         <div>
-        <div class="space-y-3 flex flex-col">
-            <p class="font-extrabold text-3xl  mb-2">
+          <div class="space-y-3 flex flex-col">
+            <p class="font-extrabold text-3xl  mb-2 text-orange-400">
               Directions </p>
-            <p class="text-gray-500">Explain how to make your recipe, including oven temperatures, baking or cooking times,
+            <p class="text-gray-500">Explain how to make your recipe, including oven temperatures, baking or cooking
+              times,
               and pan sizes, etc.
-             </p>
-
-                <div class="flex items-center gap-2 text-gray-500">
-                <Icon name="fluent:important-12-filled" class="" />
-                <p class="text-sm"> Add or Remove steps in the directions to be more specific!</p>
-               </div>
-        </div>
-
-
-
-
-          <div class="space-y-3 my-5">
+            </p>
+            <div class="flex items-center gap-2 text-gray-500">
+              <Icon name="fluent:important-12-filled" class="" />
+              <p class="text-sm"> Add or Remove steps in the directions to be more specific!</p>
+            </div>
+          </div>
+          <div class="space-y-3 my-5" v-auto-animate>
             <div v-for="(direction, index) in newRecipe.directions" :key="index" class="flex items-center gap-5  w-full">
               <div class="w-11/12">
                 <UFormGroup :label="'Step ' + (index + 1)" :required="index <= 0">
@@ -133,9 +108,9 @@
                     :value="direction" @input="updateDirection(index, $event)" />
                 </UFormGroup>
               </div>
-              <div class="w-1/12 flex items-center">
+              <div class="w-1/12 flex items-center mt-6">
                 <UTooltip text="Delete Step" :popper="{ arrow: true }">
-                  <Icon name="uil:minus-circle"
+                  <Icon name="material-symbols:delete"
                     class="text-3xl hover:shadow-xl transition-all duration-300 rounded-full hover:cursor-pointer hover:text-red-400"
                     @click="deleteDirection(index)" />
                 </UTooltip>
@@ -162,50 +137,42 @@
           </div>
         </div>
         <hr class="my-5">
-
-       <div class="  space-y-3">
-         <p class="font-extrabold text-3xl  mb-2">Prep/Cook Time</p>
-        
-            <p class="text-gray-500">Enter the total time it takes to prepare and cook your recipe.</p>
-           <div class="flex items-center gap-2 text-gray-500">
+        <div class="  space-y-3">
+          <p class="font-extrabold text-3xl  mb-2 text-orange-400">Prep/Cook Time</p>
+          <p class="text-gray-500">Enter the total time it takes to prepare and cook your recipe.</p>
+          <div class="flex items-center gap-2 text-gray-500">
             <Icon name="fluent:important-12-filled" class="" />
             <p class="text-sm">Be sure to include whether its Minutes, Hours, Days. (1.e. 15 minutes)</p>
-           </div>
-         
+          </div>
           <div class=" flex items-center justify-between gap-10">
             <div class="w-1/2">
               <UFormGroup label="Prep Time" required>
-                <UInput  placeholder="0" size="xl" v-model="newRecipe.prepTime" />
+                <UInput placeholder="0" size="xl" v-model="newRecipe.prepTime" />
               </UFormGroup>
-              </div>
-       
-        
-              <div class="w-1/2">
+            </div>
+            <div class="w-1/2">
               <UFormGroup label="Cook Time (Optional)">
-                <UInput  placeholder="0" size="xl" v-model="newRecipe.cookTime" />
+                <UInput placeholder="0" size="xl" v-model="newRecipe.cookTime" />
               </UFormGroup>
-            
-              </div>
-       
+            </div>
           </div>
-       </div>
+        </div>
         <hr class="my-5">
         <div class="space-y-3">
-          <p class="font-extrabold text-3xl  mb-2">Notes(Optional)</p>
+          <p class="font-extrabold text-3xl  mb-2 text-orange-400">Notes(Optional)</p>
           <p class="text-gray-500">Add any helpful tips about ingredient substitutions, serving, or storage here.</p>
-          <div class="space-y-3 my-3">
-            <div v-for="(note, index) in newRecipe.notes" :key="index" class="flex items-center w-full">
+          <div class="space-y-3 my-3" v-auto-animate>
+            <div v-for="(note, index) in newRecipe.notes" :key="index" class="flex items-center w-full gap-5">
               <div class="w-11/12">
-                  <UFormGroup :label="'Note ' + (index + 1)" >
-                      <UInput color="white" variant="outline" size="xl"
+                <UFormGroup :label="'Note ' + (index + 1)">
+                  <UInput color="white" variant="outline" size="xl"
                     :placeholder="index === 0 ? 'e.g. dont whisk too hard...' : 'New Note...'" :value="note"
                     @input="updateNote(index, $event)" />
-                  </UFormGroup>
-             
+                </UFormGroup>
               </div>
-              <div class="w-1/12 flex items-center">
+              <div class="w-1/12 flex items-center mt-6">
                 <UTooltip text="Delete Note" :popper="{ arrow: true }">
-                  <Icon name="uil:minus-circle"
+                  <Icon name="material-symbols:delete"
                     class="text-3xl hover:shadow-xl transition-all duration-300 rounded-full hover:cursor-pointer hover:text-red-400"
                     @click="deleteNote(index)" />
                 </UTooltip>
@@ -219,9 +186,42 @@
           </div>
         </div>
         <hr class="my-5">
+        <div class=" space-y-3">
+          <div class=" my-4 space-y-3">
+            <p class="text-4xl font-extrabold text-orange-400">
+              Categories
+            </p>
+            <p class="text-gray-500">Select at least 1 but up to  as many categories that fit your recipe as you like.</p>
+            <div class="flex items-center gap-2 text-gray-500">
+              <Icon name="fluent:important-12-filled" class="" />
+              <p class="text-sm">Be careful about making confusing combinations with categories (i.e. Low Carb + Pasta),
+                (i.e. Vegetarian + High Protein )</p>
+            </div>
+            <div class="mb-4 flex flex-wrap gap-2" v-auto-animate>
+              <span v-for="(category, index) in newRecipe.categories">
+                <UBadge @click="newRecipe.categories = newRecipe.categories.filter((_, i) => i !== index)" size="lg"
+                  class="shadow-md bg-indigo-400/90 hover:scale-[1.01] hover:shadow-xl hover:bg-indigo-500 transition-all duration-300 hover:cursor-pointer">
+                  {{ category }}
+                </UBadge>
+              </span>
+            </div>
+          </div>
+          <USelectMenu v-model="newRecipe.categories" :options="categories" multiple placeholder="Select Categories"
+            searchable searchable-placeholder="Search a Category..." size="xl" value-attribute="name"
+            option-attribute="name"
+            :ui-menu="{ base: 'space-y-2', option: {  container: 'w-full', selected: 'bg-green-400/50' }, }">
+            <template #option="{ option: Categories }">
+              <span> {{ Categories.name }} </span>
+            </template>
+            <template #option-empty="{ query }">
+              <q>{{ query }}</q> not found
+            </template>
+          </USelectMenu>
+        </div>
+        <hr class="my-5">
         <div class=" flex flex-col ">
           <UFormGroup label="Make Recipe Public?">
-            <UToggle color="primary" size="xl" v-model="newRecipe.isPublic" />
+            <UToggle class="bg-orange-400" size="xl" v-model="newRecipe.isPublic" />
           </UFormGroup>
           <p>
             {{ newRecipe.isPublic }}
@@ -242,22 +242,103 @@
       <!-- <div class="w-1/2 p-5 sticky top-5 h-full">
         {{ newRecipe }}
       </div> -->
+ 
     </div>
   </main>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-const times = ['minutes', 'hours', 'days']
-const selectedPrepTime = ref(times[0])
-const selectedCookTime = ref(times[0])
-const publicRecipe = ref(false)
+
+
 const toast = useToast()
 const imageDisplay = computed(() => newRecipe.value.image)
-
+const newRecipeCategories = computed(() => newRecipe.value.categories)
+const { data: categories } = await useFetch('/api/categories/get')
 definePageMeta({
   middleware: ['auth']
 })
+
+
+const newRecipe = ref({
+  title: 'Steak & Fries',
+  description: '  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt architecto et ducimus suscipit voluptatum saepe aut, aliquid dolorum quo consequatur sed! Odio dignissimos magnam mollitia.',
+  ingredients: ['16oz Steak (Room Temp)', '1 bag of fries', ' 1oz of Basil (chopped Fine)', '1oz of Olive Oil'],
+  directions: ['Salt and pepper the steak and let it sit till room temperature.', 'Preheat a cast iron pan till it starts smoking.', 'Add the Olive Oil to the preheated pan and add the steak.', 'Cook the steak for 3 minutes on each side.', 'Let the steak rest for 5 minutes before serving.'],
+  servingSize: 1,
+  yieldAmount: '1 16oz Steak',
+  prepTime: '24 Minutes',
+  cookTime: '15 Minutes',
+  notes: ['Having the steak room temp makes cooking it evenly alot smoother.', 'Make sure to let the steak rest before serving.', 'Make sure to preheat the pan before adding the steak.'],
+  image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  isPublic: true,
+  categories: [] as string[]
+})
+
+
+
+
+
+
+
+
+
+const validateCategories = (newVal: string[], oldVal: string[]) => {
+  // Define your contradictory combinations
+  const contradictoryCombinations = [
+    ["Vegetarian", "Poultry"],
+    ["Vegetarian", "Beef"],
+    ["Vegetarian", "Pork"],
+    ["Vegetarian", "Lamb"],
+    ["Vegetarian", "Fish"],
+    ["Vegetarian", "Shellfish"],
+    ["Vegetarian", "Eggs"],
+    ["Vegetarian", "Dairy"],
+    ["Vegetarian", "High-Protein"],
+    ["Vegan", "Poultry"],
+    ["Vegan", "Beef"],
+    ["Vegan", "Pork"],
+    ["Vegan", "Lamb"],
+    ["Dairy-Free", "Cheese"],
+    ["Gluten-Free", "Pasta"],
+    ["Keto-Friendly", "High-Carb"],
+    ["Low-Carb", "Rice Dishes"],
+    ["Vegetarian", "High-Protein"],
+    ["Vegan", "Poultry"],
+    ["Vegan", "Beef"],
+    ["Vegan", "Pork"],
+    ["Vegan", "Lamb"],
+    ["Dairy-Free", "Cheese"],
+    ["Gluten-Free", "Pasta"],
+    ["Keto-Friendly", "High-Carb"],
+    ["Low-Carb", "Rice Dishes"]
+    // Add more combinations as needed
+  ];
+
+  for (const combination of contradictoryCombinations) {
+    const intersection = combination.filter(category => newVal.includes(category));
+    if (intersection.length > 1) {
+      // Contradictory combination found, handle accordingly
+      toast.add({
+        id: `contradictory_combination ${intersection}`,
+        title: 'Contradictory combination detected',
+        description: `You have selected ${intersection?.join(', ')} which are contradictory combinations. Please select one or the other.`,
+        icon: 'i-heroicons-information-circle',
+        timeout: 5000,
+        color: "red"
+      })
+      console.error('Contradictory combination detected:', intersection);
+      // For example, you could reset the selection or show an error message
+      newRecipe.value.categories = oldVal;
+    }
+  }
+};
+
+// Watch for changes in selectedCategories
+watch(newRecipe.value.categories, validateCategories);
+
+
+
 
 const deleteIngredient = (index: number) => {
   newRecipe.value.ingredients.splice(index, 1)
@@ -316,20 +397,7 @@ const createNewRecipe = async () => {
   }
 }
 
-const newRecipe = ref({
-  title: 'Steak & Fries',
-  description: '  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt architecto et ducimus suscipit voluptatum saepe aut, aliquid dolorum quo consequatur sed! Odio dignissimos magnam mollitia.',
-  ingredients: ['16oz Steak (Room Temp)', '1 bag of fries', ' 1oz of Basil (chopped Fine)', '1oz of Olive Oil'],
-  directions: ['Salt and pepper the steak and let it sit till room temperature.', 'Preheat a cast iron pan till it starts smoking.', 'Add the Olive Oil to the preheated pan and add the steak.', 'Cook the steak for 3 minutes on each side.', 'Let the steak rest for 5 minutes before serving.'],
-  servingSize: 1,
-  yieldAmount: '1 16Oz Steak',
-  prepTime: 24,
-  cookTime: 10,
-  notes: ['Having the steak room temp makes cooking it evenly alot smoother.', 'Make sure to let the steak rest before serving.', 'Make sure to preheat the pan before adding the steak.'],
-  image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  isPublic: true
 
-})
 
 const handleFileChange = (event: any) => {
   const file = event.target.files[0];
@@ -366,7 +434,7 @@ const addNewDirection = () => {
   newRecipe.value.directions.push('')
 }
 
-const updateDirection = (index:number, value:any) => {
+const updateDirection = (index: number, value: any) => {
 
   //@ts-ignore
   newRecipe.directions[index] = value;
@@ -376,7 +444,7 @@ const addNewNote = () => {
   newRecipe.value.notes.push('')
 }
 
-const updateNote = (index:number, value:any) => {
+const updateNote = (index: number, value: any) => {
   //@ts-ignore
   newRecipe.notes[index] = value;
 }

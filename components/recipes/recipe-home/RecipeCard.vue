@@ -7,17 +7,12 @@
         class="absolute w-full object-cover  shadow-black  transition-all duration-150  group-hover:grayscale rounded-t object-center"
         :class="route.name === 'profile-id' ? 'h-42' : 'h-full'">
       <div
-        class="absolute flex items-start justify-center font-extrabold text-4xl w-full  p-10 z-10  translate-y-[10rem] group-hover:translate-y-1/4 transition-all duration-300 text-orange-400 bg-gradient-to-t from-black  h-full">
-       
+        class="absolute flex items-center justify-center font-extrabold text-3xl w-full  p-10 z-10  translate-y-[15rem] group-hover:translate-y-0 transition-all duration-300 text-orange-400 bg-gradient-to-t from-black  h-full">
+       View Recipe
+
+       <img src="https://media.tenor.com/xElnqsceEx4AAAAi/cutting-randy-marsh.gif" alt="" class="w-1/2">
       </div>
-          <div
-          class="absolute flex items-start justify-center font-extrabold text-4xl w-full  p-10 z-10  -translate-x-[15rem] group-hover:translate-x-[0rem] group-hover:translate-y-[1rem] transition-all duration-300 text-orange-400   ">
-           View
-        </div>
-          <div
-          class="absolute flex items-start justify-center font-extrabold text-4xl w-full  p-10 z-10  translate-x-[15rem] group-hover:translate-x-[0rem] group-hover:translate-y-[3.5rem] transition-all duration-300 text-orange-400   ">
-           Recipe
-        </div>
+     
     </NuxtLink>
     <div class="p-5 pt-2">
       <div class="flex flex-col gap-5">

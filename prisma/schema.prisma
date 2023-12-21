@@ -85,6 +85,6 @@ model Recipe {
 
 model Category {
   id      Int      @id @default(autoincrement())
-  name    String
+  name    String   @unique
   recipes Recipe[] @relation("CategoryToRecipe")
 }

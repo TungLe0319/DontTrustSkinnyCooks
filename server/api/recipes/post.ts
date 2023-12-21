@@ -1,8 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { authOptions } from "../auth/[...]";
 import { getServerSession } from "@hebilicious/authjs-nuxt/dist/runtime/lib/server";
-
-
+import { CategoryWhereUniqueInput } from "@prisma/client";
 
 export default defineEventHandler(async (event) => {
   try {
@@ -15,6 +14,7 @@ export default defineEventHandler(async (event) => {
       notes,
       servingSize,
       prepTime,
+      categories,
     } = await readBody(event);
 
     // const session = await getServerSession(event, authOptions);
@@ -28,6 +28,13 @@ export default defineEventHandler(async (event) => {
     // console.log("Directions JSON:", directionsJSON);
     // console.log("Notes JSON:", notesJSON);
 
+    console.log("Categories:", categories);
+
+  
+ const mappedCategories = categories.map((category:string) => {
+  return {name:category}
+ } )
+  
     const newRecipe = await prisma().recipe.create({
       data: {
         title,
@@ -42,6 +49,9 @@ export default defineEventHandler(async (event) => {
           connect: {
             id: "clqd7shsj00002ux5xih4t7i0",
           },
+        },
+        categories: {
+         connect:mappedCategories
         },
       },
     });
