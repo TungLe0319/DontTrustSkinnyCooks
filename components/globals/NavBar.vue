@@ -5,7 +5,7 @@ const { signIn, signOut, session, status, cookies, getProviders, user } = useAut
 
 const items = ref([
   { name: 'Home', label: 'Home', icon: 'i-heroicons-home', href: '/', to: '/' },
-  { name: 'Users', label: 'profile', icon: 'i-heroicons-home', href: '/profile', },
+
   { name: 'Recipes', label: 'recipes', icon: 'i-heroicons-home', href: '/recipes', },
   { name: 'Add Recipe', label: 'add-recipe', icon: 'i-heroicons-home', href: '/account/add-recipe', },
 
