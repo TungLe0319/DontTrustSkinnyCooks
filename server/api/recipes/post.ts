@@ -3,7 +3,7 @@ import { authOptions } from "../auth/[...]";
 import { getServerSession } from "@hebilicious/authjs-nuxt/dist/runtime/lib/server";
 
 
-const prisma = new PrismaClient();
+
 export default defineEventHandler(async (event) => {
   try {
     const {
@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
     // console.log("Directions JSON:", directionsJSON);
     // console.log("Notes JSON:", notesJSON);
 
-    const newRecipe = await prisma.recipe.create({
+    const newRecipe = await prisma().recipe.create({
       data: {
         title,
         ingredients: ingredientsJSON,
@@ -49,7 +49,5 @@ export default defineEventHandler(async (event) => {
     return newRecipe;
   } catch (error) {
     console.error("Error creating recipe:", error);
-  } finally {
-    await prisma.$disconnect(); // Disconnect from the Prisma client
   }
 });

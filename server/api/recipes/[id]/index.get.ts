@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+
 
 export default defineEventHandler(async (event) => {
   try {
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
     console.log(id);
     
-    const recipe = await prisma.recipe.findUnique({
+    const recipe = await prisma().recipe.findUnique({
       where: {
         id: Number(id),
       },
@@ -27,8 +27,6 @@ console.log(recipe);
     return recipe;
   } catch (error) {
     console.error("Error getting recipe:", error);
-  } finally {
-    await prisma.$disconnect()
-  }
+  } 
 });
 
