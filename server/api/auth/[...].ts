@@ -35,8 +35,32 @@ export const authOptions: AuthConfig = {
     },
       async authorize(credentials, req) {
         
-        let user = await adapter.getUserByEmail!(credentials.email as string)
-        return user;
+        let user = await prisma().user.findUnique({
+          where: {
+            email: credentials.email as string
+          }
+        })
+        if (!user) {
+          const email = credentials.email as string
+          user = await prisma().user.create({
+            data: {
+              email,
+              name: email.split('@')[0],
+              password: await hash(credentials.password as string),
+              emailVerified: null,
+              image: 'https://ui-avatars.com/api/?name=' + email.split('@')[0]
+            },
+          })
+          
+        }
+    
+        // user.password is a hash of the password
+        if (user && user.password !== (await hash(credentials.password as string))) {
+          return null
+        }
+        // we do not want client to have access to password hash
+        user?.password ? user.password = null : null
+        return user
       },
     }),
     GoogleProvider({

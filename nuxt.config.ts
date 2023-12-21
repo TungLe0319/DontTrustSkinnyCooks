@@ -14,10 +14,13 @@ export default defineNuxtConfig({
   alias: {
     cookie: "cookie",
   },
+  nitro:{
+    preset: 'node-server'
+  },
 
   runtimeConfig: {
     authJs: {
-      secret: "q4/GZlT209SXJ5X6KqnNNWoCgnWdj5hYpPmcbOgEQQg=", // You can generate one with `openssl rand -base64 32`
+      secret: process.env.NUXT_NEXTAUTH_SECRET, // You can generate one with `openssl rand -base64 32`
     },
     github: {
       clientId: process.env.NUXT_GITHUB_CLIENT_ID,
