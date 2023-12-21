@@ -11,9 +11,15 @@ import NavBar from './components/globals/NavBar.vue';
       <NuxtPage />
     </UContainer>
     <Footer/>
-    <UNotifications
-    
-    />
+  <UNotifications>
+      <template #title="{ title }">
+        <span v-html="title" />
+      </template>
+
+      <template #description="{ description }">
+        <span v-html="description" />
+      </template>
+    </UNotifications>
     <NuxtLoadingIndicator :height="6"/>
   </div>
 </template>

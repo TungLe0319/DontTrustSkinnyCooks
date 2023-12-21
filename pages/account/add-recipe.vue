@@ -20,20 +20,23 @@
         <div class="flex p-2 gap-10">
           <div class=" w-2/3 space-y-3">
             <UFormGroup label="Recipe Title" required>
-              <UInput placeholder="Pasta" size="xl" v-model="newRecipe.title" />
+              <UInput placeholder="Angle Hair Shrimp Pasta" size="xl" v-model="newRecipe.title" />
             </UFormGroup>
             <UFormGroup label="Description" required>
-              <UTextarea color="primary" variant="outline" placeholder="" :rows="10" v-model="newRecipe.description" />
+              <UTextarea color="primary" variant="outline" placeholder="grandma's best pasta recipe..." :rows="10"
+                v-model="newRecipe.description" />
             </UFormGroup>
           </div>
           <div class="w-1/3 space-y-3 ">
             <p class="text-sm text-gray-700 font-medium  mb-2">
               Photo(Optional)
             </p>
-            <UFormGroup label="Recipe Title" required>
-              <UInput placeholder="Pasta" size="xl" v-model="newRecipe.image" />
+            <UFormGroup label="Recipe Image">
+              <UInput placeholder="url link..." size="xl" v-model="newRecipe.image" />
             </UFormGroup>
-            <img :src="imageDisplay" alt="" class="object-cover h-72 w-full shadow-xl rounded  ">
+            <img
+              :src="imageDisplay || 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=2880&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'"
+              alt="" class="object-cover h-72 w-full shadow-xl rounded  ">
             <div class="border-4  border-orange-400 border-dashed  ">
               <!-- <label for="photoInput" class="relative cursor-pointer  overflow-hidden group w-full ">
                 <input type="file" accept=".png, .jpeg" name="photo" id="fileInput" class="hidden"
@@ -66,7 +69,8 @@
             <div v-for="(ingredient, index) in newRecipe.ingredients" :key="index" class="flex gap-5 w-full items-center">
               <div class="w-11/12">
                 <UFormGroup :label="'Ingredient ' + (index + 1)" :required="index <= 0">
-                  <UInput color="white" variant="outline" size="xl" :placeholder="'e.g. ' + (index + 1) + ' cups'"
+                  <UInput color="white" variant="outline" size="xl"
+                    :placeholder="index === 0 ? '1 Cup of Flour, Sifted...' : (index === 1 ? '1 Pkg Bacon, 12 strips...' : (index === 2 ? '2 Tablespoons salt' : 'New Ingredient...'))"
                     :value="ingredient" @input="updateIngredient(index, $event)" />
                 </UFormGroup>
               </div>
@@ -127,12 +131,12 @@
         <div class="flex  justify-between gap-5">
           <div class="w-1/2">
             <UFormGroup label="Serving Size" required>
-              <UInput type="number" placeholder="e.g. 4" size="xl" v-model="newRecipe.servingSize" />
+              <UInput type="number" placeholder="e.g. 4..." size="xl" v-model="newRecipe.servingSize" />
             </UFormGroup>
           </div>
           <div class="w-1/2">
             <UFormGroup label="Yield (Optional)">
-              <UInput placeholder="e.g. 1 9-inch cake" size="xl" v-model="newRecipe.yieldAmount" />
+              <UInput placeholder="e.g. 1 9-inch cake..." size="xl" v-model="newRecipe.yieldAmount" />
             </UFormGroup>
           </div>
         </div>
@@ -147,12 +151,12 @@
           <div class=" flex items-center justify-between gap-10">
             <div class="w-1/2">
               <UFormGroup label="Prep Time" required>
-                <UInput placeholder="0" size="xl" v-model="newRecipe.prepTime" />
+                <UInput placeholder="15 Minutes..." size="xl" v-model="newRecipe.prepTime" />
               </UFormGroup>
             </div>
             <div class="w-1/2">
               <UFormGroup label="Cook Time (Optional)">
-                <UInput placeholder="0" size="xl" v-model="newRecipe.cookTime" />
+                <UInput placeholder="25 Minutes..." size="xl" v-model="newRecipe.cookTime" />
               </UFormGroup>
             </div>
           </div>
@@ -191,7 +195,7 @@
             <p class="text-4xl font-extrabold text-orange-400">
               Categories
             </p>
-            <p class="text-gray-500">Select at least 1 but up to  as many categories that fit your recipe as you like.</p>
+            <p class="text-gray-500">Select at least 1 but up to as many categories that fit your recipe as you like.</p>
             <div class="flex items-center gap-2 text-gray-500">
               <Icon name="fluent:important-12-filled" class="" />
               <p class="text-sm">Be careful about making confusing combinations with categories (i.e. Low Carb + Pasta),
@@ -209,7 +213,7 @@
           <USelectMenu v-model="newRecipe.categories" :options="categories" multiple placeholder="Select Categories"
             searchable searchable-placeholder="Search a Category..." size="xl" value-attribute="name"
             option-attribute="name"
-            :ui-menu="{ base: 'space-y-2', option: {  container: 'w-full', selected: 'bg-green-400/50' }, }">
+            :ui-menu="{ base: 'space-y-2', option: { container: 'w-full', selected: 'bg-green-400/50' }, }">
             <template #option="{ option: Categories }">
               <span> {{ Categories.name }} </span>
             </template>
@@ -242,7 +246,9 @@
       <!-- <div class="w-1/2 p-5 sticky top-5 h-full">
         {{ newRecipe }}
       </div> -->
- 
+    </div>
+    <div class="fixed top-0 left-0 w-full  z-50 ">
+      <UMeter :value="calculateProgress" color="purple" />
     </div>
   </main>
 </template>
@@ -253,33 +259,70 @@ import { ref } from 'vue'
 
 const toast = useToast()
 const imageDisplay = computed(() => newRecipe.value.image)
-const newRecipeCategories = computed(() => newRecipe.value.categories)
+
 const { data: categories } = await useFetch('/api/categories/get')
 definePageMeta({
   middleware: ['auth']
 })
 
 
+// const newRecipe = ref({
+//   title: 'Steak & Fries',
+//   description: '  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt architecto et ducimus suscipit voluptatum saepe aut, aliquid dolorum quo consequatur sed! Odio dignissimos magnam mollitia.',
+//   ingredients: ['16oz Steak (Room Temp)', '1 bag of fries', ' 1oz of Basil (chopped Fine)', '1oz of Olive Oil'],
+//   directions: ['Salt and pepper the steak and let it sit till room temperature.', 'Preheat a cast iron pan till it starts smoking.', 'Add the Olive Oil to the preheated pan and add the steak.', 'Cook the steak for 3 minutes on each side.', 'Let the steak rest for 5 minutes before serving.'],
+//   servingSize: 1,
+//   yieldAmount: '1 16oz Steak',
+//   prepTime: '24 Minutes',
+//   cookTime: '15 Minutes',
+//   notes: ['Having the steak room temp makes cooking it evenly alot smoother.', 'Make sure to let the steak rest before serving.', 'Make sure to preheat the pan before adding the steak.'],
+//   image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+//   isPublic: true,
+//   categories: [] as string[]
+// })
+
 const newRecipe = ref({
-  title: 'Steak & Fries',
-  description: '  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt architecto et ducimus suscipit voluptatum saepe aut, aliquid dolorum quo consequatur sed! Odio dignissimos magnam mollitia.',
-  ingredients: ['16oz Steak (Room Temp)', '1 bag of fries', ' 1oz of Basil (chopped Fine)', '1oz of Olive Oil'],
-  directions: ['Salt and pepper the steak and let it sit till room temperature.', 'Preheat a cast iron pan till it starts smoking.', 'Add the Olive Oil to the preheated pan and add the steak.', 'Cook the steak for 3 minutes on each side.', 'Let the steak rest for 5 minutes before serving.'],
-  servingSize: 1,
-  yieldAmount: '1 16oz Steak',
-  prepTime: '24 Minutes',
-  cookTime: '15 Minutes',
-  notes: ['Having the steak room temp makes cooking it evenly alot smoother.', 'Make sure to let the steak rest before serving.', 'Make sure to preheat the pan before adding the steak.'],
-  image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  title: '',
+  description: '',
+  ingredients: [''],
+  directions: [''],
+  servingSize: 0,
+  yieldAmount: '',
+  prepTime: '',
+  cookTime: '',
+  notes: [''],
+  image: '',
   isPublic: true,
   categories: [] as string[]
-})
+});
 
+const calculateProgress = computed(() => {
+  const excludedFields = ['isPublic', 'yieldAmount', 'cookTime', 'notes', 'image'];
 
+  const filledFields = Object.entries(newRecipe.value).filter(([key, value]) => {
+    // Skip excluded fields and check if the value is a non-empty string or a non-empty array
+    if (!excludedFields.includes(key)) {
+      if (key === 'servingSize') {
+        return value !== undefined && value !== null && value !== 0;
+      } else if (Array.isArray(value)) {
+        // Check if the array contains at least one non-empty string
+        return value.some(item => typeof item === 'string' && item.trim() !== '');
+      } else {
+        return value !== undefined && value !== null && value !== '';
+      }
+    }
+    return false;
+  }).length;
 
+  const totalFields = Object.keys(newRecipe.value).length - excludedFields.length;
 
+  // Return 0 if all relevant fields are empty or undefined
+  if (filledFields === 0) {
+    return 0;
+  }
 
-
+  return (filledFields / totalFields) * 100;
+});
 
 
 
@@ -336,9 +379,42 @@ const validateCategories = (newVal: string[], oldVal: string[]) => {
 
 // Watch for changes in selectedCategories
 watch(newRecipe.value.categories, validateCategories);
+interface ValidationResults {
+  isValid: boolean;
+  missingFields: string[];
+}
 
+const validateForm = (recipe: Object): ValidationResults => {
+  const excludedFields = ['image', 'notes', 'yieldAmount', 'cookTime'];
+  const validationResults: ValidationResults = {
+    isValid: true,
+    missingFields: [],
+  };
 
+  for (const [key, value] of Object.entries(recipe)) {
+    // Skip validation for excluded fields
+    if (excludedFields.includes(key)) {
+      continue;
+    }
 
+    // Validate non-excluded fields
+    if (Array.isArray(value)) {
+      // Check if the array contains at least one non-empty string
+      if (!value.some(item => typeof item === 'string' && item.trim() !== '')) {
+        validationResults.isValid = false;
+        validationResults.missingFields.push(key);
+      }
+    } else {
+      // Validate non-array fields
+      if (value === undefined || value === null || value === '') {
+        validationResults.isValid = false;
+        validationResults.missingFields.push(key);
+      }
+    }
+  }
+
+  return validationResults;
+};
 
 const deleteIngredient = (index: number) => {
   newRecipe.value.ingredients.splice(index, 1)
@@ -377,6 +453,32 @@ const deleteNote = (index: number) => {
 
 const createNewRecipe = async () => {
   try {
+    // Example usage
+    const validationResults = validateForm(newRecipe.value);
+
+
+
+    if (!validationResults.isValid) {
+       return   toast.add({
+        id: `invalid_recipe_submission ${newRecipe.value.title}`,
+        title: 'Invalid Form for new Recipe',
+        description: `You have missing required inputs 
+         ${validationResults.missingFields.map(field => `<br> <strong>${field}</strong>`).join('')}
+        `,
+        icon: 'i-heroicons-information-circle',
+        timeout: 5000,
+        color: "red"
+      })
+
+
+    }
+
+
+
+
+
+
+
     const response = await useFetch('/api/recipes/post', {
       method: 'POST',
       body: newRecipe.value
@@ -425,29 +527,36 @@ const addNewIngredient = () => {
 
 
 
-const updateIngredient = (index: number, value: any) => {
-  //@ts-ignore
-  newRecipe.ingredients[index] = value;
+const updateIngredient = (index: number, event: InputEvent) => {
+  // Assuming you are working with an input element, extract the value
+  const value = (event.target as HTMLInputElement).value;
+
+  // Update the ingredient in the newRecipe object
+  newRecipe.value.ingredients[index] = value;
 };
-
 const addNewDirection = () => {
-  newRecipe.value.directions.push('')
+  newRecipe.value.directions = [...newRecipe.value.directions, '']
 }
 
-const updateDirection = (index: number, value: any) => {
+const updateDirection = (index: number, event: InputEvent) => {
+  // Assuming you are working with an input element, extract the value
+  const value = (event.target as HTMLInputElement).value;
 
-  //@ts-ignore
-  newRecipe.directions[index] = value;
-}
+  // Update the ingredient in the newRecipe object
+  newRecipe.value.directions[index] = value;
+};
 
 const addNewNote = () => {
   newRecipe.value.notes.push('')
 }
 
-const updateNote = (index: number, value: any) => {
-  //@ts-ignore
-  newRecipe.notes[index] = value;
-}
+const updateNote = (index: number, event: InputEvent) => {
+  // Assuming you are working with an input element, extract the value
+  const value = (event.target as HTMLInputElement).value;
+
+  // Update the ingredient in the newRecipe object
+  newRecipe.value.notes[index] = value;
+};
 </script>
 
 <style></style>

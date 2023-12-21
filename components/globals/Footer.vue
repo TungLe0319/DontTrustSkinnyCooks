@@ -37,7 +37,7 @@
                   <p class="w-full text-center my-12 text-gray-600">Copyright © 2023 company here</p>
               </div>
           </div>
-      </div>7
+      </div>
 </template>
 
 <script lang="ts" setup>
