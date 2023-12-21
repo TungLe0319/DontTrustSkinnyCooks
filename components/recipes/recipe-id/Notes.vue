@@ -1,5 +1,8 @@
 <script lang="ts" setup>
-defineProps(['notes'])
+
+defineProps<{
+  notes: string
+}>()
 </script>
 
 <template>

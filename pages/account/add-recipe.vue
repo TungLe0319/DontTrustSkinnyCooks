@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { RecipeFormObject } from '~/types/types';
 const {session} = useAuth()
 const toast = useToast()
 const imageDisplay = computed(() => newRecipe.value.image)
@@ -11,7 +12,7 @@ const { data: categories } = await useFetch('/api/categories/get')
 
 
 
-const newRecipe = ref({
+const newRecipe = ref<RecipeFormObject>({
   title: '',
   description: '',
   ingredients: [''],
@@ -63,7 +64,7 @@ const calculateProgress = computed(() => {
   return (filledFields / totalFields) * 100
 })
 
-function validateCategories(newVal: string[], oldVal: string[],newRecipe:any) {
+function validateCategories(newVal: string[], oldVal: string[]) {
   // Define your contradictory combinations
   const contradictoryCombinations = [
     ['Vegetarian', 'Poultry'],
@@ -109,7 +110,7 @@ function validateCategories(newVal: string[], oldVal: string[],newRecipe:any) {
       })
       console.error('Contradictory combination detected:', intersection)
       // For example, you could reset the selection or show an error message
-      newRecipe.categories = oldVal
+      newRecipe.value.categories = oldVal
     }
   }
 }

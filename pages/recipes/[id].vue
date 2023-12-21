@@ -5,10 +5,11 @@ import MainInfo from '~/components/recipes/recipe-id/MainInfo.vue'
 import Notes from '~/components/recipes/recipe-id/Notes.vue'
 import PrepCookServingYield from '~/components/recipes/recipe-id/PrepCookServingYield.vue'
 import Reviews from '~/components/recipes/recipe-id/Reviews.vue'
-
+import {Prisma} from '@prisma/client'
+import type {RecipeWithUserAndCategories} from '../../types/types'
 const route = useRoute()
 
-const { data } = await useFetch<RecipeWithUser>(`/api/recipes/${route.params.id}`)
+const { data } = await useFetch<RecipeWithUserAndCategories>(`/api/recipes/${route.params.id}`)
 const recipe = data.value
 </script>
 

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 defineProps(['directions'])
+
 </script>
 
 <template>
