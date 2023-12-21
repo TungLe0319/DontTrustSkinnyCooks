@@ -27,7 +27,5 @@ X User registration and login
 - Email notifications (e.g., new recipes, recipe updates)
 - User feedback and contact form
 
-
-
 - Add Roles to user such as Admin and User
 - Add Categories

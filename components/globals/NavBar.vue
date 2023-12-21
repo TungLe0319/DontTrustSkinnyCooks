@@ -1,24 +1,24 @@
 <script  setup>
-import { onMounted, ref } from 'vue';
-import SignInModal from './SignInModal.vue';
-const { signIn, signOut, session, status, cookies, getProviders, user } = useAuth();
+import { onMounted, ref } from 'vue'
+
+const { signIn, signOut, session, status, cookies, getProviders, user } = useAuth()
 
 const items = ref([
   { name: 'Home', label: 'Home', icon: 'i-heroicons-home', href: '/', to: '/' },
 
-  { name: 'Recipes', label: 'recipes', icon: 'i-heroicons-home', href: '/recipes', },
-  { name: 'Add Recipe', label: 'add-recipe', icon: 'i-heroicons-home', href: '/account/add-recipe', },
+  { name: 'Recipes', label: 'recipes', icon: 'i-heroicons-home', href: '/recipes' },
+  { name: 'Add Recipe', label: 'add-recipe', icon: 'i-heroicons-home', href: '/account/add-recipe' },
 
-]);
+])
 
 const breadCrumbItems = ref([
   { name: 'Home', label: 'Home', icon: 'i-heroicons-home', href: '/', to: '/' },
-  { name: 'Users', label: 'profile', icon: 'i-heroicons-home', href: '/profile', },
-  { name: 'Recipes', label: 'recipes', icon: 'i-heroicons-home', href: '/recipes', },
-  { name: 'Add Recipe', label: 'add-recipe', icon: 'i-heroicons-home', href: '/account/add-recipe', },
+  { name: 'Users', label: 'profile', icon: 'i-heroicons-home', href: '/profile' },
+  { name: 'Recipes', label: 'recipes', icon: 'i-heroicons-home', href: '/recipes' },
+  { name: 'Add Recipe', label: 'add-recipe', icon: 'i-heroicons-home', href: '/account/add-recipe' },
 
-]);
-console.log({ session: session.value, user: user.value });
+])
+console.log({ session: session.value, user: user.value })
 
 const profileDropdownItems = [
   [
@@ -32,7 +32,7 @@ const profileDropdownItems = [
     {
       label: 'Profile',
       icon: 'i-heroicons-user',
-      link: `/profile/${session.value?.user ? session.value.user.id : '1'}`
+      link: `/profile/${session.value?.user ? session.value.user.id : '1'}`,
     },
   ],
   [
@@ -42,54 +42,47 @@ const profileDropdownItems = [
       click: signOut,
     },
   ],
-];
+]
 
-const indicatorPosition = ref(0);
+const indicatorPosition = ref(0)
 
 onMounted(() => {
-  updateIndicatorPosition();
-});
+  updateIndicatorPosition()
+})
 
 // Function to update the indicator position based on the active link
 function updateIndicatorPosition() {
-  const activeLink = document.querySelector('.active');
+  const activeLink = document.querySelector('.active')
   if (activeLink)
-    indicatorPosition.value = activeLink.offsetLeft;
+    indicatorPosition.value = activeLink.offsetLeft
 }
 
+const drawerIsOpen = ref(false)
 
-const drawerIsOpen = ref(false);
+const showAlert = ref(true)
 
-const showAlert = ref(true);
+function handleAlertClose() {
+  showAlert.value = false
+}
 
-const handleAlertClose = () => {
-  showAlert.value = false;
-};
-
-
-
-
-
-
-
-
-
-const colorMode = useColorMode();
+const colorMode = useColorMode()
 
 const isDark = computed({
   get() {
-    return colorMode.value === 'dark';
+    return colorMode.value === 'dark'
   },
   set() {
-    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark';
-  }
-});
+    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+  },
+})
 </script>
 
 <template>
-  <UAlert v-if="showAlert && !session?.user"
+  <UAlert
+    v-if="showAlert && !session?.user"
     :close-button="{ icon: 'i-heroicons-x-mark-20-solid', color: 'gray', variant: 'link', padded: false }"
-    @close="handleAlertClose" class="bg-gradient-to-r from-orange-500 via-rose-300 to-indigo-600 rounded-none ">
+    class="bg-gradient-to-r from-orange-500 via-rose-300 to-indigo-600 rounded-none " @close="handleAlertClose"
+  >
     <template #description>
       <span class="text-xl  ">
         Unlock Gourmet Recipes! Sign up now to explore our savory display ads and create a personalized collection of
@@ -106,8 +99,10 @@ const isDark = computed({
         </span>
       </div>
       <div class="lg:flex space-x-4  items-center relative hidden  ">
-        <NuxtLink v-for="item in items" :key="item.name" :to="item.href" class="text-lg" active-class="active"
-          @click="updateIndicatorPosition">
+        <NuxtLink
+          v-for="item in items" :key="item.name" :to="item.href" class="text-lg" active-class="active"
+          @click="updateIndicatorPosition"
+        >
           {{ item.name }}
         </NuxtLink>
       </div>
@@ -116,8 +111,10 @@ const isDark = computed({
           <a v-if="!session?.user" href="/api/auth/signin" class="buttonPrimary">Sign in</a>
           <!-- {{ user }} -->
         </div>
-        <UDropdown v-if="session?.user" :items="profileDropdownItems"
-          :ui="{ item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom-start' }">
+        <UDropdown
+          v-if="session?.user" :items="profileDropdownItems"
+          :ui="{ item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom-start' }"
+        >
           <UAvatar size="md" :src="session.user?.image || 'https://i.pravatar.cc/150?img=69'" />
           <template #account="{ item }">
             <div class="text-left">
@@ -132,19 +129,25 @@ const isDark = computed({
           <template #item="{ item }">
             <NuxtLink v-if="item.link" :to="item.link" class="flex items-center justify-between w-full">
               <span class="truncate">{{ item.label }}</span>
-              <UIcon v-if="item.icon" :name="item.icon"
-                class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500 ms-auto" />
+              <UIcon
+                v-if="item.icon" :name="item.icon"
+                class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500 ms-auto"
+              />
             </NuxtLink>
-            <a v-else-if="item.click" @click="item.click" class="flex items-center justify-between w-full cursor-pointer">
+            <a v-else-if="item.click" class="flex items-center justify-between w-full cursor-pointer" @click="item.click">
               <span class="truncate">{{ item.label }}</span>
-              <UIcon v-if="item.icon" :name="item.icon"
-                class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500 ms-auto" />
+              <UIcon
+                v-if="item.icon" :name="item.icon"
+                class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500 ms-auto"
+              />
             </a>
           </template>
         </UDropdown>
         <ClientOnly>
-          <UButton :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'" color="gray" variant="ghost"
-            aria-label="Theme" @click="isDark = !isDark" />
+          <UButton
+            :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'" color="gray" variant="ghost"
+            aria-label="Theme" @click="isDark = !isDark"
+          />
           <template #fallback>
             <div class="w-8 h-8" />
           </template>
@@ -157,8 +160,10 @@ const isDark = computed({
           <div class="p-4 flex-1">
             <Icon name="solar:close-square-bold" class="text-5xl" @click="drawerIsOpen = false" />
             <div class="flex flex-col space-x-4  items-center relative space-y-5   ">
-              <NuxtLink v-for="item in items" :key="item.name" :to="item.href" class="text-5xl" active-class="active"
-                @click="updateIndicatorPosition">
+              <NuxtLink
+                v-for="item in items" :key="item.name" :to="item.href" class="text-5xl" active-class="active"
+                @click="updateIndicatorPosition"
+              >
                 {{ item.name }}
               </NuxtLink>
               <!-- <span class="indicator" :style="{ transform: 'translateX(' + indicatorPosition + 'px)' }"></span> -->
@@ -169,7 +174,7 @@ const isDark = computed({
       <!-- !MOBIlE MENU -->
     </div>
   </div>
- <!-- <div class="w-full p-2 px-20">
+  <!-- <div class="w-full p-2 px-20">
    <UBreadcrumb :links="breadCrumbItems" >
     <template #divider>
         <span class="w-8 h-1 rounded-full bg-gray-300 dark:bg-gray-700" />

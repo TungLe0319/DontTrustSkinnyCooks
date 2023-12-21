@@ -2,17 +2,17 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   app: {
-    pageTransition: { name: "page", mode: "out-in" },
+    pageTransition: { name: 'page', mode: 'out-in' },
   },
   modules: [
-    "@nuxt/ui",
-    "@hebilicious/authjs-nuxt",
-    "@pinia/nuxt",
-    "@formkit/auto-animate/nuxt",
+    '@nuxt/ui',
+    '@hebilicious/authjs-nuxt',
+    '@pinia/nuxt',
+    '@formkit/auto-animate/nuxt',
   ],
 
   alias: {
-    cookie: "cookie",
+    cookie: 'cookie',
   },
   // nitro:{
   //   preset: 'node-server'
@@ -39,4 +39,4 @@ export default defineNuxtConfig({
       },
     },
   },
-});
+})

@@ -1,8 +1,3 @@
-import { PrismaClient } from "@prisma/client";
-import { authOptions } from "../auth/[...]";
-import { getServerSession } from "@hebilicious/authjs-nuxt/dist/runtime/lib/server";
-import { CategoryWhereUniqueInput } from "@prisma/client";
-
 export default defineEventHandler(async (event) => {
   try {
     const {
@@ -15,26 +10,25 @@ export default defineEventHandler(async (event) => {
       servingSize,
       prepTime,
       categories,
-    } = await readBody(event);
+    } = await readBody(event)
 
     // const session = await getServerSession(event, authOptions);
     // Convert arrays to JSON strings
-    const ingredientsJSON = JSON.stringify(ingredients);
-    const directionsJSON = JSON.stringify(directions);
-    const notesJSON = JSON.stringify(notes);
+    const ingredientsJSON = JSON.stringify(ingredients)
+    const directionsJSON = JSON.stringify(directions)
+    const notesJSON = JSON.stringify(notes)
 
     // Log the JSON strings
     // console.log("Ingredients JSON:", ingredientsJSON);
     // console.log("Directions JSON:", directionsJSON);
     // console.log("Notes JSON:", notesJSON);
 
-    console.log("Categories:", categories);
+    console.log('Categories:', categories)
 
-  
- const mappedCategories = categories.map((category:string) => {
-  return {name:category}
- } )
-  
+    const mappedCategories = categories.map((category: string) => {
+      return { name: category }
+    })
+
     const newRecipe = await prisma().recipe.create({
       data: {
         title,
@@ -47,17 +41,18 @@ export default defineEventHandler(async (event) => {
         prepTime,
         user: {
           connect: {
-            id: "clqd7shsj00002ux5xih4t7i0",
+            id: 'clqd7shsj00002ux5xih4t7i0',
           },
         },
         categories: {
-         connect:mappedCategories
+          connect: mappedCategories,
         },
       },
-    });
+    })
 
-    return newRecipe;
-  } catch (error) {
-    console.error("Error creating recipe:", error);
+    return newRecipe
   }
-});
+  catch (error) {
+    console.error('Error creating recipe:', error)
+  }
+})

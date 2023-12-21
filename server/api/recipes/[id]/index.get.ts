@@ -1,17 +1,12 @@
-import { PrismaClient } from "@prisma/client";
-
-
-
 export default defineEventHandler(async (event) => {
   try {
-    const id = getRouterParam(event, "id");
+    const id = getRouterParam(event, 'id')
 
-    if (!id) {
-      return createError("Missing id");
-    }
+    if (!id)
+      return createError('Missing id')
 
-    console.log(id);
-    
+    console.log(id)
+
     const recipe = await prisma().recipe.findUnique({
       where: {
         id: Number(id),
@@ -19,14 +14,13 @@ export default defineEventHandler(async (event) => {
       include: {
         user: true,
       },
-    });
+    })
 
-console.log(recipe);
+    console.log(recipe)
 
-
-    return recipe;
-  } catch (error) {
-    console.error("Error getting recipe:", error);
-  } 
-});
-
+    return recipe
+  }
+  catch (error) {
+    console.error('Error getting recipe:', error)
+  }
+})

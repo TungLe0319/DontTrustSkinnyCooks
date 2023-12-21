@@ -1,17 +1,16 @@
-
 <script setup lang="ts">
-import Footer from './components/globals/Footer.vue';
-import NavBar from './components/globals/NavBar.vue';
+import Footer from './components/globals/Footer.vue'
+import NavBar from './components/globals/NavBar.vue'
 </script>
+
 <template>
   <div>
     <NavBar />
     <UContainer>
-
       <NuxtPage />
     </UContainer>
-    <Footer/>
-  <UNotifications>
+    <Footer />
+    <UNotifications>
       <template #title="{ title }">
         <span v-html="title" />
       </template>
@@ -20,13 +19,11 @@ import NavBar from './components/globals/NavBar.vue';
         <span v-html="description" />
       </template>
     </UNotifications>
-    <NuxtLoadingIndicator :height="6"/>
+    <NuxtLoadingIndicator :height="6" />
   </div>
 </template>
 
-
 <style>
-
 .page-enter-active,
 .page-leave-active {
   transition: all 0.2s;
