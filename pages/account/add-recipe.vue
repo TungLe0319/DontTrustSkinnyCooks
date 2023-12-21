@@ -1,5 +1,5 @@
 <template>
-  <main class="min-h-screen">
+  <main class="min-h-screen pb-24">
     <div class="h-[50vh] w-full relative ">
       <img
         src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -50,16 +50,46 @@
         </div>
         <hr class="my-5">
         <div>
-          <p class="font-extrabold text-3xl  mb-2">Ingredients </p>
-          <p class="text-gray-500">Enter one ingredient per line. Include the quantity (i.e. cups, tablespoons) and any
-            special preparation
-            (i.e. sifted, softened, chopped). Use optional headers to organize the different parts of the recipe (i.e.
-            Cake, Frosting, Dressing).</p>
-          <div class="space-y-3 my-3">
+        
+
+     <div class="space-y-3 flex flex-col">
+              <p class="font-extrabold text-3xl  mb-2">
+                Ingredients </p>
+              <p class="text-gray-500">Enter one ingredient per line. Include the quantity (i.e. cups, tablespoons) and any
+              special preparation
+              (i.e. sifted, softened, chopped).
+               </p>
+
+                  <div class="flex items-center gap-2 text-gray-500">
+                  <Icon name="fluent:important-12-filled" class="" />
+                  <p class="text-sm"> Add or Remove ingredients!</p>
+                 </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <div class="space-y-3 my-5">
             <div v-for="(ingredient, index) in newRecipe.ingredients" :key="index" class="flex gap-5 w-full">
+             
               <div class="w-11/12">
-                <UInput color="white" variant="outline" size="xl" :placeholder="'e.g. ' + (index + 1) + ' cups'"
-                  :value="ingredient" @input="updateIngredient(index, $event)" />
+                  <UFormGroup :label="'Ingredient ' + (index + 1)"  :required="index <= 0">
+   <UInput color="white" variant="outline" size="xl" :placeholder="'e.g. ' + (index + 1) + ' cups'"
+                    :value="ingredient" @input="updateIngredient(index, $event)" />
+                  </UFormGroup>
+               
               </div>
               <div class="w-1/12 flex items-center">
                 <UTooltip text="Delete Ingredient" :popper="{ arrow: true }">
@@ -78,15 +108,26 @@
         </div>
         <hr class="my-5">
         <div>
-          <p class="font-extrabold text-3xl  mb-2">
-            Directions </p>
-          <p class="text-gray-500">Explain how to make your recipe, including oven temperatures, baking or cooking times,
-            and pan sizes, etc.
-            Use optional headers to organize the different parts of the recipe (i.e. Prep, Bake, Decorate).</p>
+        <div class="space-y-3 flex flex-col">
+            <p class="font-extrabold text-3xl  mb-2">
+              Directions </p>
+            <p class="text-gray-500">Explain how to make your recipe, including oven temperatures, baking or cooking times,
+              and pan sizes, etc.
+             </p>
+
+                <div class="flex items-center gap-2 text-gray-500">
+                <Icon name="fluent:important-12-filled" class="" />
+                <p class="text-sm"> Add or Remove steps in the directions to be more specific!</p>
+               </div>
+        </div>
+
+
+
+
           <div class="space-y-3 my-5">
             <div v-for="(direction, index) in newRecipe.directions" :key="index" class="flex items-center gap-5  w-full">
               <div class="w-11/12">
-                <UFormGroup :label="'Step ' + (index + 1)" required>
+                <UFormGroup :label="'Step ' + (index + 1)" :required="index <= 0">
                   <UTextarea color="white" variant="outline" size="xl"
                     :placeholder="index === 0 ? 'Preheat Oven to 350 degrees F...' : (index === 1 ? 'Combine all dry ingredients in a mixing bowl...' : (index === 2 ? 'Pour into greased trays and bake for 15-20 minutes...' : 'New Direction...'))"
                     :value="direction" @input="updateDirection(index, $event)" />
@@ -121,20 +162,33 @@
           </div>
         </div>
         <hr class="my-5">
-        <div class=" flex items-center justify-between">
-          <div class="flex gap-2 items-end">
-            <UFormGroup label="Prep Time" required>
-              <UInput type="number" placeholder="0" size="xl" v-model="newRecipe.prepTime" />
-            </UFormGroup>
-            <USelectMenu v-model="selectedPrepTime" :options="times" size="xl" />
+
+       <div class="  space-y-3">
+         <p class="font-extrabold text-3xl  mb-2">Prep/Cook Time</p>
+        
+            <p class="text-gray-500">Enter the total time it takes to prepare and cook your recipe.</p>
+           <div class="flex items-center gap-2 text-gray-500">
+            <Icon name="fluent:important-12-filled" class="" />
+            <p class="text-sm">Be sure to include whether its Minutes, Hours, Days. (1.e. 15 minutes)</p>
+           </div>
+         
+          <div class=" flex items-center justify-between gap-10">
+            <div class="w-1/2">
+              <UFormGroup label="Prep Time" required>
+                <UInput  placeholder="0" size="xl" v-model="newRecipe.prepTime" />
+              </UFormGroup>
+              </div>
+       
+        
+              <div class="w-1/2">
+              <UFormGroup label="Cook Time (Optional)">
+                <UInput  placeholder="0" size="xl" v-model="newRecipe.cookTime" />
+              </UFormGroup>
+            
+              </div>
+       
           </div>
-          <div class="flex gap-2 items-end">
-            <UFormGroup label="Cook Time (Optional)">
-              <UInput type="number" placeholder="0" size="xl" v-model="newRecipe.cookTime" />
-            </UFormGroup>
-            <USelectMenu v-model="selectedCookTime" :options="times" size="xl" />
-          </div>
-        </div>
+       </div>
         <hr class="my-5">
         <div class="space-y-3">
           <p class="font-extrabold text-3xl  mb-2">Notes(Optional)</p>
@@ -142,9 +196,12 @@
           <div class="space-y-3 my-3">
             <div v-for="(note, index) in newRecipe.notes" :key="index" class="flex items-center w-full">
               <div class="w-11/12">
-                <UInput color="white" variant="outline" size="xl"
-                  :placeholder="index === 0 ? 'e.g. dont whisk too hard...' : 'New Note...'" :value="note"
-                  @input="updateNote(index, $event)" />
+                  <UFormGroup :label="'Note ' + (index + 1)" >
+                      <UInput color="white" variant="outline" size="xl"
+                    :placeholder="index === 0 ? 'e.g. dont whisk too hard...' : 'New Note...'" :value="note"
+                    @input="updateNote(index, $event)" />
+                  </UFormGroup>
+             
               </div>
               <div class="w-1/12 flex items-center">
                 <UTooltip text="Delete Note" :popper="{ arrow: true }">

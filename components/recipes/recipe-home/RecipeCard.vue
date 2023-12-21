@@ -4,7 +4,7 @@
     <NuxtLink :to="`/recipes/${recipe.id}`" class="flex items-center mb-2 relative  w-full overflow-hidden  shadow-xl"
       :class="route.name === 'profile-id' ? 'h-52' : 'h-44'">
       <img :src="recipe.image || ''" alt="Recipe Picture"
-        class="absolute w-full object-cover  shadow-black  transition-all duration-150  group-hover:grayscale rounded-t"
+        class="absolute w-full object-cover  shadow-black  transition-all duration-150  group-hover:grayscale rounded-t object-center"
         :class="route.name === 'profile-id' ? 'h-42' : 'h-full'">
       <div
         class="absolute flex items-start justify-center font-extrabold text-4xl w-full  p-10 z-10  translate-y-[10rem] group-hover:translate-y-1/4 transition-all duration-300 text-orange-400 bg-gradient-to-t from-black  h-full">
