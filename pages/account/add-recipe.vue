@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import type { RecipeFormObject } from '~/types/types';
-const {session} = useAuth()
+const { session } = useAuth()
 const toast = useToast()
 const imageDisplay = computed(() => newRecipe.value.image)
 const { data: categories } = await useFetch('/api/categories/get')
@@ -130,7 +130,7 @@ async function createNewRecipe() {
         id: `invalid_recipe_submission ${newRecipe.value.title}`,
         title: 'Invalid Form for new Recipe',
         description: `You have missing required inputs 
-         ${validationResults.missingFields.map((field:string) => `<br> <strong>${field}</strong>`).join('')}
+         ${validationResults.missingFields.map((field: string) => `<br> <strong>${field}</strong>`).join('')}
         `,
         icon: 'i-heroicons-information-circle',
         timeout: 5000,
@@ -169,11 +169,8 @@ async function createNewRecipe() {
     <div class="h-[50vh] w-full relative ">
       <img
         src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="multiple ingredients laid out" class="absolute w-full h-full object-cover rounded shadow-md"
-      >
+        alt="multiple ingredients laid out" class="absolute w-full h-full object-cover rounded shadow-md">
     </div>
-
-    
     <div class="flex justify-center">
       <div class=" shadow-2xl w-10/12 -translate-y-5 z-10 bg-white dark:bg-gray-800 p-5 rounded">
         <div class="space-y-5">
@@ -196,10 +193,8 @@ async function createNewRecipe() {
               <UInput v-model="newRecipe.title" placeholder="Angle Hair Shrimp Pasta" size="xl" />
             </UFormGroup>
             <UFormGroup label="Description" required>
-              <UTextarea
-                v-model="newRecipe.description" color="primary" variant="outline" placeholder="grandma's best pasta recipe..."
-                :rows="10"
-              />
+              <UTextarea v-model="newRecipe.description" color="primary" variant="outline"
+                placeholder="grandma's best pasta recipe..." :rows="10" />
             </UFormGroup>
           </div>
           <div class="w-1/3 space-y-3 ">
@@ -211,8 +206,7 @@ async function createNewRecipe() {
             </UFormGroup>
             <img
               :src="imageDisplay || 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=2880&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'"
-              alt="" class="object-cover h-72 w-full shadow-xl rounded  "
-            >
+              alt="" class="object-cover h-72 w-full shadow-xl rounded  ">
             <div class="border-4  border-orange-400 border-dashed  ">
               <!-- <label for="photoInput" class="relative cursor-pointer  overflow-hidden group w-full ">
                 <input type="file" accept=".png, .jpeg" name="photo" id="fileInput" class="hidden"
@@ -249,30 +243,24 @@ async function createNewRecipe() {
             <div v-for="(ingredient, index) in newRecipe.ingredients" :key="index" class="flex gap-5 w-full items-center">
               <div class="w-11/12">
                 <UFormGroup :label="`Ingredient ${index + 1}`" :required="index <= 0">
-                  <UInput
-                    color="white" variant="outline" size="xl"
+                  <UInput color="white" variant="outline" size="xl"
                     :placeholder="index === 0 ? '1 Cup of Flour, Sifted...' : (index === 1 ? '1 Pkg Bacon, 12 strips...' : (index === 2 ? '2 Tablespoons salt' : 'New Ingredient...'))"
-                    :value="ingredient" @input="updateIngredient(index, $event,newRecipe)"
-                  />
+                    :value="ingredient" @input="updateIngredient(index, $event, newRecipe)" />
                 </UFormGroup>
               </div>
               <div class="w-1/12 flex items-center mt-6">
                 <UTooltip text="Delete Ingredient" :popper="{ arrow: true }">
-                  <Icon
-                    name="material-symbols:delete"
+                  <Icon name="material-symbols:delete"
                     class="text-3xl hover:shadow-xl transition-all duration-300 rounded-full hover:cursor-pointer hover:text-red-400"
-                    @click="deleteIngredient(index,newRecipe)"
-                  />
+                    @click="deleteIngredient(index, newRecipe)" />
                 </UTooltip>
               </div>
             </div>
           </div>
           <div class="">
-            <UButton
-              icon="i-heroicons-plus-circle" size="xl" variant="solid" label="Add Ingredient" :trailing="false"
+            <UButton icon="i-heroicons-plus-circle" size="xl" variant="solid" label="Add Ingredient" :trailing="false"
               class="bg-orange-400 hover:bg-orange-300 duration-150 transition-all hover:scale-[1.01]"
-              @click="addNewIngredient(newRecipe)"
-            />
+              @click="addNewIngredient(newRecipe)" />
           </div>
         </div>
         <hr class="my-5">
@@ -297,29 +285,23 @@ async function createNewRecipe() {
             <div v-for="(direction, index) in newRecipe.directions" :key="index" class="flex items-center gap-5  w-full">
               <div class="w-11/12">
                 <UFormGroup :label="`Step ${index + 1}`" :required="index <= 0">
-                  <UTextarea
-                    color="white" variant="outline" size="xl"
+                  <UTextarea color="white" variant="outline" size="xl"
                     :placeholder="index === 0 ? 'Preheat Oven to 350 degrees F...' : (index === 1 ? 'Combine all dry ingredients in a mixing bowl...' : (index === 2 ? 'Pour into greased trays and bake for 15-20 minutes...' : 'New Direction...'))"
-                    :value="direction" @input="updateDirection(index, $event,newRecipe)"
-                  />
+                    :value="direction" @input="updateDirection(index, $event, newRecipe)" />
                 </UFormGroup>
               </div>
               <div class="w-1/12 flex items-center mt-6">
                 <UTooltip text="Delete Step" :popper="{ arrow: true }">
-                  <Icon
-                    name="material-symbols:delete"
+                  <Icon name="material-symbols:delete"
                     class="text-3xl hover:shadow-xl transition-all duration-300 rounded-full hover:cursor-pointer hover:text-red-400"
-                    @click="deleteDirection(index,newRecipe)"
-                  />
+                    @click="deleteDirection(index, newRecipe)" />
                 </UTooltip>
               </div>
             </div>
             <div class="">
-              <UButton
-                icon="i-heroicons-plus-circle" size="xl"
+              <UButton icon="i-heroicons-plus-circle" size="xl"
                 class="bg-orange-400 hover:bg-orange-300 duration-150 transition-all hover:scale-[1.01]" variant="solid"
-                label="Add Direction" :trailing="false" @click="addNewDirection(newRecipe)"
-              />
+                label="Add Direction" :trailing="false" @click="addNewDirection(newRecipe)" />
             </div>
           </div>
         </div>
@@ -375,30 +357,24 @@ async function createNewRecipe() {
             <div v-for="(note, index) in newRecipe.notes" :key="index" class="flex items-center w-full gap-5">
               <div class="w-11/12">
                 <UFormGroup :label="`Note ${index + 1}`">
-                  <UInput
-                    color="white" variant="outline" size="xl"
+                  <UInput color="white" variant="outline" size="xl"
                     :placeholder="index === 0 ? 'e.g. dont whisk too hard...' : 'New Note...'" :value="note"
-                    @input="updateNote(index, $event,newRecipe)"
-                  />
+                    @input="updateNote(index, $event, newRecipe)" />
                 </UFormGroup>
               </div>
               <div class="w-1/12 flex items-center mt-6">
                 <UTooltip text="Delete Note" :popper="{ arrow: true }">
-                  <Icon
-                    name="material-symbols:delete"
+                  <Icon name="material-symbols:delete"
                     class="text-3xl hover:shadow-xl transition-all duration-300 rounded-full hover:cursor-pointer hover:text-red-400"
-                    @click="deleteNote(index,newRecipe)"
-                  />
+                    @click="deleteNote(index, newRecipe)" />
                 </UTooltip>
               </div>
             </div>
           </div>
           <div class="">
-            <UButton
-              icon="i-heroicons-plus-circle" size="xl"
+            <UButton icon="i-heroicons-plus-circle" size="xl"
               class="bg-orange-400 hover:bg-orange-300 duration-150 transition-all hover:scale-[1.01]" variant="solid"
-              label="Add Note" :trailing="false" @click="addNewNote(newRecipe)"
-            />
+              label="Add Note" :trailing="false" @click="addNewNote(newRecipe)" />
           </div>
         </div>
         <hr class="my-5">
@@ -419,21 +395,18 @@ async function createNewRecipe() {
             </div>
             <div v-auto-animate class="mb-4 flex flex-wrap gap-2">
               <span v-for="(category, index) in newRecipe.categories">
-                <UBadge
-                  size="lg" class="shadow-md bg-indigo-400/90 hover:scale-[1.01] hover:shadow-xl hover:bg-indigo-500 transition-all duration-300 hover:cursor-pointer"
-                  @click="newRecipe.categories = newRecipe.categories.filter((_, i) => i !== index)"
-                >
+                <UBadge size="lg"
+                  class="shadow-md bg-indigo-400/90 hover:scale-[1.01] hover:shadow-xl hover:bg-indigo-500 transition-all duration-300 hover:cursor-pointer"
+                  @click="newRecipe.categories = newRecipe.categories.filter((_, i) => i !== index)">
                   {{ category }}
                 </UBadge>
               </span>
             </div>
           </div>
-          <USelectMenu
-            v-model="newRecipe.categories" :options="categories" multiple placeholder="Select Categories"
+          <USelectMenu v-model="newRecipe.categories" :options="categories" multiple placeholder="Select Categories"
             searchable searchable-placeholder="Search a Category..." size="xl" value-attribute="name"
             option-attribute="name"
-            :ui-menu="{ base: 'space-y-2', option: { container: 'w-full', selected: 'bg-green-400/50' } }"
-          >
+            :ui-menu="{ base: 'space-y-2', option: { container: 'w-full', selected: 'bg-green-400/50' } }">
             <template #option="{ option: Categories }">
               <span> {{ Categories.name }} </span>
             </template>
@@ -451,16 +424,11 @@ async function createNewRecipe() {
             {{ newRecipe.isPublic }}
           </p>
           <div class="flex justify-end gap-2">
-            <UButton
-              size="xl" class="text-orange-400 hover:text-orange-300 transition-all duration-150" variant="link"
-              label="Cancel"
-            />
-            <UButton
-            :disabled="!session?.user"
-              icon="i-heroicons-plus-circle" size="xl"
+            <UButton size="xl" class="text-orange-400 hover:text-orange-300 transition-all duration-150" variant="link"
+              label="Cancel" />
+            <UButton :disabled="!session?.user" icon="i-heroicons-plus-circle" size="xl"
               class="bg-orange-400 hover:bg-orange-300 duration-150 transition-all hover:scale-[1.01]" variant="solid"
-              label="Submit Recipe" :trailing="false" @click="createNewRecipe"
-            />
+              label="Submit Recipe" :trailing="false" @click="createNewRecipe" />
           </div>
         </div>
         <hr class="my-5">
