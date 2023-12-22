@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-r from-orange-500 via-rose-300 to-indigo-600   p-10">
+  <div class=" bg-gradient-to-r from-orange-500 via-rose-300 to-indigo-600   p-10">
     <div class="glass-container  flex flex-col items-center justify-center rounded-3xl  bg-white/10 p-10 gap-5">
       <div class=" w-full flex gap-5">
         <div class="w-full p-1  rounded flex gap-5">

@@ -29,10 +29,17 @@ async function saveRecipe() {
       :class="route.name === 'profile-id' ? 'h-52' : 'h-44'"
     >
       <img
+      v-if="recipe.image"
         :src="recipe.image || ''" alt="Recipe Picture"
         class="absolute w-full object-cover  shadow-black  transition-all duration-150  group-hover:grayscale rounded-t object-center"
         :class="route.name === 'profile-id' ? 'h-42' : 'h-full'"
       >
+      <div class="flex flex-col items-center justify-center space-y-5 w-full">
+        <Icon name="mdi:camera-off-outline" class="text-7xl " />
+        <span class="italic font-bold">
+          no image available
+        </span>
+      </div>
       <div
         class="absolute flex items-center justify-center font-extrabold text-3xl w-full  p-10 z-10  translate-y-[15rem] group-hover:translate-y-0 transition-all duration-300 text-orange-400 bg-gradient-to-t from-black  h-full"
       >
