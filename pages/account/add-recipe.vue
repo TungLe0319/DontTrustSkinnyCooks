@@ -75,7 +75,10 @@ function validateCategories(newVal: string[], oldVal: string[]) {
     ['Vegetarian', 'Shellfish'],
     ['Vegetarian', 'Eggs'],
     ['Vegetarian', 'Dairy'],
-    ['Vegetarian', 'High-Protein'],
+    ['Vegetarian', 'Cheese'],
+    ['Vegan', 'Eggs'],
+    ['Vegan', 'Dairy'],
+    ['Vegan', 'Cheese'],
     ['Vegan', 'Poultry'],
     ['Vegan', 'Beef'],
     ['Vegan', 'Pork'],
@@ -83,12 +86,6 @@ function validateCategories(newVal: string[], oldVal: string[]) {
     ['Dairy-Free', 'Cheese'],
     ['Gluten-Free', 'Pasta'],
     ['Keto-Friendly', 'High-Carb'],
-    ['Low-Carb', 'Rice Dishes'],
-    ['Vegetarian', 'High-Protein'],
-    ['Vegan', 'Poultry'],
-    ['Vegan', 'Beef'],
-    ['Vegan', 'Pork'],
-    ['Vegan', 'Lamb'],
     ['Dairy-Free', 'Cheese'],
     ['Gluten-Free', 'Pasta'],
     ['Keto-Friendly', 'High-Carb'],
@@ -116,7 +113,8 @@ function validateCategories(newVal: string[], oldVal: string[]) {
 }
 
 
-watch(newRecipe.value.categories, validateCategories)
+watch(() => newRecipe.value.categories, validateCategories);
+
 
 
 

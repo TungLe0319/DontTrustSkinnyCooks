@@ -1,3 +1,5 @@
+import type { RecipeFormObject } from "~/types/types";
+
 export const useAddRecipe = () => {
   return ref()
 }
@@ -37,7 +39,7 @@ export function addNewDirection(newRecipe:any) {
 
 export function deleteDirection(index: number,newRecipe:any) {
   const toast = useToast();
-  newRecipe.value.directions.splice(index, 1);
+  newRecipe.directions.splice(index, 1);
   toast.add({
     id: `removed_direction ${index}`,
     title: "Removed Direction",
@@ -118,8 +120,6 @@ export function validateForm(recipe: Object): ValidationResults {
 
   return validationResults;
 }
-
-
 
 
 
