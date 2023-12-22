@@ -53,7 +53,9 @@
                 >{{ recipe.description.slice(0, 50) }}...
               </span>
             </div>
+
           </NuxtLink>
+          
         </div>
       </div>
     </div>

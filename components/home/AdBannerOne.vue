@@ -1,12 +1,16 @@
 <template>
-  <div class="">
+  
  <UAlert
       v-if="showAlert"
       :close-button="{ icon: 'i-heroicons-x-mark-20-solid', color: 'gray', variant: 'link', padded: false }"
-      title=""
-      class=" " @close="handleAlertClose"
-      :ui="{ width: 'max-w-7xl',wrapper:{},}"
+      title="sdf"
+      description="da"
+     
+      @close="handleAlertClose"
+      :ui="{ width: 'max-w-7xl',}"
     >
+  
+  
     <template #title>
 
       <div class="flex items-center gap-2 ">
@@ -14,6 +18,7 @@
         <span class=" text-5xl font-extrabold underline underline-offset-4"> Advertise Your Recipes</span>
       </div>
     </template>
+
       <template #description>
         <div class="relative mt-5">
     
@@ -26,9 +31,7 @@
 
      
 
-<UButton size="xl" class="mt-4 text-4xl text-orange-400 hover:text-orange-300 transition-all duration-150" variant="link" >
-  Sign Up
-</UButton>
+
 
         </div>
 
@@ -44,8 +47,13 @@
       </div>
     </div>
       </template>
-    </UAlert>
-  </div>
+  
+  
+  
+  </UAlert>
+  
+   
+ 
 
 </template>
 

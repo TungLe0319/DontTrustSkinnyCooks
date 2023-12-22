@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col items-center justify-center text-center space-y-1">
                 <img :src="user.image" alt="tung profile photo"
-                  class="rounded-full shadow-lg w-24 h-24 border-4 border-orange-400/50">
+                  class="rounded-full shadow-lg w-20 h-20 border-4 border-orange-400/50">
                 <p class="font-bold text-lg"> {{ user.name }} </p>
                 <p class="text-sm"> {{ user.title }} </p>
                 <div class="flex gap-2">

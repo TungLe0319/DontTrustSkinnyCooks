@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import ProfileCard from '~/components/globals/ProfileCard.vue'
 
-defineProps(['recipe'])
+ const {recipe} =defineProps(['recipe'])
 const route = useRoute()
 const toast = useToast()
 const selectedCategories = useSelectedCategory()

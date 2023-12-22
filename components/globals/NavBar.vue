@@ -120,9 +120,9 @@ const isDark = computed({
         </div>
         <UDropdown
           v-if="session?.user" :items="profileDropdownItems"
-          :ui="{ item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom-start' }"
+          :ui="{ width:'w-fit',item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom-start' }"
         >
-          <UAvatar size="md" :src="session.user?.image || 'https://i.pravatar.cc/150?img=69'" />
+          <UAvatar size="md" :src="session.user?.image || 'https://i.pravatar.cc/150?img=69'" class="shadow-md" />
           <template #account="{ item }">
             <div class="text-left">
               <p>
