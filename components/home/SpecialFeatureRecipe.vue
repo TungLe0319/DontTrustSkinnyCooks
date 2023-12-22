@@ -9,7 +9,7 @@
 
     <div
       class="absolute z-40 -top-9 left-1/2 -translate-x-1/2 bg-white rounded-full p-1 shadow-md border-2 border-orange-300 hover:shadow-xl transition-all duration-150 ">
-      <Icon v-motion-pop-visible name='ph:flower-lotus' class="text-amber-400 text-6xl" />
+      <Icon  name='ph:flower-lotus' class="text-amber-400 text-6xl" />
     </div>
     <div class="bg-black/40 absolute w-full h-full"></div>
   </div>
