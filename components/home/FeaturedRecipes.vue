@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div class="my-5 flex items-center justify-center">
-      <span class="text-center text-4xl font-extrabold">
+      <span class="text-center text-4xl font-extrabold underline underline-offset-4">
         Five-Star Feasting
       </span>
       <Icon name="uil:arrow-right" class="text-4xl text-orange-400" />
