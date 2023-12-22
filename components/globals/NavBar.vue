@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 
 const { signIn, signOut, session, status, cookies, getProviders, user } = useAuth()
-
+const toast = useToast()
 const items = ref([
   { name: 'Home', label: 'Home', icon: 'i-heroicons-home', href: '/', to: '/' },
 
@@ -40,7 +40,22 @@ const indicatorPosition = ref(0)
 
 onMounted(() => {
   updateIndicatorPosition()
+  welcomeBackUser()
 })
+
+ const welcomeBackUser =()=>{
+  if (session.value?.user) {
+   toast.add({
+    id:`welcome-back-${session.value.user.id}`,
+    title:`Welcome back ${session.value.user.name}!`,
+    description:`We're glad to see you again!`,
+    duration:5000,
+    icon:'i-heroicons-user',
+    color:'green',
+    })
+  }
+ 
+ }
 
 // Function to update the indicator position based on the active link
 function updateIndicatorPosition() {

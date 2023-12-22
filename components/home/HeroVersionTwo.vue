@@ -35,16 +35,16 @@
         <div class="space-y-6">
           <NuxtLink
             :to="`/recipes/${recipe.id}`"
-            v-for="recipe in recipes"
+            v-for="recipe in mostRecentRecipes"
             :key="recipe.id"
             class="group flex gap-5 rounded p-2 transition-all duration-150"
           >
             <img
               :src="recipe?.image || ''"
               alt=""
-              class="h-24 w-full rounded-md object-cover shadow-lg transition-all duration-150 group-hover:brightness-75"
+              class="h-24 w-1/2 rounded-md object-cover shadow-lg transition-all duration-150 group-hover:brightness-75"
             />
-            <div class="flex flex-col">
+            <div class="flex flex-col w-2/3">
               <span class="font-bold underline-offset-2 group-hover:underline"
                 >{{ recipe.title }}
               </span>
@@ -68,6 +68,13 @@ const { data } =
 
 const recipes = data.value?.slice(0, 4);
 const mainRecipe = data.value?.find((recipe) => recipe.id === 2);
+
+
+const mostRecentRecipes = data.value
+  ?.sort((a, b) => new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime())
+  ?.slice(0, 4)
+ 
+
 </script>
 
 <style></style>

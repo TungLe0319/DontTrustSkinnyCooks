@@ -3,6 +3,7 @@ import AdBannerOne from '~/components/home/AdBannerOne.vue';
 import FeaturedRecipes from '~/components/home/FeaturedRecipes.vue';
 import HeroVersionTwo from '~/components/home/HeroVersionTwo.vue';
 import SpecialFeatureRecipe from '~/components/home/SpecialFeatureRecipe.vue';
+import TeamAndContributors from '~/components/home/TeamAndContributors.vue';
 import Hero from '~/components/index/Hero.vue'
 
 // async function seedCategories() {
@@ -16,6 +17,7 @@ import Hero from '~/components/index/Hero.vue'
     <HeroVersionTwo/>
     <AdBannerOne/>
 <FeaturedRecipes/>
+<TeamAndContributors/>
 <SpecialFeatureRecipe/>
     <!-- <button @click="seedCategories">Seed Categories</button> -->
   </main>
