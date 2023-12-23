@@ -27,14 +27,14 @@ async function saveRecipe() {
     :ui="{ body:{padding:{},}, }"
   >
     <NuxtLink
-      :to="`/recipes/${recipe.id}`" class="flex items-center mb-2 relative  w-full overflow-hidden  shadow-xl lg:h-60"
+      :to="`/recipes/${recipe.id}`" class="flex items-center mb-2 relative  w-full overflow-hidden  shadow-xl "
       :class="route.name === 'profile-id' ? 'h-52' : 'h-44'"
     >
       <img
       v-if="recipe.image"
         :src="recipe.image || ''" alt="Recipe Picture"
         class="absolute w-full object-cover  shadow-black  transition-all duration-150  group-hover:grayscale rounded-t object-center "
-        :class="route.name === 'profile-id' ? 'h-42' : ''"
+        :class="route.name === 'profile-id' ? 'h-42' : 'h-full'"
       >
       <div class="flex flex-col items-center justify-center space-y-5 w-full">
         <Icon name="mdi:camera-off-outline" class="text-7xl " />
