@@ -7,7 +7,9 @@ import NavBar from './components/globals/NavBar.vue'
   <div>
     <NavBar />
  
-      <NuxtPage />
+  <div class="">
+        <NuxtPage />
+  </div>
   
     <Footer />
     <UNotifications>
