@@ -12,7 +12,9 @@ const { data: categories } = await useFetch('/api/categories/get')
 
 
 
-const newRecipe = ref<RecipeFormObject>({
+
+
+const initialRecipeState: RecipeFormObject = {
   title: '',
   description: '',
   ingredients: [''],
@@ -25,9 +27,39 @@ const newRecipe = ref<RecipeFormObject>({
   image: '',
   isPublic: true,
   categories: [] as string[],
-})
+};
 
+const newRecipe = ref<RecipeFormObject>({ ...initialRecipeState });
 
+// To reset the form, you can use a function like this:
+const resetForm = () => {
+      newRecipe.value = { ...initialRecipeState };
+      Object.assign(newRecipe.value, initialRecipeState);
+ toast.add({
+    id: `reset_form ${newRecipe.value.title}`,
+    title: 'Reset Form',
+    description: 'Reset Recipe Form?',
+    color: 'orange',
+    timeout: 5000,
+    actions:[
+      {
+        label: 'Confirm',
+        click: async () => {
+      
+         toast.add({
+            id:'reset_form',
+            title: 'Form Reset',
+            description: 'Your form has been reset.',
+            color: 'green',
+            timeout: 3000,
+
+         })
+        },
+      }
+    ]
+  })
+
+};
 
 
 
@@ -422,7 +454,7 @@ async function createNewRecipe() {
             {{ newRecipe.isPublic }}
           </p>
           <div class="flex justify-end gap-2">
-            <UButton size="xl" class="text-orange-400 hover:text-orange-300 transition-all duration-150" variant="link"
+            <UButton @click="resetForm" size="xl" class="text-orange-400 hover:text-orange-300 transition-all duration-150" variant="link"
               label="Cancel" />
             <UButton :disabled="!session?.user" icon="i-heroicons-plus-circle" size="xl"
               class="bg-orange-400 hover:bg-orange-300 duration-150 transition-all hover:scale-[1.01]" variant="solid"

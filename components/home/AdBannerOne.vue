@@ -30,14 +30,16 @@
           </h3>
 
      
-
+    <UButton @click="signIn" size="xl" class="bg-orange-400 my-5 text-3xl hover:bg-orange-300 transition-all duration-150 hover:scale-[1.01]">
+          Sign Up!
+        </UButton>
 
 
         </div>
 
         <div class="mt-8 w-full md:w-7/12">
           <p class="text-xs text-gray-600">
-            By clicking Create property, you agree to our Privacy Policy to create a new property listing.
+            By clicking Sign Up, you agree to our Privacy Policy to create a new recipe listing.
           </p>
         </div>
       </div>
@@ -58,7 +60,7 @@
 </template>
 
 <script lang="ts" setup>
-const {session} = useAuth()
+const {session,signIn} = useAuth()
 const showAlert = ref(true)
 
 function handleAlertClose() {

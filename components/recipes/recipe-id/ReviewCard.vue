@@ -46,7 +46,7 @@ const items = [
 
 const selectedRating = ref(0)
 const hoverRating = ref(0)
-
+const dropDownOpen = ref(false)
 function hover(index: number) {
   hoverRating.value = index + 1
   hovering.value = true
@@ -103,11 +103,11 @@ function getRatingLabel(rating: number) {
   <div class="flex flex-col p-2 px-5  dark:border-2 dark:border-gray-300/30 space-y-4 dark:bg-gray-800 border-b-2 border-orange-400/60">
     <div class="flex items-center justify-between ">
       <div class="flex items-center gap-3">
-        <UAvatar size="xl" class="shadow-md" />
+        <UAvatar size="xl" class="shadow-md" alt="Harry Ashford" />
         <span class=" border-b border-spacing-3 border-orange-400">username  </span>
       </div>
-      <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
-        <Icon name="mi:options-horizontal" class=" text-2xl" />
+      <UDropdown :items="items" :popper="{ placement: 'bottom-start' }" >
+        <Icon name="mi:options-horizontal" class=" text-2xl  "  />
 
         <template #item="{ item }">
           <span class="truncate">{{ item.label }}</span>
@@ -119,7 +119,7 @@ function getRatingLabel(rating: number) {
 
     <div v-if="!editing" class="flex items-center gap-2">
       <div class="flex items-center gap-1">
-        <Icon v-for="i in 5" name="game-icons:fat" class="text-orange-400 hover:text-orange-300 duration-150 transition-colors" />
+        <Icon v-for="i in 5" name="game-icons:fat" class="text-orange-400 " />
       </div>
       <span class="text-xs">12/18/23 </span>
     </div>
