@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import type { RecipeWithUserAndCategories } from '~/types/types';
+import RecipeCard from './RecipeCard.vue';
+
 defineProps(['data', 'Categories'])
 const items = [{
   label: 'Search Filters',
@@ -9,6 +12,30 @@ const items = [{
 const selectedCategories = useSelectedCategory()
 const { data: Categories } = await useFetch<string[]>('/api/categories/get')
 const mouseEntered = ref(false)
+
+
+
+
+const searchResults = ref<RecipeWithUserAndCategories[] | null>([])
+
+
+const search = async (event:any) => {
+  const q = event.target.value;
+  const recipes = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes/search', {
+    method: 'POST',
+    body: JSON.stringify({ q }),
+  });
+
+  console.log(recipes.data.value);
+ searchResults.value = recipes.data.value;
+
+}
+
+
+
+
+
+
 </script>
 
 <template>
@@ -86,6 +113,23 @@ const mouseEntered = ref(false)
               </template>
             </USelectMenu>
           </div>
+
+         
+          <!-- POSSIBLE EXTRA FEATURE -->
+<!-- <div class="">
+    <UInput color="primary" variant="outline" placeholder="Search..."  @input="search" />
+         
+
+
+            <div v-if="searchResults" v-auto-animate class="grid grid-cols-4  gap-6   pb-20 ">
+              <RecipeCard v-for="(recipe, index) in searchResults" :key="index" :recipe="recipe" />
+            </div>
+            <div v-else>
+              <h1 class="text-8xl font-extrabold text-center">
+                No Recipes
+              </h1>
+            </div>
+</div> -->
         </div>
       </template>
     </UAccordion>
