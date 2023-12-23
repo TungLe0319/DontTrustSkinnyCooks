@@ -18,6 +18,7 @@ async function saveRecipe() {
 
   }
 }
+
 </script>
 
 <template>
@@ -41,16 +42,16 @@ async function saveRecipe() {
         </span>
       </div>
       <div
-        class="absolute flex items-center justify-center font-extrabold text-3xl w-full  p-10 z-10  translate-y-[15rem] group-hover:translate-y-0 transition-all duration-300 text-orange-400 bg-gradient-to-t from-black  h-full"
+        class="absolute flex items-center justify-center font-extrabold text-4xl w-full  p-10 z-10  translate-y-[10rem] group-hover:translate-y-4 transition-all duration-300 text-orange-400 bg-gradient-to-t from-black  h-full"
       >
         View Recipe
 
-        <img src="https://media.tenor.com/xElnqsceEx4AAAAi/cutting-randy-marsh.gif" alt="" class="w-1/2">
+      
       </div>
     </NuxtLink>
     <div class="p-5 pt-2">
       <div class="flex flex-col gap-5">
-        <h2 class="text-xl  font-extrabold">
+        <h2 class="text-xl  font-extrabold group-hover:underline group-hover:underline-offset-2">
           {{ recipe.title }}
         </h2>
         <div class="flex gap-3">
@@ -109,7 +110,7 @@ async function saveRecipe() {
           </span>
         </div> -->
 
-      <!-- <div class="flex flex-wrap gap-2 justify-between ">
+        <!-- <div class="flex flex-wrap gap-2 justify-between ">
         <UTooltip text="Prep/Cook Time" :popper="{ arrow: true }">
           <div class="flex items-center gap-2">
             <Icon name="material-symbols:nest-clock-farsight-analog-rounded" class="text-xl" />
@@ -136,4 +137,5 @@ async function saveRecipe() {
   </div>
 </template>
 
-<style></style>
+<style scoped>
+</style>

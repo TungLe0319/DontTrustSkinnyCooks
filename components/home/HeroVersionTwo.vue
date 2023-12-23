@@ -1,10 +1,13 @@
 <template>
-  <div class="flex gap-6">
-    <div class="w-2/3">
+  <div class="flex gap-6 bg-gray-100 p-16">
+    <NuxtLink :to="`/recipes/${mainRecipe?.id}`" class="w-2/3 group ">
+      <div class=" mb-5  underline underline-offset-4 text-4xl font-extrabold ">
+        What's Cooking
+      </div>
       <img
         :src="mainRecipe?.image || ''"
         alt=""
-        class="h-auto w-auto rounded-md shadow-lg"
+        class="h-auto w-auto rounded-md shadow-lg group-hover:brightness-75 duration-150 transition-all"
       />
       <div class="mt-5 space-y-3">
         <div class="flex gap-3">
@@ -17,20 +20,20 @@
             {{ category.name }}
           </UBadge>
         </div>
-        <div class="text-3xl font-extrabold">
+        <div class="text-3xl font-extrabold group-hover:underline group-hover:underline-offset-4">
           {{ mainRecipe?.title }}
         </div>
-        <p>
+        <p class="group-hover:underline group-hover:underline-offset-4">
           {{ mainRecipe?.description }}
         </p>
       </div>
-    </div>
+    </NuxtLink>
     <div class="w-1/3">
       <div class="space-y-5 bg-gray-100 p-2">
         <div
           class="text-center text-2xl font-extrabold underline underline-offset-4"
         >
-          Newest Recipes
+          Latest Recipes
         </div>
         <div class="space-y-6">
           <NuxtLink

@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="my-5 flex items-center justify-center">
+    <div class="mt-5 mb-14 flex items-center justify-center">
       <span class="text-center text-4xl font-extrabold underline underline-offset-4">
         Five-Star Feasting
       </span>
