@@ -71,7 +71,7 @@ export const authOptions: AuthConfig = {
       if (params.session.user)
         params.session.user.id = params.token.sub ?? 'NOUSER'
 
-      console.log({ params, session: params.session })
+      // console.log({ params, session: params.session })
       return params.session
     },
   },

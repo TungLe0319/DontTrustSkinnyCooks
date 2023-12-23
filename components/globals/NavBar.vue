@@ -22,9 +22,9 @@ const profileDropdownItems = [
   ],
   [
     {
-      label: 'Profile',
+      label: 'Account',
       icon: 'i-heroicons-user',
-      link: `/profile/${session.value?.user ? session.value.user.id : '1'}`,
+      link: `/account/${session.value?.user ? session.value.user.id : '1'}`,
     },
   ],
   [

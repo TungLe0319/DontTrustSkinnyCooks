@@ -38,8 +38,8 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  email         String?   @unique
+  id            String       @id @default(cuid())
+  email         String?      @unique
   image         String?
   bio           String?
   personalSite  String?
@@ -50,6 +50,7 @@ model User {
   name          String?
   password      String?
   accounts      Account[]
+  collections   Collection[]
   recipes       Recipe[]
   sessions      Session[]
 }
@@ -63,11 +64,11 @@ model VerificationToken {
 }
 
 model Recipe {
-  id          Int        @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   title       String
-  description String     @db.LongText
-  ingredients String     @db.LongText
-  directions  String     @db.LongText
+  description String       @db.LongText
+  ingredients String       @db.LongText
+  directions  String       @db.LongText
   servingSize Int
   prepTime    String?
   cookTime    String?
@@ -75,13 +76,26 @@ model Recipe {
   image       String?
   userId      String
   yieldAmount String?
-  isPublic    Boolean?   @default(false)
-  createdAt   DateTime?  @default(now())
-  updatedAt   DateTime?  @updatedAt
-  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  categories  Category[] @relation("CategoryToRecipe")
+  isPublic    Boolean?     @default(false)
+  createdAt   DateTime?    @default(now())
+  updatedAt   DateTime?    @updatedAt
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  categories  Category[]   @relation("CategoryToRecipe")
+  collections Collection[] @relation("RecipeToCollection")
 
   @@index([userId], map: "Recipe_userId_fkey")
+}
+
+model Collection {
+  id        Int       @id @default(autoincrement())
+  title     String
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipes   Recipe[]  @relation("RecipeToCollection")
+
+  @@index([userId], map: "Collection_userId_fkey")
 }
 
 model Category {

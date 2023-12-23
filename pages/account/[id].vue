@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 import RecipeCard from '~/components/recipes/recipe-home/RecipeCard.vue'
 
-const { data: Recipes } = useFetch('/api/recipes/get')
-const { signIn, signOut, session, status, cookies, getProviders } = useAuth()
+import { Prisma } from '@prisma/client'
+import type { RecipeWithUserAndCategories } from '~/types/types';
+const toast = useToast()
+const { data: Recipes } = useFetch<RecipeWithUserAndCategories[]>('/api/recipes/get')
+const { session, status } = useAuth()
 const recipes = Recipes.value?.filter(recipe => recipe.user.name === session?.value?.user?.name && recipe.user.email === session?.value?.user?.email)
 
 const tabItems = [
@@ -34,10 +37,50 @@ const tabItems = [
   },
 
 ]
+
+const {data:collections,refresh} = await useFetch('/api/account/collections/get')
+
+
+
+
+
+const isOpen = ref(false)
+
+const newCollection = ref({
+  title: ''
+})
+
+const createCollection = async () => {
+  try {
+
+
+
+    await useFetch('/api/account/collections/post', {
+      method: 'POST',
+      body: newCollection.value
+    })
+
+    refresh()
+    toast.add({
+      id: `Created_Collection`,
+      title: `Created_Collection ${newCollection.value.title}`,
+
+      icon: 'i-heroicons-check-circle',
+      timeout: 2000,
+
+    })
+  } catch (error) {
+    throw createError({
+      statusMessage: "Error creating collection",
+    })
+  }
+}
+
+
 </script>
 
 <template>
-  <main v-if="session?.user" class="profile-page min-h-screen flex items-center justify-center py-10 ">
+  <main v-if="session?.user" class="profile-page min-h-screen flex items-center justify-center px-20 py-10 ">
     <UTabs
       :items="tabItems" orientation="vertical"
       :ui="{ wrapper: 'flex  justify-between   w-full  min-h-screen', list: { width: 'w-3/12', base: 'sticky top-4', background: 'bg-white', marker: { background: 'bg-green-300' }, tab: { height: 'h-12', base: 'disabled:cursor-default' } } }"
@@ -110,17 +153,54 @@ const tabItems = [
       </template>
       <template #saved-recipes="{ item }">
         <UContainer class=" w-full h-full">
-          <div class="grid grid-cols-2">
-            <div>
+       
+        
               <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
                 <Icon name="uil:bookmark" class="text-3xl" />
                 <span class="tracking-wide"> My Saved Recipes</span>
               </div>
-            </div>
+       
+          <div>
+        <UButton label="Open" @click="isOpen = true" />
+
+        <UModal v-model="isOpen">
+          <div class="p-4 space-y-5">
+            <h1 class="text-2xl font-bold">Create Collection</h1>
+            <p class="text-gray-500">Create a collection to save your favorite recipes</p>
+            <hr class="my-4" />
+         
+         <UFormGroup label="Title">
+      <UInput placeholder="favorites" icon="i-heroicons-star" v-model="newCollection.title" />
+    </UFormGroup>
+
+    <UButton @click="createCollection">
+      Create Collection
+    </UButton>
           </div>
-          <div class="grid  grid-cols-3 gap-2  ">
+        </UModal>
+      </div>
+
+
+             <div class="grid  grid-cols-3 gap-2  mt-5 ">
+            
+              <UCard v-for="collection in collections" :key="collection.id" class=" ">
+
+                <div class="">
+                  {{ collection.title }}
+                </div>
+
+                <div class="">
+                  {{ collection }}
+                </div>
+
+              </UCard>
+              </div>
+      
+          <!-- <div class="grid  grid-cols-3 gap-2  ">
+
+           
             <RecipeCard v-for="recipe in recipes" :key="recipe.id" :recipe="recipe" class="" />
-          </div>
+          </div> -->
           <!-- End of Experience and education grid -->
         </UContainer>
       </template>
