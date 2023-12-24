@@ -22,7 +22,7 @@ const filteredRecipes = computed(() => {
 </script>
 
 <template>
-  <main class="min-h-screen px-20  ">
+  <main class="min-h-screen   ">
     <h1 class="text-8xl font-extrabold  text-center  mt-16">
       Recipes
     </h1>

@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
     if (!id)
       return createError('Missing id')
 
-    console.log(id)
+    // console.log(id)
 
     const recipe = await prisma().recipe.findUnique({
       where: {

@@ -15,7 +15,7 @@ import RecommendedRecipes from '~/components/home/RecommendedRecipes.vue'
   <main class="min-h-screen py-16 space-y-24">
     <!-- <Hero /> -->
     <HeroVersionTwo/>
-<div class="px-16 space-y-24">
+<div class=" space-y-24">
       <AdBannerOne/>
   <FeaturedRecipes/>
   <TeamAndContributors/>

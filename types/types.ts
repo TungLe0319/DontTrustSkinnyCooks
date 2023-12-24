@@ -23,3 +23,23 @@ export type RecipeWithUser = Prisma.RecipeGetPayload<{
 export type RecipeWithUserAndCategories = Prisma.RecipeGetPayload<{
   include: { user: true; categories: true };
 }>;
+
+
+export type Collection = Prisma.CollectionGetPayload<{
+  include:{
+    _count:{
+      select:{
+        recipes:true
+      }
+    }
+  }
+}>;
+
+export type CollectionWithUser = Prisma.CollectionGetPayload<{
+  include: { user: true };
+}>;
+export type CollectionWithUserAndRecipes = Prisma.CollectionGetPayload<{
+  include: { user: true; recipes: true };
+}>;
+
+

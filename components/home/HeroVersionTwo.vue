@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-6 bg-gray-100 p-16">
+  <div class="flex gap-6 bg-gray-100 p-10">
     <NuxtLink :to="`/recipes/${mainRecipe?.id}`" class="w-2/3 group ">
       <div class=" mb-5  underline underline-offset-4 text-4xl font-extrabold ">
         What's Cooking

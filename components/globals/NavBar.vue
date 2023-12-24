@@ -22,11 +22,30 @@ const profileDropdownItems = [
   ],
   [
     {
-      label: 'Account',
-      icon: 'i-heroicons-user',
-      link: `/account/${session.value?.user ? session.value.user.id : '1'}`,
+      label: 'Profile',
+      icon: 'i-heroicons-user-20-solid',
+      link: `/account/profile-info`,
+    },
+       {
+      label: 'Password',
+      icon: 'solar:lock-password-bold',
+      link: `/account/manage-password`,
     },
   ],
+ 
+  [
+    {
+      label: 'Collections',
+      icon: 'material-symbols:collections-bookmark-rounded',
+      link: `/account/collections`,
+    },
+       {
+      label: 'My Recipes',
+      icon: 'solar:whisk-bold',
+      link: `/account/my-recipes`,
+    },
+  ],
+
   [
     {
       label: 'Sign Out',
@@ -133,10 +152,13 @@ const isDark = computed({
               </p>
             </div>
           </template>
+
+
+          
           <template #item="{ item }">
             <NuxtLink v-if="item.link" :to="item.link" class="flex items-center justify-between w-full">
               <span class="truncate">{{ item.label }}</span>
-              <UIcon
+              <Icon
                 v-if="item.icon" :name="item.icon"
                 class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500 ms-auto"
               />

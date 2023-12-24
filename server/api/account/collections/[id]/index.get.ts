@@ -1,4 +1,4 @@
-import { authOptions } from "../../auth/[...]"
+import { authOptions } from "../../../auth/[...]"
 
 import { getServerSession } from '#auth'
 
@@ -8,6 +8,14 @@ export default defineEventHandler(async (event) => {
 
   try {
     
+
+  const id = getRouterParam(event, 'id')
+
+    if (!id)
+      return createError('Missing id')
+
+
+
    const session = await getServerSession(event, authOptions)
 
    if (!session?.user) {
@@ -22,21 +30,22 @@ export default defineEventHandler(async (event) => {
 
 
 
-    const collections = await prisma().collection.findMany({
+    const collection = await prisma().collection.findUnique({
       where: {
-        userId: session.user.id
+        id: Number(id),
       },
-include:{
-  _count:{
-    select:{
-      recipes:true
-    }
-  }
-}
+      include: {
+        user: true,
+        recipes:{
+          include:{
+            user:true,
+            categories:true
+          }
+        }
       },
-    )
+    })
   
-    return collections
+    return collection
   } catch (error) {
     throw createError({
       statusCode:500,

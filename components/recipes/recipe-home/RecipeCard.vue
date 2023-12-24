@@ -1,7 +1,13 @@
 <script lang="ts" setup>
 import ProfileCard from '~/components/globals/ProfileCard.vue'
+import type { RecipeWithUserAndCategories } from '~/types/types';
 
- const {recipe} =defineProps(['recipe'])
+//  const {recipe} =defineProps(['recipe'])
+
+ const {recipe} = defineProps<{
+ recipe: RecipeWithUserAndCategories
+
+}>()
 const route = useRoute()
 const toast = useToast()
 const selectedCategories = useSelectedCategory()
@@ -57,7 +63,7 @@ async function saveRecipe() {
         </h2>
         <div class="flex gap-3">
           <UPopover mode="hover" :ui="{ width: 'max-w-72' }">
-            <UAvatar size="3xs" :src="recipe.user.image" alt="Avatar" />
+            <UAvatar size="3xs" :src="recipe.user.image || ''" alt="Avatar" />
             <template #panel>
               <ProfileCard :user="recipe.user" />
             </template>
