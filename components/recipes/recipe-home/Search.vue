@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { RecipeWithUserAndCategories } from '~/types/types';
 import RecipeCard from './RecipeCard.vue';
+import type { Prisma } from '@prisma/client';
 
 defineProps(['data', 'Categories'])
 const items = [{
@@ -10,11 +11,15 @@ const items = [{
   slot: 'search',
 }]
 const selectedCategories = useSelectedCategory()
-const { data: Categories } = await useFetch<string[]>('/api/categories/get')
+const { data: Categories } = await useFetch<Prisma.CategoryGetPayload<{}>[]>('/api/categories/get')
 const mouseEntered = ref(false)
 
 
-
+const categories = Categories.value?.map((category) => ({
+  name: category.name,
+  label: category.name,
+  icon: 'i-heroicons-information-circle',
+}))
 
 const searchResults = ref<RecipeWithUserAndCategories[] | null>([])
 
@@ -31,6 +36,9 @@ const search = async (event:any) => {
 
 }
 
+const filterCategories =(index:number) => {
+selectedCategories.value = selectedCategories.value.filter((_: any, i: any) => i !== index)
+}
 
 
 
@@ -63,26 +71,28 @@ const search = async (event:any) => {
 
       <template #search>
         <div class=" my-4">
-          <div v-auto-animate class="mb-4 flex gap-4">
+          <div v-auto-animate class="mb-4 flex flex-wrap gap-2">
             <span v-for="(category, index) in selectedCategories">
+            
               <UBadge
                 size="lg" class="shadow-md hover:scale-[1.01] hover:shadow-xl hover:bg-emerald-500 transition-all duration-300 hover:cursor-pointer"
-                @click="selectedCategories = selectedCategories.filter((_, i) => i !== index)"
+                
+                @click="filterCategories(Number(index))"
               >
                 {{ category }}
               </UBadge>
             </span>
           </div>
 
+    
+
           <USelectMenu
-            v-model="selectedCategories" :options="Categories" multiple placeholder="Select Categories"
+            v-model="selectedCategories" :options="categories" multiple placeholder="Select Categories"
             searchable searchable-placeholder="Search a Category..." size="xl" value-attribute="name"
             option-attribute="name"
-            :ui-menu="{ base: 'space-y-2', option: { size: 'text-xl', container: 'w-full', selected: 'bg-green-400/50' } }"
+            :ui-menu="{ base: 'space-y-2', option: {  container: 'w-full', selected: 'bg-green-400/50' } }"
           >
-            <template #option="{ option: Categories }">
-              <span> {{ Categories.name }} </span>
-            </template>
+        
             <template #option-empty="{ query }">
               <q>{{ query }}</q> not found
             </template>

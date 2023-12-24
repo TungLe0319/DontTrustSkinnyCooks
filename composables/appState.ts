@@ -6,7 +6,7 @@ import type { Category } from '@prisma/client'
 // })
 export const useCounter = () => useState<number>('counter', () => 0)
 
-export function useSelectedCategory() {
+export const  useSelectedCategory = () => {
   return useState<string[]>('selectedCategory', () => [])
 }
 
