@@ -39,7 +39,12 @@ export type CollectionWithUser = Prisma.CollectionGetPayload<{
   include: { user: true };
 }>;
 export type CollectionWithUserAndRecipes = Prisma.CollectionGetPayload<{
-  include: { user: true; recipes: true };
+  include: { user: true; recipes: {
+    include:{
+      user:true,
+      categories:true
+    }
+  } };
 }>;
 
 

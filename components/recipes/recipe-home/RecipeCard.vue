@@ -1,18 +1,33 @@
 <script lang="ts" setup>
 import ProfileCard from '~/components/globals/ProfileCard.vue'
 import type { RecipeWithUserAndCategories } from '~/types/types';
-
-//  const {recipe} =defineProps(['recipe'])
-
+import type {Collection} from '~/types/types';
  const {recipe} = defineProps<{
  recipe: RecipeWithUserAndCategories
 
 }>()
+const {data:Collections} = useFetch<Collection[]>('/api/account/collections/get')
+const collections = ref(Collections.value)
 const route = useRoute()
 const toast = useToast()
+const isOpen = ref(false)
 const selectedCategories = useSelectedCategory()
-async function saveRecipe() {
+async function saveRecipe(collectionId:number) {
   try {
+
+
+
+ await useFetch(`/api/account/collections/${route.params.id}`,{
+  method:'put',
+  body:{
+    recipeId:recipe.id
+  }
+ })
+
+
+
+
+
     toast.add({
       title: 'Recipe Saved',
       timeout: 3000,
@@ -29,7 +44,7 @@ async function saveRecipe() {
 
 <template>
   <UCard
-    class=" rounded shadow-md hover:bg-zinc-800 hover:text-white  transition-all duration-300 group hover:shadow-xl hover:shadow-black/30 group dark:bg-gray-800 dark:hover:bg-white dark:hover:text-gray-800 dark:hover:shadow-white/20"
+    class=" rounded shadow-md hover:bg-zinc-800 hover:text-white  transition-all duration-200 group hover:shadow-xl hover:shadow-black/30 group dark:bg-gray-800 dark:hover:bg-white dark:hover:text-gray-800 dark:hover:shadow-white/20"
     :ui="{ body:{padding:{},}, }"
   >
     <NuxtLink
@@ -58,9 +73,9 @@ async function saveRecipe() {
     </NuxtLink>
     <div class="p-5 pt-2">
       <div class="flex flex-col gap-5">
-        <h2 class="text-xl  font-extrabold group-hover:underline group-hover:underline-offset-2">
+        <h3 class="text-xl  font-extrabold group-hover:underline group-hover:underline-offset-2">
           {{ recipe.title }}
-        </h2>
+        </h3>
         <div class="flex gap-3">
           <UPopover mode="hover" :ui="{ width: 'max-w-72' }">
             <UAvatar size="3xs" :src="recipe.user.image || ''" alt="Avatar" />
@@ -84,7 +99,7 @@ async function saveRecipe() {
           <UTooltip text="Save Recipe" :popper="{ arrow: true }">
             <Icon
               name="material-symbols:bookmark-add" class="text-xl  hover:text-orange-400 hover:cursor-pointer "
-              @click="saveRecipe"
+              @click="isOpen = true"
             />
           </UTooltip>
           <div class="ml-auto flex items-center gap-1 text-orange-400 hover:text-orange-300 transition-all duration-300">
@@ -107,40 +122,40 @@ async function saveRecipe() {
         </span>
       </div>
 
-      <!--
-   <div class="my-5 flex gap-4" v-auto-animate>
-          <span v-for="(category, index) in selectedCategories">
-            <UBadge  size="xs"
-              class="shadow-md hover:scale-[1.01] hover:shadow-xl hover:bg-emerald-500 transition-all duration-300 hover:cursor-pointer">
-              {{ category }}
-            </UBadge>
-          </span>
-        </div> -->
-
-        <!-- <div class="flex flex-wrap gap-2 justify-between ">
-        <UTooltip text="Prep/Cook Time" :popper="{ arrow: true }">
-          <div class="flex items-center gap-2">
-            <Icon name="material-symbols:nest-clock-farsight-analog-rounded" class="text-xl" />
-            <p class="mb-2 text-orange-400 font-bold">{{ recipe.prepTime }} </p>
-          </div>
-        </UTooltip>
-        <UTooltip text="Amount of Ingredients" :popper="{ arrow: true }">
-          <div class="flex items-center gap-2">
-            <Icon name="material-symbols:book-5" class="text-xl" />
-            <p class="mb-2 text-orange-400 font-bold">{{ JSON.parse(recipe.ingredients).length }} </p>
-          </div>
-        </UTooltip>
-        <UTooltip text="Serving Size" :popper="{ arrow: true }">
-          <div class="flex items-center gap-2">
-            <Icon name="ic:baseline-people" class="text-xl" />
-            <p class="mb-2 text-orange-400 font-bold">{{ recipe.servingSize }} </p>
-          </div>
-        </UTooltip>
-      </div> -->
-      <!-- <div v-if="route.path === '/recipes'" class="my-2">
-        <p class=" text-sm">{{ recipe.description }}</p>
-      </div> -->
     </div>
+     <UModal v-model="isOpen">
+
+
+     
+        <UCard >
+          <template #header>
+             <h1 class="text-2xl font-bold">Add to Collection</h1>
+                <p class="text-gray-500">Save a recipe to your selected collection</p>
+          </template>
+
+           <div class="p-4">
+       
+        
+        <ul class="">
+
+          <li v-for="collection in collections" class=" border-b border-b-gray-200 p-1.5 hover:cursor-pointer hover:bg-gray-100 transition-all duration-200 flex gap-3">
+        <span>
+          {{ collection.title }}
+        </span>
+       
+        <UButton @click="saveRecipe(collection.id)" class="ml-auto">
+          Save
+        </UButton>
+          </li>
+        </ul>
+          </div>
+
+        
+        </UCard>
+
+     
+    
+      </UModal>
   </UCard>
 </template>
 
