@@ -1,9 +1,28 @@
 <script  setup>
 import { onMounted, ref } from 'vue'
 
-const { signIn, signOut, session, status, cookies, getProviders, user } = useAuth()
+const { signIn, signOut, session } = useAuth()
 const toast = useToast()
 const router = useRouter()
+const colorMode = useColorMode()
+
+
+const drawerIsOpen = ref(false)
+
+const showAlert = ref(true)
+
+function handleAlertClose() {
+  showAlert.value = false
+}
+
+const isDark = computed({
+  get() {
+    return colorMode.value === 'dark'
+  },
+  set() {
+    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+  },
+})
 const items = ref([
   { name: 'Home', label: 'Home', icon: 'i-heroicons-home', href: '/', to: '/' },
 
@@ -69,10 +88,10 @@ const profileDropdownItems = [
   ],
 ]
 
-const indicatorPosition = ref(0)
+
 
 onMounted(() => {
-  updateIndicatorPosition()
+
   welcomeBackUser()
 })
 
@@ -90,31 +109,10 @@ onMounted(() => {
  
  }
 
-// Function to update the indicator position based on the active link
-function updateIndicatorPosition() {
-  const activeLink = document.querySelector('.active')
-  if (activeLink)
-    indicatorPosition.value = activeLink.offsetLeft
-}
 
-const drawerIsOpen = ref(false)
 
-const showAlert = ref(true)
 
-function handleAlertClose() {
-  showAlert.value = false
-}
 
-const colorMode = useColorMode()
-
-const isDark = computed({
-  get() {
-    return colorMode.value === 'dark'
-  },
-  set() {
-    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-  },
-})
 </script>
 
 <template>
@@ -141,7 +139,7 @@ const isDark = computed({
       <div class="lg:flex space-x-4  items-center relative hidden  ">
         <NuxtLink
           v-for="item in items" :key="item.name" :to="item.href" class="text-lg" active-class="active"
-          @click="updateIndicatorPosition"
+       
         >
           {{ item.name }}
         </NuxtLink>
