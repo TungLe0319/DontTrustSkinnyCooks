@@ -17,8 +17,8 @@ async function saveRecipe(collectionId:number) {
 
 
 
- await useFetch(`/api/account/collections/${route.params.id}`,{
-  method:'put',
+ await useFetch(`/api/account/collections/${collectionId}`,{
+  method:'PUT',
   body:{
     recipeId:recipe.id
   }

@@ -8,8 +8,8 @@ export default defineEventHandler(async (event) => {
 
   try {
     
-const {recipeId} = await  readBody(event)
-console.log(recipeId)
+const body = await  readBody(event)
+console.log(body)
   const collectionId = getRouterParam(event, 'id')
 
     if (!collectionId)
@@ -38,7 +38,7 @@ console.log(recipeId)
       data:{
         recipes:{
           connect:{
-            id:Number(recipeId)
+            id:Number(body.recipeId)
           }
         }
       }
