@@ -138,7 +138,7 @@ async function saveRecipe(collectionId:number) {
         
         <ul class="">
 
-          <li v-for="collection in collections" class=" border-b border-b-gray-200 p-1.5 hover:cursor-pointer hover:bg-gray-100 transition-all duration-200 flex gap-3">
+          <li v-for="collection in collections" :key="collection.id" class=" border-b border-b-gray-200 p-1.5 hover:cursor-pointer hover:bg-gray-100 transition-all duration-200 flex gap-3">
         <span>
           {{ collection.title }}
         </span>

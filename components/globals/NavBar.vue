@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 
 const { signIn, signOut, session, status, cookies, getProviders, user } = useAuth()
 const toast = useToast()
+const router = useRouter()
 const items = ref([
   { name: 'Home', label: 'Home', icon: 'i-heroicons-home', href: '/', to: '/' },
 
@@ -24,12 +25,18 @@ const profileDropdownItems = [
     {
       label: 'Profile',
       icon: 'i-heroicons-user-20-solid',
-      link: `/account/profile-info`,
+    
+       click: () => {
+        router.push(`/account/profile-info`)
+      }
     },
        {
       label: 'Password',
       icon: 'solar:lock-password-bold',
-      link: `/account/manage-password`,
+ 
+        click: () => {
+        router.push(`/account/manage-password`)
+      }
     },
   ],
  
@@ -37,12 +44,19 @@ const profileDropdownItems = [
     {
       label: 'Collections',
       icon: 'material-symbols:collections-bookmark-rounded',
-      link: `/account/collections`,
+  
+         click: () => {
+        router.push(`/account/collections`)
+      }
     },
        {
       label: 'My Recipes',
       icon: 'solar:whisk-bold',
-      link: `/account/my-recipes`,
+   
+          click: () => {
+          router.push(`/account/my-recipes`)
+        }
+
     },
   ],
 
@@ -135,7 +149,7 @@ const isDark = computed({
       <div class=" hidden lg:flex items-center justify-center space-x-4">
         <div class="flex gap-5">
           <a v-if="!session?.user" href="/api/auth/signin" class="buttonPrimary">Sign in</a>
-          <!-- {{ user }} -->
+      
         </div>
         <UDropdown
           v-if="session?.user" :items="profileDropdownItems"
@@ -156,20 +170,14 @@ const isDark = computed({
 
           
           <template #item="{ item }">
-            <NuxtLink v-if="item.link" :to="item.link" class="flex items-center justify-between w-full">
+            <div  class="flex items-center justify-between w-full">
               <span class="truncate">{{ item.label }}</span>
               <Icon
                 v-if="item.icon" :name="item.icon"
                 class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500 ms-auto"
               />
-            </NuxtLink>
-            <a v-else-if="item.click" class="flex items-center justify-between w-full cursor-pointer" @click="item.click">
-              <span class="truncate">{{ item.label }}</span>
-              <UIcon
-                v-if="item.icon" :name="item.icon"
-                class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500 ms-auto"
-              />
-            </a>
+            </div>
+         
           </template>
         </UDropdown>
         <ClientOnly>
