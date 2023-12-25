@@ -4,7 +4,7 @@ import RecipeCard from '~/components/recipes/recipe-home/RecipeCard.vue'
 import type { RecipeWithUserAndCategories } from '~/types/types'
 
 const toast = useToast()
-const { data: Recipes } = useFetch<RecipeWithUserAndCategories[]>('/api/recipes/get')
+const { data: Recipes } = useFetch<RecipeWithUserAndCategories[]>('/api/recipes')
 const { session, status } = useAuth()
 const recipes = Recipes.value?.filter(recipe => recipe.user.name === session?.value?.user?.name && recipe.user.email === session?.value?.user?.email)
 

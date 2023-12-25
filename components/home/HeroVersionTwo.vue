@@ -2,7 +2,7 @@
 import type { RecipeWithUserAndCategories } from '~/types/types'
 
 const { data }
-  = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes/get')
+  = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes')
 
 const recipes = data.value?.slice(0, 4)
 const mainRecipe = data.value?.find(recipe => recipe.id === 2)

@@ -1,6 +1,9 @@
 import type { Category } from '@prisma/client'
+import { defineAuthHandler } from '../../utils/AuthSession'
 
-export default defineEventHandler(async (event) => {
+// wrapper for auth required, does not progress if user is not logged in
+export default defineAuthHandler(async (event) => {
+  // const session = await requireAuthSession(event)
   try {
     const {
       title,

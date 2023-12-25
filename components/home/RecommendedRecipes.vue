@@ -3,7 +3,7 @@ import RecipeCard from '../recipes/recipe-home/RecipeCard.vue'
 import type { RecipeWithUserAndCategories } from '~/types/types'
 
 const { data }
-  = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes/get')
+  = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes')
 
 const recipes = data.value?.slice(0, 6)
 </script>

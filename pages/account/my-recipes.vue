@@ -3,7 +3,7 @@ import RecipeCard from '~/components/recipes/recipe-home/RecipeCard.vue'
 import type { RecipeWithUserAndCategories } from '~/types/types'
 
 const { session } = useAuth()
-const { data: recipes } = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes/get')
+const { data: recipes } = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes')
 const userRecipes = recipes.value?.filter(recipe => recipe.userId === session.value?.user?.id)
 </script>
 

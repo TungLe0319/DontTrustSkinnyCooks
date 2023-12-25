@@ -1,6 +1,6 @@
-import { getServerSession } from '@hebilicious/authjs-nuxt/dist/runtime/lib/server'
 import type { EventHandler, EventHandlerRequest, H3Event } from 'h3'
 import { authOptions } from '../api/auth/[...]'
+import { getServerSession } from '#auth'
 
 export async function useAuthSession(event: H3Event) {
   const session = await getServerSession(event, authOptions)
@@ -18,10 +18,10 @@ export async function requireAuthSession(event: H3Event) {
   return session
 }
 
-export function defineAuthRequiredHandler<T extends EventHandlerRequest, D>(handler: EventHandler<T, D>): EventHandler<T, D> {
+export function defineAuthHandler<T extends EventHandlerRequest, D>(handler: EventHandler<T, D>): EventHandler<T, D> {
   return defineEventHandler<T>(async (event) => {
     try {
-      const session = await requireAuthSession(event)
+      await requireAuthSession(event)
       return await handler(event)
     }
     catch (err) {

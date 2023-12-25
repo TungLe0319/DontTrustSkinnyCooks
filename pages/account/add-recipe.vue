@@ -5,7 +5,7 @@ import type { RecipeFormObject } from '~/types/types'
 const { session } = useAuth()
 const toast = useToast()
 const imageDisplay = computed(() => newRecipe.value.image)
-const { data: categories } = await useFetch('/api/categories/get')
+const { data: categories } = await useFetch('/api/categories')
 // definePageMeta({
 //   middleware: ['auth'],
 // })
@@ -187,7 +187,7 @@ async function createNewRecipe() {
       })
     }
 
-    const response = await useFetch('/api/recipes/post', {
+    const response = await useFetch('/api/recipes', {
       method: 'POST',
       body: newRecipe.value,
     })

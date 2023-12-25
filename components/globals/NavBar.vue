@@ -1,6 +1,6 @@
 <script  setup>
 import { onMounted, ref } from 'vue'
-import BreadCrumbs from "./BreadCrumbs.vue";
+import BreadCrumbs from './BreadCrumbs.vue'
 
 const { signIn, signOut, session } = useAuth()
 const toast = useToast()
@@ -194,7 +194,7 @@ function welcomeBackUser() {
       <!-- !MOBIlE MENU -->
     </div>
   </div>
-<BreadCrumbs/>
+  <BreadCrumbs />
 </template>
 
 <style>

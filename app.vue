@@ -7,7 +7,7 @@ import NavBar from './components/globals/NavBar.vue'
   <div>
     <NavBar />
 
-    <UContainer >
+    <UContainer>
       <NuxtPage />
     </UContainer>
 

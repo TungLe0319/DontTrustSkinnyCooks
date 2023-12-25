@@ -3,7 +3,7 @@ import type { RecipeWithUserAndCategories } from '../../types/types'
 import RecipeCard from '~/components/recipes/recipe-home/RecipeCard.vue'
 import Search from '~/components/recipes/recipe-home/Search.vue'
 
-const { data } = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes/get')
+const { data } = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes')
 
 const selectedCategories = useSelectedCategory()
 

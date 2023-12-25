@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { RecipeWithUserAndCategories } from '~/types/types'
 
-const { data } = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes/get')
+const { data } = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes')
 
 const recipe = data.value?.[6]
 </script>

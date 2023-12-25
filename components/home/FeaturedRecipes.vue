@@ -3,7 +3,7 @@ import RecipeCard from '../recipes/recipe-home/RecipeCard.vue'
 import type { RecipeWithUserAndCategories } from '~/types/types'
 
 const { data }
-  = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes/get')
+  = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes')
 
 const recipes = data.value?.slice(0, 6)
 </script>
@@ -17,7 +17,7 @@ const recipes = data.value?.slice(0, 6)
       <Icon name="uil:arrow-right" class="text-4xl text-orange-400" />
     </div>
     <div class="grid grid-cols-3 gap-4">
-      <RecipeCard v-for="recipe in recipes" :recipe="recipe" />
+      <RecipeCard v-for="recipe in recipes" :key="recipe.id" :recipe="recipe" />
     </div>
   </div>
 </template>

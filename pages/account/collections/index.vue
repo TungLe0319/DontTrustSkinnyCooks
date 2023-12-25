@@ -2,7 +2,7 @@
 import type { Collection, RecipeWithUserAndCategories } from '~/types/types'
 
 const toast = useToast()
-const { data: Recipes } = useFetch<RecipeWithUserAndCategories[]>('/api/recipes/get')
+const { data: Recipes } = useFetch<RecipeWithUserAndCategories[]>('/api/recipe')
 const { session, status } = useAuth()
 
 const { data: Collections, refresh } = await useFetch<Collection[]>('/api/account/collections/get')
@@ -94,7 +94,7 @@ async function createCollection() {
             <RecipeCard v-for="recipe in recipes" :key="recipe.id" :recipe="recipe" class="" />
           </div> -->
     <!-- End of Experience and education grid -->
-        </main>
+  </main>
 </template>
 
 <style>
