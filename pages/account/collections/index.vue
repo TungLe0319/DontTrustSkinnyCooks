@@ -41,7 +41,7 @@ async function createCollection() {
 </script>
 
 <template>
-  <div>
+  <main>
     <div class="flex items-center space-x-2 font-semibold text-gray-900 leading-8 mb-3">
       <Icon name="uil:bookmark" class="text-3xl" />
       <span class="tracking-wide"> My Saved Recipes</span>
@@ -94,7 +94,7 @@ async function createCollection() {
             <RecipeCard v-for="recipe in recipes" :key="recipe.id" :recipe="recipe" class="" />
           </div> -->
     <!-- End of Experience and education grid -->
-  </div>
+        </main>
 </template>
 
 <style>

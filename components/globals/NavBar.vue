@@ -1,5 +1,6 @@
 <script  setup>
 import { onMounted, ref } from 'vue'
+import BreadCrumbs from "./BreadCrumbs.vue";
 
 const { signIn, signOut, session } = useAuth()
 const toast = useToast()
@@ -193,13 +194,7 @@ function welcomeBackUser() {
       <!-- !MOBIlE MENU -->
     </div>
   </div>
-  <!-- <div class="w-full p-2 px-20">
-   <UBreadcrumb :links="breadCrumbItems" >
-    <template #divider>
-        <span class="w-8 h-1 rounded-full bg-gray-300 dark:bg-gray-700" />
-      </template>
-   </UBreadcrumb>
- </div> -->
+<BreadCrumbs/>
 </template>
 
 <style>

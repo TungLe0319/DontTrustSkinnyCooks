@@ -21,7 +21,7 @@ const filteredRecipes = computed(() => {
 
 <template>
   <main class="min-h-screen   ">
-    <h1 class="text-8xl font-extrabold  text-center  mt-16">
+    <h1 class="text-8xl font-extrabold  text-center ">
       Recipes
     </h1>
     <Search :data="data" />

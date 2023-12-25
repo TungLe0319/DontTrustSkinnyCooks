@@ -14,7 +14,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-if="collection" class="space-y-5">
+  <main v-if="collection" class="space-y-5">
     <h1 class="text-6xl font-extrabold underline underline-offset-4">
       {{ collection?.title }}
     </h1>
@@ -27,7 +27,10 @@ onMounted(async () => {
     <div class=" grid grid-cols-4 gap-5">
       <RecipeCard v-for="recipe in collection?.recipes" :key="recipe.id" :recipe="recipe" />
     </div>
-  </div>
+  </main>
+  <main v-else class="">
+    NO COLLECTIONS FOUND
+  </main>
 </template>
 
 <style>

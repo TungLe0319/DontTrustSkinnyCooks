@@ -21,11 +21,11 @@ const { session, status } = useAuth()
         >
           <li class="flex items-center py-3">
             <span>Display Name</span>
-            <span class="ml-auto">{{ session.user?.name }} </span>
+            <span class="ml-auto">{{ session?.user?.name }} </span>
           </li>
           <li class="flex items-center py-3">
             <span>Email</span>
-            <span class="ml-auto">{{ session.user?.email }} </span>
+            <span class="ml-auto">{{ session?.user?.email }} </span>
           </li>
           <li class="flex items-center py-3">
             <span>Status</span>
