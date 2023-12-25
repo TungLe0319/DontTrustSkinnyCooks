@@ -11,7 +11,7 @@ defineProps(['ingredients'])
       </h2>
     </div>
     <ul class=" p-5 list-disc ">
-      <li v-for="ingredient in JSON.parse(ingredients)" class="my-3">
+      <li v-for="(ingredient,index) in JSON.parse(ingredients)" :key="index" class="my-3">
         {{ ingredient }}
       </li>
     </ul>

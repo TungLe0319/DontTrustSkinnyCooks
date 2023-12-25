@@ -11,7 +11,7 @@ defineProps(['directions'])
       </h2>
     </div>
     <ul class="">
-      <li v-for="(direction, index) in JSON.parse(directions)" class="flex flex-col my-5">
+      <li v-for="(direction, index) in JSON.parse(directions)" :key="index" class="flex flex-col my-5">
         <span class="font-extrabold text-xl">Step {{ index + 1 }} </span>
         <span class="text-lg">
           {{ direction }}

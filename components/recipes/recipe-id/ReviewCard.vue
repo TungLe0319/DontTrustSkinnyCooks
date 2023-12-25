@@ -46,7 +46,7 @@ const items = [
 
 const selectedRating = ref(0)
 const hoverRating = ref(0)
-const dropDownOpen = ref(false)
+
 function hover(index: number) {
   hoverRating.value = index + 1
   hovering.value = true
@@ -119,7 +119,7 @@ function getRatingLabel(rating: number) {
 
     <div v-if="!editing" class="flex items-center gap-2">
       <div class="flex items-center gap-1">
-        <Icon v-for="i in 5" name="game-icons:fat" class="text-orange-400 " />
+        <Icon v-for="i in 5" :key="i" name="game-icons:fat" class="text-orange-400 " />
       </div>
       <span class="text-xs">12/18/23 </span>
     </div>
@@ -131,7 +131,7 @@ function getRatingLabel(rating: number) {
     <div v-else class="space-y-4">
       <div class="flex items-center">
         <div
-          v-for="(star, index) in 5" class="hover:cursor-pointer" @mouseenter="hover(index)" @mouseleave="resetHover"
+          v-for="(star, index) in 5" :key="star" class="hover:cursor-pointer" @mouseenter="hover(index)" @mouseleave="resetHover"
           @click="click(index + 1)"
         >
           <Icon :name="starIcon(index)" class="text-xl hover:text-orange-300 duration-150 transition-colors" :class="starColor(index)" />

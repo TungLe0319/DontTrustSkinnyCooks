@@ -97,7 +97,7 @@ async function deleteRecipe() {
     </div>
     <div class="flex gap-3  text-orange-400">
       <div class="flex gap-1">
-        <Icon v-for="(rating, index) in 5" :key="rating" name="game-icons:fat" class="text-2xl" />
+        <Icon v-for="rating in 5" :key="rating" name="game-icons:fat" class="text-2xl" />
       </div>
       <div class="dark:text-white text-gray-900 space-x-1 font-semibold">
         <span class="border-b border-spacing-2 border-orange-400 ">

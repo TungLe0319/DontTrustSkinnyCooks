@@ -13,7 +13,7 @@ defineProps<{
       </h2>
     </div>
     <ul class="">
-      <li v-for="(note, index) in JSON.parse(notes)" class="flex flex-col my-3">
+      <li v-for="(note, index) in JSON.parse(notes)" :key="index" class="flex flex-col my-3">
         <span class="font-extrabold">Note {{ index + 1 }} </span>
         <span>
           {{ note }}
