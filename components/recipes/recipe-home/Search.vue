@@ -6,7 +6,7 @@ defineProps(['data', 'Categories'])
 const items = [{
   label: 'Search Filters',
   icon: 'i-heroicons-information-circle',
-  defaultOpen: true,
+  defaultOpen: false,
   slot: 'search',
 }]
 const selectedCategories = useSelectedCategory()
@@ -39,7 +39,7 @@ function filterCategories(index: number) {
 
 <template>
   <div class="my-5">
-    <UAccordion :items="items" :ui="{ item: { color: '' } }">
+    <UAccordion :items="items" :ui="{ item: { color: '' } }" >
       <template #default="{ item, index, open }">
         <UButton color="gray" variant="ghost" class="border-b border-gray-200 dark:border-gray-700" :ui="{ rounded: 'rounded-none', padding: { sm: 'p-3' } }">
           <template #leading>
@@ -66,7 +66,7 @@ function filterCategories(index: number) {
             <span v-for="(category, index) in selectedCategories">
 
               <UBadge
-                size="lg" class="shadow-md hover:scale-[1.01] hover:shadow-xl hover:bg-emerald-500 transition-all duration-300 hover:cursor-pointer"
+                size="lg" class="shadow-md hover:scale-[1.01] hover:shadow-xl hover:bg-orange-300 transition-all duration-300 hover:cursor-pointer"
 
                 @click="filterCategories(Number(index))"
               >

@@ -9,15 +9,15 @@ function handleAlertClose() {
 
 <template>
   <div v-auto-animate class="">
-    <div v-if="showBanner" class=" relative p-5 rounded border border-black/20">
-      <div class="flex items-center gap-2 ">
+    <div v-if="showBanner" class=" relative p-5 rounded border border-black/20 dark:bg-gray-900">
+      <div class="flex items-center gap-2  ">
         <Icon name="i-heroicons-bookmark-20-solid" class="text-5xl" />
         <span class=" text-5xl font-extrabold underline underline-offset-4"> Advertise Your Recipes</span>
       </div>
       <div class="relative mt-5">
         <div class="relative z-10">
           <div class="w-8/12">
-            <h3 class="font-medium text-gray-800">
+            <h3 class="font-medium text-gray-800 dark:text-gray-400">
               Do you have a recipe that you think will be a big hit? Advertise it with us by signing up for a free account
               and creating a recipe.
             </h3>
@@ -29,7 +29,7 @@ function handleAlertClose() {
             </UButton>
           </div>
           <div class="mt-8 w-full md:w-7/12">
-            <p class="text-xs text-gray-600">
+            <p class="text-xs text-gray-600 dark:text-gray-400">
               By clicking Sign Up, you agree to our Privacy Policy to create a new recipe listing.
             </p>
           </div>

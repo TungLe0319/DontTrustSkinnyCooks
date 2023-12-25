@@ -13,7 +13,7 @@ const mostRecentRecipes = data.value
 </script>
 
 <template>
-  <div class="flex gap-6 bg-gray-100 p-10">
+  <div class="flex gap-6 bg-gray-100 dark:bg-gray-800 p-10">
     <NuxtLink :to="`/recipes/${mainRecipe?.id}`" class="w-2/3 group ">
       <div class=" mb-5  underline underline-offset-4 text-4xl font-extrabold ">
         What's Cooking
@@ -43,7 +43,7 @@ const mostRecentRecipes = data.value
       </div>
     </NuxtLink>
     <div class="w-1/3">
-      <div class="space-y-5 bg-gray-100 p-2">
+      <div class="space-y-5 bg-gray-100 dark:bg-gray-700 p-2">
         <div
           class="text-center text-2xl font-extrabold underline underline-offset-4"
         >
