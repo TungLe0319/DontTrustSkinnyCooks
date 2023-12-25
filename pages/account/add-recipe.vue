@@ -1,11 +1,13 @@
 <script lang="ts" setup>
+import type { Category } from '@prisma/client';
 import { ref } from 'vue'
 import type { RecipeFormObject } from '~/types/types'
 
 const { session } = useAuth()
 const toast = useToast()
 const imageDisplay = computed(() => newRecipe.value.image)
-const { data: categories } = await useFetch('/api/categories')
+const { data: Categories } = await useFetch<Category[]>('/api/categories/get')
+const categories = Categories?.value?.map(category => ({ name: category.name }))
 // definePageMeta({
 //   middleware: ['auth'],
 // })

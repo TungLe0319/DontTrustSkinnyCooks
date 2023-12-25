@@ -1,5 +1,9 @@
 <script lang="ts" setup>
 const { session, status } = useAuth()
+
+definePageMeta({
+  middleware: ['auth'],
+})
 </script>
 
 <template>

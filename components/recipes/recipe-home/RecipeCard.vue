@@ -8,10 +8,12 @@ const { recipe } = defineProps<{
 }>()
 const { data: Collections } = useFetch<Collection[]>('/api/account/collections')
 const collections = ref(Collections.value)
+const {user} = useAuth()
 const route = useRoute()
 const toast = useToast()
 const isOpen = ref(false)
 const selectedCategories = useSelectedCategory()
+
 
 async function saveRecipe(collectionId: number) {
   try {
@@ -40,6 +42,8 @@ async function saveRecipe(collectionId: number) {
     class=" rounded shadow-md hover:bg-zinc-800 hover:text-white  transition-all duration-200 group hover:shadow-xl hover:shadow-black/30 group dark:bg-gray-800 dark:hover:bg-white dark:hover:text-gray-800 dark:hover:shadow-white/20"
     :ui="{ body: { padding: {} } }"
   >
+
+ 
     <NuxtLink
       :to="`/recipes/${recipe.id}`" class="flex items-center mb-2 relative  w-full overflow-hidden  shadow-xl "
       :class="route.name === 'profile-id' ? 'h-52' : 'h-44'"
@@ -87,7 +91,7 @@ async function saveRecipe(collectionId: number) {
               </div>
             </template>
           </UPopover>
-          <UTooltip text="Save Recipe" :popper="{ arrow: true }">
+          <UTooltip v-if="user" text="Save Recipe" :popper="{ arrow: true }">
             <Icon
               name="material-symbols:bookmark-add" class="text-xl  hover:text-primary-500 hover:cursor-pointer "
               @click="isOpen = true"
@@ -99,7 +103,7 @@ async function saveRecipe(collectionId: number) {
         </div>
       </div>
       <hr class="my-3">
-      <div v-if="selectedCategories?.values?.length >= 1" v-auto-animate class="my-5 flex gap-2 flex-wrap p-2">
+      <div v-if="selectedCategories?.length >= 1" v-auto-animate class="my-5 flex gap-2 flex-wrap p-2">
         <span v-for="category in recipe.categories" :key="category.name">
           <UBadge
             size="xs"

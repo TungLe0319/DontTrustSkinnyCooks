@@ -61,14 +61,7 @@ async function deleteRecipe() {
 
   const userRating = ref(0)
 
-  const hoverRating = (rating: number) => {
-    userRating.value = rating
-  }
 
-  const clickRating = (rating: number) => {
-    // Handle the rating click event, e.g., send it to the server
-    console.log(`Clicked rating: ${rating}`)
-  }
 }
 </script>
 
