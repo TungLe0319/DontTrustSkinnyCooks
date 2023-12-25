@@ -14,9 +14,15 @@ export default defineNuxtConfig({
   alias: {
     cookie: 'cookie',
   },
-  // nitro:{
-  //   preset: 'node-server'
-  // },
+  imports: {
+    dirs: ['./types'],
+  },
+  nitro:{
+    imports: {
+      dirs: ['./types'],
+      // 'imports':[{name: '*', as:'Bun', from: 'bun', type: true, 'typeFrom': 'bun-types'}]
+    },
+  },
 
   runtimeConfig: {
     authJs: {
