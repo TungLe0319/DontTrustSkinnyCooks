@@ -57,7 +57,7 @@ async function saveRecipe(collectionId: number) {
       </div>
 
       <div
-        class="absolute flex items-center justify-center font-extrabold text-4xl w-full  p-10 z-10  translate-y-[10rem] group-hover:translate-y-4 transition-all duration-300 text-orange-400 bg-gradient-to-t from-black  h-full"
+        class="absolute flex items-center justify-center font-extrabold text-4xl w-full  p-10 z-10  translate-y-[10rem] group-hover:translate-y-4 transition-all duration-300 text-primary-400 bg-gradient-to-t from-black  h-full"
       >
         View Recipe
       </div>
@@ -89,18 +89,18 @@ async function saveRecipe(collectionId: number) {
           </UPopover>
           <UTooltip text="Save Recipe" :popper="{ arrow: true }">
             <Icon
-              name="material-symbols:bookmark-add" class="text-xl  hover:text-orange-400 hover:cursor-pointer "
+              name="material-symbols:bookmark-add" class="text-xl  hover:text-primary-500 hover:cursor-pointer "
               @click="isOpen = true"
             />
           </UTooltip>
-          <div class="ml-auto flex items-center gap-1 text-orange-400 hover:text-orange-300 transition-all duration-300">
+          <div class="ml-auto flex items-center gap-1 text-primary-500 hover:text-orange-300 transition-all duration-300">
             <Icon v-for="i in 5" name="game-icons:fat" />
           </div>
         </div>
       </div>
       <hr class="my-3">
       <div v-if="selectedCategories?.value?.length >= 1" v-auto-animate class="my-5 flex gap-2 flex-wrap p-2">
-        <span v-for="(category, index) in recipe.categories" :key="category.name">
+        <span v-for="category in recipe.categories" :key="category.name">
           <UBadge
             size="xs"
             class="shadow-md hover:scale-[1.01] hover:shadow-xl transition-all duration-300 hover:cursor-pointer bg-gray-500/40"

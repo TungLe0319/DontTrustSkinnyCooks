@@ -43,17 +43,17 @@ const getFilteredLinks = () => {
 </script>
 
 <template>
- <div v-if="route.path !== '/'" class=" p-2 px-4">
+ <div v-if="route.path !== '/'" class=" p-2 px-4 bg-gray-100">
    <UBreadcrumb   :links="getFilteredLinks()" :currentRoute="route" :ui="{ ol: 'gap-x-3', li: 'gap-x-3' }" >
        <template #divider>
-          <span class="w-8 h-1 rounded-full bg-gray-300 dark:bg-gray-700" />
+          <span class="w-8 h-1 rounded-full bg-orange-300/50 dark:bg-gray-700" />
         </template>
 
          <template #icon="{ link, index, isActive }">
           <UAvatar
             :alt="(index + 1).toString()"
             :ui="{
-              background: isActive ? 'bg-primary-500 dark:bg-primary-400' : undefined,
+              background: isActive ? 'bg-primary-500 dark:bg-primary-400' : 'bg-gray-300',
               placeholder: isActive ? 'text-white dark:text-gray-900' : !!link.to ? 'group-hover:text-gray-700 dark:group-hover:text-gray-200' : ''
             }"
             size="xs"
