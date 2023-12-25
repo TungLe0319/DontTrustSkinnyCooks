@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import BreadCrumbs from './BreadCrumbs.vue'
 
-const { signIn, signOut, session } = useAuth()
+const { signIn, signOut, session, user } = useAuth()
 const toast = useToast()
 const router = useRouter()
 const colorMode = useColorMode()
@@ -23,13 +23,13 @@ const isDark = computed({
     colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
   },
 })
+
 const items = ref([
   { name: 'Home', label: 'Home', icon: 'i-heroicons-home', href: '/', to: '/' },
-
   { name: 'Recipes', label: 'recipes', icon: 'i-heroicons-home', href: '/recipes' },
-  { name: 'Add Recipe', label: 'add-recipe', icon: 'i-heroicons-home', href: '/account/add-recipe' },
-
 ])
+if (user.value)
+  items.value.push({ name: 'Add Recipe', label: 'add-recipe', icon: 'i-heroicons-home', href: '/account/add-recipe' })
 
 const profileDropdownItems = [
   [
@@ -130,7 +130,7 @@ function welcomeBackUser() {
         <NuxtLink
           v-for="item in items" :key="item.name" :to="item.href" class="text-lg" active-class="active"
         >
-          {{ item.name }}
+          <div>{{ item.name }}</div>
         </NuxtLink>
       </div>
       <div class=" hidden lg:flex items-center justify-center space-x-4">
@@ -182,7 +182,7 @@ function welcomeBackUser() {
             <div class="flex flex-col space-x-4  items-center relative space-y-5   ">
               <NuxtLink
                 v-for="item in items" :key="item.name" :to="item.href" class="text-5xl" active-class="active"
-                @click="updateIndicatorPosition"
+        
               >
                 {{ item.name }}
               </NuxtLink>
