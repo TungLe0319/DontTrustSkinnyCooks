@@ -10,7 +10,7 @@ const newCollection = ref<Prisma.CollectionCreateInput>({
 
 async function createCollection() {
   try {
-    const response = await useFetch('/api/account/collections/post', {
+    const response = await useFetch('/api/account/collections', {
       method: 'POST',
       body: newCollection.value,
     })

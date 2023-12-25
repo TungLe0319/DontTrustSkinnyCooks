@@ -38,7 +38,7 @@ const tabItems = [
 
 ]
 
-const { data: collections, refresh } = await useFetch('/api/account/collections/get')
+const { data: collections, refresh } = await useFetch('/api/account/collections')
 
 const isOpen = ref(false)
 
@@ -48,7 +48,7 @@ const newCollection = ref({
 
 async function createCollection() {
   try {
-    await useFetch('/api/account/collections/post', {
+    await useFetch('/api/account/collections', {
       method: 'POST',
       body: newCollection.value,
     })

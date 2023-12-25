@@ -17,7 +17,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['./types'],
   },
-  nitro:{
+  nitro: {
     imports: {
       dirs: ['./types'],
       // 'imports':[{name: '*', as:'Bun', from: 'bun', type: true, 'typeFrom': 'bun-types'}]

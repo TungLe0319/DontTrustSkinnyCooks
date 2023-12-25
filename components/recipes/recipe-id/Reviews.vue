@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { defineProps, ref, watch } from 'vue'
 import ReviewCard from '~/components/recipes/recipe-id/ReviewCard.vue'
 
 const { recipe, rating } = defineProps(['recipe', 'rating'])

@@ -10,7 +10,7 @@ const items = [{
   slot: 'search',
 }]
 const selectedCategories = useSelectedCategory()
-const { data: Categories } = await useFetch<Prisma.CategoryGetPayload<{}>[]>('/api/categories')
+const { data: Categories } = await useFetch<Prisma.CategoryGetPayload<any>[]>('/api/categories')
 const mouseEntered = ref(false)
 
 const categories = Categories.value?.map(category => ({
@@ -40,7 +40,7 @@ function filterCategories(index: number) {
 <template>
   <div class="my-5">
     <UAccordion :items="items" :ui="{ item: { color: '' } }">
-      <template #default="{ item, index, open }">
+      <template #default="{ item, _index, open }">
         <UButton color="gray" variant="ghost" class="border-b border-gray-200 dark:border-gray-700" :ui="{ rounded: 'rounded-none', padding: { sm: 'p-3' } }">
           <template #leading>
             <div class="w-6 h-6 rounded-full bg-primary-500 dark:bg-primary-400 flex items-center justify-center -my-1">

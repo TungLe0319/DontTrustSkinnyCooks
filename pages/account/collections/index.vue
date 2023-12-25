@@ -5,7 +5,7 @@ const toast = useToast()
 const { data: Recipes } = useFetch<RecipeWithUserAndCategories[]>('/api/recipe')
 const { session, status } = useAuth()
 
-const { data: Collections, refresh } = await useFetch<Collection[]>('/api/account/collections/get')
+const { data: Collections, refresh } = await useFetch<Collection[]>('/api/account/collections')
 
 const collections = ref(Collections.value)
 
@@ -17,7 +17,7 @@ const newCollection = ref({
 
 async function createCollection() {
   try {
-    await useFetch('/api/account/collections/post', {
+    await useFetch('/api/account/collections', {
       method: 'POST',
       body: newCollection.value,
     })

@@ -6,13 +6,13 @@ const { recipe } = defineProps<{
   recipe: RecipeWithUserAndCategories
 
 }>()
-const { data: Collections } = useFetch<Collection[]>('/api/account/collections/get')
+const { data: Collections } = useFetch<Collection[]>('/api/account/collections')
 const collections = ref(Collections.value)
 const route = useRoute()
 const toast = useToast()
 const isOpen = ref(false)
 const selectedCategories = useSelectedCategory()
-1
+
 async function saveRecipe(collectionId: number) {
   try {
     await useFetch(`/api/account/collections/${collectionId}`, {
@@ -80,7 +80,7 @@ async function saveRecipe(collectionId: number) {
               <div class=" text-black p-2">
                 <span class="font-extrabold text-xs">Categories</span>
                 <ul class=" ">
-                  <li v-for=" category in recipe.categories" class="hover:bg-gray-100 hover:shadow-sm rounded-md px-2">
+                  <li v-for=" category in recipe.categories" :key="category.name" class="hover:bg-gray-100 hover:shadow-sm rounded-md px-2">
                     {{ category.name }}
                   </li>
                 </ul>
@@ -94,17 +94,17 @@ async function saveRecipe(collectionId: number) {
             />
           </UTooltip>
           <div class="ml-auto flex items-center gap-1 text-primary-500 hover:text-orange-300 transition-all duration-300">
-            <Icon v-for="i in 5" name="game-icons:fat" />
+            <Icon v-for="i in 5" :key="i" name="game-icons:fat" />
           </div>
         </div>
       </div>
       <hr class="my-3">
-      <div v-if="selectedCategories?.value?.length >= 1" v-auto-animate class="my-5 flex gap-2 flex-wrap p-2">
+      <div v-if="selectedCategories?.values?.length >= 1" v-auto-animate class="my-5 flex gap-2 flex-wrap p-2">
         <span v-for="category in recipe.categories" :key="category.name">
           <UBadge
             size="xs"
             class="shadow-md hover:scale-[1.01] hover:shadow-xl transition-all duration-300 hover:cursor-pointer bg-gray-500/40"
-            :class="selectedCategories?.value?.includes(category.name) ? 'bg-green-500 text-white' : ''"
+            :class="selectedCategories?.includes(category.name) ? 'bg-green-500 text-white' : ''"
           >
             {{ category.name }}
           </UBadge>
