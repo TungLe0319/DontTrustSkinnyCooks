@@ -53,6 +53,7 @@ model User {
   collections   Collection[]
   recipes       Recipe[]
   sessions      Session[]
+  reviews       Review[]
 }
 
 model VerificationToken {
@@ -82,7 +83,7 @@ model Recipe {
   user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   categories  Category[]   @relation("CategoryToRecipe")
   collections Collection[] @relation("RecipeToCollection")
-
+  Reviews     Review[]     
   @@index([userId], map: "Recipe_userId_fkey")
 }
 
@@ -102,4 +103,19 @@ model Category {
   id      Int      @id @default(autoincrement())
   name    String   @unique
   recipes Recipe[] @relation("CategoryToRecipe")
+}
+
+model Review {
+  id        Int       @id @default(autoincrement())
+  rating    Int
+  comment   String
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  userId    String
+  recipeId  Int
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recipe    Recipe    @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+
+  @@index([userId], map: "Review_userId_fkey")
+  @@index([recipeId], map: "Review_recipeId_fkey")
 }

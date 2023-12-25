@@ -60,8 +60,6 @@ async function deleteRecipe() {
   })
 
   const userRating = ref(0)
-
-
 }
 </script>
 

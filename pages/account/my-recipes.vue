@@ -6,7 +6,6 @@ const { session } = useAuth()
 const { data: recipes } = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes')
 const userRecipes = recipes.value?.filter(recipe => recipe.userId === session.value?.user?.id)
 
-
 definePageMeta({
   middleware: ['auth'],
 })

@@ -28,7 +28,7 @@ const users = [
 <template>
   <main class="min-h-screen">
     <div class="flex items-center justify-center p-24 gap-10">
-      <NuxtLink v-for="u in users" :to="`profile/${u.uuid}`" :key="u.email" class="p-5 shadow-xl rounded-md hover:shadow-2xl hover:bg-zinc-800 transition-all duration-300  hover:text-white">
+      <NuxtLink v-for="u in users" :key="u.email" :to="`profile/${u.uuid}`" class="p-5 shadow-xl rounded-md hover:shadow-2xl hover:bg-zinc-800 transition-all duration-300  hover:text-white">
         <div class="flex items-center justify-center">
           <div class="flex-shrink-0">
             <img class="h-12 w-12 rounded-full" src="https://avatars.githubusercontent.com/u/739984?v=4" alt="">

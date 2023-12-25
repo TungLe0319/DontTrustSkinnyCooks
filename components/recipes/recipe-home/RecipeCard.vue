@@ -8,12 +8,11 @@ const { recipe } = defineProps<{
 }>()
 const { data: Collections } = useFetch<Collection[]>('/api/account/collections')
 const collections = ref(Collections.value)
-const {user} = useAuth()
+const { user } = useAuth()
 const route = useRoute()
 const toast = useToast()
 const isOpen = ref(false)
 const selectedCategories = useSelectedCategory()
-
 
 async function saveRecipe(collectionId: number) {
   try {
@@ -42,8 +41,6 @@ async function saveRecipe(collectionId: number) {
     class=" rounded shadow-md hover:bg-zinc-800 hover:text-white  transition-all duration-200 group hover:shadow-xl hover:shadow-black/30 group dark:bg-gray-800 dark:hover:bg-white dark:hover:text-gray-800 dark:hover:shadow-white/20"
     :ui="{ body: { padding: {} } }"
   >
-
- 
     <NuxtLink
       :to="`/recipes/${recipe.id}`" class="flex items-center mb-2 relative  w-full overflow-hidden  shadow-xl "
       :class="route.name === 'profile-id' ? 'h-52' : 'h-44'"
