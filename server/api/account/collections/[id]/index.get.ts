@@ -1,34 +1,23 @@
-import { authOptions } from "../../../auth/[...]"
+import { authOptions } from '../../../auth/[...]'
 
 import { getServerSession } from '#auth'
 
 export default defineEventHandler(async (event) => {
-
-
-
   try {
-    
-
-  const id = getRouterParam(event, 'id')
+    const id = getRouterParam(event, 'id')
 
     if (!id)
       return createError('Missing id')
 
+    const session = await getServerSession(event, authOptions)
 
-
-   const session = await getServerSession(event, authOptions)
-
-   if (!session?.user) {
-    
+    if (!session?.user) {
       throw createError({
-        statusCode:401,
-        statusMessage:'Unauthorized',
-        
+        statusCode: 401,
+        statusMessage: 'Unauthorized',
+
       })
-
-   }
-
-
+    }
 
     const collection = await prisma().collection.findUnique({
       where: {
@@ -36,21 +25,22 @@ export default defineEventHandler(async (event) => {
       },
       include: {
         user: true,
-        recipes:{
-          include:{
-            user:true,
-            categories:true
-          }
-        }
+        recipes: {
+          include: {
+            user: true,
+            categories: true,
+          },
+        },
       },
     })
-  
+
     return collection
-  } catch (error) {
+  }
+  catch (error) {
     throw createError({
-      statusCode:500,
-      statusMessage:'Internal Server Error',
-      
+      statusCode: 500,
+      statusMessage: 'Internal Server Error',
+
     })
   }
 })

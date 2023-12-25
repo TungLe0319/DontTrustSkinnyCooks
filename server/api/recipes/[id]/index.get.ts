@@ -13,11 +13,9 @@ export default defineEventHandler(async (event) => {
       },
       include: {
         user: true,
-        categories:true
+        categories: true,
       },
     })
-
-  
 
     return recipe
   }

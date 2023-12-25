@@ -106,8 +106,8 @@ function getRatingLabel(rating: number) {
         <UAvatar size="xl" class="shadow-md" alt="Harry Ashford" />
         <span class=" border-b border-spacing-3 border-orange-400">username  </span>
       </div>
-      <UDropdown :items="items" :popper="{ placement: 'bottom-start' }" >
-        <Icon name="mi:options-horizontal" class=" text-2xl  "  />
+      <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
+        <Icon name="mi:options-horizontal" class=" text-2xl  " />
 
         <template #item="{ item }">
           <span class="truncate">{{ item.label }}</span>

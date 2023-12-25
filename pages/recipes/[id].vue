@@ -1,12 +1,12 @@
 <script lang="ts" setup>
+import type { RecipeWithUserAndCategories } from '../../types/types'
 import Directions from '~/components/recipes/recipe-id/Directions.vue'
 import Ingredients from '~/components/recipes/recipe-id/Ingredients.vue'
 import MainInfo from '~/components/recipes/recipe-id/MainInfo.vue'
 import Notes from '~/components/recipes/recipe-id/Notes.vue'
 import PrepCookServingYield from '~/components/recipes/recipe-id/PrepCookServingYield.vue'
 import Reviews from '~/components/recipes/recipe-id/Reviews.vue'
-import {Prisma} from '@prisma/client'
-import type {RecipeWithUserAndCategories} from '../../types/types'
+
 const route = useRoute()
 
 const { data } = await useFetch<RecipeWithUserAndCategories>(`/api/recipes/${route.params.id}`)

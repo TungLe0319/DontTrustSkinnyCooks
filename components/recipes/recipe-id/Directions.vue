@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 defineProps(['directions'])
-
 </script>
 
 <template>
@@ -23,6 +22,4 @@ defineProps(['directions'])
   </div>
 </template>
 
-<style>
-
-</style>
+<style></style>

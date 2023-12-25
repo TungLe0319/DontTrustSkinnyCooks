@@ -6,7 +6,6 @@ defineProps(['prepTime', 'cookTime', 'servingSize', 'yieldAmount'])
   <div class="p-10 rounded  dark:bg-gray-800 grid grid-cols-2 gap-x-24 gap-y-14  w-fit ">
     <div class="flex gap-3">
       <Icon name="material-symbols:nest-clock-farsight-analog-rounded" class="text-3xl text-orange-400" />
-
       <div class="">
         <p class="text-2xl font-extrabold text-orange-400">
           Prep Time:
@@ -52,6 +51,4 @@ defineProps(['prepTime', 'cookTime', 'servingSize', 'yieldAmount'])
   </div>
 </template>
 
-<style>
-
-</style>
+<style></style>

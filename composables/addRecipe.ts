@@ -1,131 +1,116 @@
-import type { RecipeFormObject } from "~/types/types";
-
-export const useAddRecipe = () => {
+export function useAddRecipe() {
   return ref()
 }
 
-
-
-export function addNewIngredient( newRecipe:any) {
-  newRecipe.ingredients.push("");
+export function addNewIngredient(newRecipe: any) {
+  newRecipe.ingredients.push('')
 }
 
-export function deleteIngredient(index: number,newRecipe:any) {
-  const toast = useToast();
-  newRecipe.ingredients.splice(index, 1);
+export function deleteIngredient(index: number, newRecipe: any) {
+  const toast = useToast()
+  newRecipe.ingredients.splice(index, 1)
   toast.add({
     id: `removed_ingredient ${index}`,
-    title: "Removed Ingredient",
+    title: 'Removed Ingredient',
 
-    icon: "i-heroicons-check-circle",
+    icon: 'i-heroicons-check-circle',
     timeout: 2000,
-  });
+  })
 }
 
-export function updateIngredient(index: number, event: InputEvent,newRecipe:any) {
+export function updateIngredient(index: number, event: InputEvent, newRecipe: any) {
   // Assuming you are working with an input element, extract the value
-  const value = (event.target as HTMLInputElement).value;
+  const value = (event.target as HTMLInputElement).value
 
   // Update the ingredient in the newRecipe object
-  newRecipe.ingredients[index] = value;
+  newRecipe.ingredients[index] = value
 }
 
-
-
-
-export function addNewDirection(newRecipe:any) {
-  newRecipe.directions = [...newRecipe.directions, ""];
+export function addNewDirection(newRecipe: any) {
+  newRecipe.directions = [...newRecipe.directions, '']
 }
 
-export function deleteDirection(index: number,newRecipe:any) {
-  const toast = useToast();
-  newRecipe.directions.splice(index, 1);
+export function deleteDirection(index: number, newRecipe: any) {
+  const toast = useToast()
+  newRecipe.directions.splice(index, 1)
   toast.add({
     id: `removed_direction ${index}`,
-    title: "Removed Direction",
+    title: 'Removed Direction',
 
-    icon: "i-heroicons-check-circle",
+    icon: 'i-heroicons-check-circle',
     timeout: 2000,
-  });
+  })
 }
 
-
-export function updateDirection(index: number, event: InputEvent,newRecipe:any) {
+export function updateDirection(index: number, event: InputEvent, newRecipe: any) {
   // Assuming you are working with an input element, extract the value
-  const value = (event.target as HTMLInputElement).value;
+  const value = (event.target as HTMLInputElement).value
 
   // Update the ingredient in the newRecipe object
-  newRecipe.directions[index] = value;
+  newRecipe.directions[index] = value
 }
 
-export function addNewNote(newRecipe:any) {
-  newRecipe.notes.push("");
+export function addNewNote(newRecipe: any) {
+  newRecipe.notes.push('')
 }
 export function deleteNote(index: number, newRecipe: any) {
-  const toast = useToast();
-  newRecipe.value.notes.splice(index, 1);
+  const toast = useToast()
+  newRecipe.value.notes.splice(index, 1)
   toast.add({
     id: `removed_note ${index}`,
-    title: "Removed Note",
+    title: 'Removed Note',
 
-    icon: "i-heroicons-check-circle",
+    icon: 'i-heroicons-check-circle',
     timeout: 2000,
-  });
+  })
 }
 
-
-export function updateNote(index: number, event: InputEvent,newRecipe:any) {
+export function updateNote(index: number, event: InputEvent, newRecipe: any) {
   // Assuming you are working with an input element, extract the value
-  const value = (event.target as HTMLInputElement).value;
+  const value = (event.target as HTMLInputElement).value
 
   // Update the ingredient in the newRecipe object
-  newRecipe.notes[index] = value;
+  newRecipe.notes[index] = value
 }
 
-
-
 interface ValidationResults {
-  isValid: boolean;
-  missingFields: string[];
+  isValid: boolean
+  missingFields: string[]
 }
 
 export function validateForm(recipe: Object): ValidationResults {
-  const excludedFields = ["image", "notes", "yieldAmount", "cookTime"];
+  const excludedFields = ['image', 'notes', 'yieldAmount', 'cookTime']
   const validationResults: ValidationResults = {
     isValid: true,
     missingFields: [],
-  };
+  }
 
   for (const [key, value] of Object.entries(recipe)) {
     // Skip validation for excluded fields
-    if (excludedFields.includes(key)) continue;
+    if (excludedFields.includes(key))
+      continue
 
     // Validate non-excluded fields
     if (Array.isArray(value)) {
       // Check if the array contains at least one non-empty string
       if (
-        !value.some((item) => typeof item === "string" && item.trim() !== "")
+        !value.some(item => typeof item === 'string' && item.trim() !== '')
       ) {
-        validationResults.isValid = false;
-        validationResults.missingFields.push(key);
+        validationResults.isValid = false
+        validationResults.missingFields.push(key)
       }
-    } else {
+    }
+    else {
       // Validate non-array fields
-      if (value === undefined || value === null || value === "") {
-        validationResults.isValid = false;
-        validationResults.missingFields.push(key);
+      if (value === undefined || value === null || value === '') {
+        validationResults.isValid = false
+        validationResults.missingFields.push(key)
       }
     }
   }
 
-  return validationResults;
+  return validationResults
 }
-
-
-
-
-
-
 
 // TEST RECIPE WITH FIELDS FILLED OUT
 // const newRecipe = ref({

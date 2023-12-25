@@ -1,5 +1,4 @@
-import { Category } from "@prisma/client"
-import { authOptions } from "../auth/[...]";
+import type { Category } from '@prisma/client'
 
 export default defineEventHandler(async (event) => {
   try {
@@ -16,7 +15,6 @@ export default defineEventHandler(async (event) => {
       categories,
     } = await readBody(event)
 
-    
     // Convert arrays to JSON strings
     const ingredientsJSON = JSON.stringify(ingredients)
     const directionsJSON = JSON.stringify(directions)
@@ -27,13 +25,10 @@ export default defineEventHandler(async (event) => {
     // console.log("Directions JSON:", directionsJSON);
     // console.log("Notes JSON:", notesJSON);
 
+    const mappedCategories = categories.map((category: Category) => ({
+      name: category,
+    }))
 
-
- const mappedCategories = categories.map((category: Category) => ({
-  name: category
-}));
-
- 
     const newRecipe = await prisma().recipe.create({
       data: {
         title,
@@ -43,7 +38,7 @@ export default defineEventHandler(async (event) => {
         image,
         notes: notesJSON,
         servingSize,
-        
+
         prepTime,
         cookTime,
         user: {
@@ -51,16 +46,14 @@ export default defineEventHandler(async (event) => {
             id: 'clqd5ehiv00005p76a661u9kv',
           },
         },
-      categories: {
-connect:mappedCategories
-}
+        categories: {
+          connect: mappedCategories,
+        },
       },
     })
 
-
-if (newRecipe) {
-  console.log("New recipe created:");
-}
+    if (newRecipe)
+      console.log('New recipe created:')
 
     return newRecipe
   }

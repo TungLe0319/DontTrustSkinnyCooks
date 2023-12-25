@@ -1,3 +1,17 @@
+<script lang="ts" setup>
+import type { RecipeWithUserAndCategories } from '~/types/types'
+
+const { data }
+  = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes/get')
+
+const recipes = data.value?.slice(0, 4)
+const mainRecipe = data.value?.find(recipe => recipe.id === 2)
+
+const mostRecentRecipes = data.value
+  ?.sort((a, b) => new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime())
+  ?.slice(0, 4)
+</script>
+
 <template>
   <div class="flex gap-6 bg-gray-100 p-10">
     <NuxtLink :to="`/recipes/${mainRecipe?.id}`" class="w-2/3 group ">
@@ -8,7 +22,7 @@
         :src="mainRecipe?.image || ''"
         alt=""
         class="h-auto w-auto rounded-md shadow-lg group-hover:brightness-75 duration-150 transition-all"
-      />
+      >
       <div class="mt-5 space-y-3">
         <div class="flex gap-3">
           <UBadge
@@ -37,49 +51,29 @@
         </div>
         <div class="space-y-6">
           <NuxtLink
-            :to="`/recipes/${recipe.id}`"
             v-for="recipe in mostRecentRecipes"
             :key="recipe.id"
+            :to="`/recipes/${recipe.id}`"
             class="group flex gap-5 rounded p-2 transition-all duration-150"
           >
             <img
               :src="recipe?.image || ''"
               alt=""
               class="h-24 w-1/2 rounded-md object-cover shadow-lg transition-all duration-150 group-hover:brightness-75"
-            />
+            >
             <div class="flex flex-col w-2/3">
-              <span class="font-bold underline-offset-2 group-hover:underline"
-                >{{ recipe.title }}
+              <span class="font-bold underline-offset-2 group-hover:underline">{{ recipe.title }}
               </span>
               <span
                 class="text-sm font-medium underline-offset-2 group-hover:underline"
-                >{{ recipe.description.slice(0, 50) }}...
+              >{{ recipe.description.slice(0, 50) }}...
               </span>
             </div>
-
           </NuxtLink>
-          
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<script lang="ts" setup>
-import type { RecipeWithUserAndCategories } from "~/types/types";
-import RecipeCard from "../recipes/recipe-home/RecipeCard.vue";
-const { data } =
-  await useFetch<RecipeWithUserAndCategories[]>("/api/recipes/get");
-
-const recipes = data.value?.slice(0, 4);
-const mainRecipe = data.value?.find((recipe) => recipe.id === 2);
-
-
-const mostRecentRecipes = data.value
-  ?.sort((a, b) => new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime())
-  ?.slice(0, 4)
- 
-
-</script>
 
 <style></style>

@@ -6,7 +6,7 @@ import type { Category } from '@prisma/client'
 // })
 export const useCounter = () => useState<number>('counter', () => 0)
 
-export const  useSelectedCategory = () => {
+export function useSelectedCategory() {
   return useState<string[]>('selectedCategory', () => [])
 }
 
@@ -23,4 +23,3 @@ export function formateDate(date: Date) {
   ))
 }
 export const useCategories = () => useState<Category[]>('categories', () => [])
-

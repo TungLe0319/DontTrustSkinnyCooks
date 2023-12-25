@@ -6,11 +6,11 @@ import NavBar from './components/globals/NavBar.vue'
 <template>
   <div>
     <NavBar />
- 
-  <UContainer class="py-16">
-        <NuxtPage />
-  </UContainer>
-  
+
+    <UContainer class="py-16">
+      <NuxtPage />
+    </UContainer>
+
     <Footer />
     <UNotifications>
       <template #title="{ title }">

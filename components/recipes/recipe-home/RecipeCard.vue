@@ -1,32 +1,26 @@
 <script lang="ts" setup>
 import ProfileCard from '~/components/globals/ProfileCard.vue'
-import type { RecipeWithUserAndCategories } from '~/types/types';
-import type {Collection} from '~/types/types';
- const {recipe} = defineProps<{
- recipe: RecipeWithUserAndCategories
+import type { Collection, RecipeWithUserAndCategories } from '~/types/types'
+
+const { recipe } = defineProps<{
+  recipe: RecipeWithUserAndCategories
 
 }>()
-const {data:Collections} = useFetch<Collection[]>('/api/account/collections/get')
+const { data: Collections } = useFetch<Collection[]>('/api/account/collections/get')
 const collections = ref(Collections.value)
 const route = useRoute()
 const toast = useToast()
 const isOpen = ref(false)
 const selectedCategories = useSelectedCategory()
-async function saveRecipe(collectionId:number) {
+1
+async function saveRecipe(collectionId: number) {
   try {
-
-
-
- await useFetch(`/api/account/collections/${collectionId}`,{
-  method:'PUT',
-  body:{
-    recipeId:recipe.id
-  }
- })
-
-
-
-
+    await useFetch(`/api/account/collections/${collectionId}`, {
+      method: 'PUT',
+      body: {
+        recipeId: recipe.id,
+      },
+    })
 
     toast.add({
       title: 'Recipe Saved',
@@ -39,21 +33,19 @@ async function saveRecipe(collectionId:number) {
 
   }
 }
-
 </script>
 
 <template>
   <UCard
     class=" rounded shadow-md hover:bg-zinc-800 hover:text-white  transition-all duration-200 group hover:shadow-xl hover:shadow-black/30 group dark:bg-gray-800 dark:hover:bg-white dark:hover:text-gray-800 dark:hover:shadow-white/20"
-    :ui="{ body:{padding:{},}, }"
+    :ui="{ body: { padding: {} } }"
   >
     <NuxtLink
       :to="`/recipes/${recipe.id}`" class="flex items-center mb-2 relative  w-full overflow-hidden  shadow-xl "
       :class="route.name === 'profile-id' ? 'h-52' : 'h-44'"
     >
       <img
-      v-if="recipe.image"
-        :src="recipe.image || ''" alt="Recipe Picture"
+        v-if="recipe.image" :src="recipe.image || ''" alt="Recipe Picture"
         class="absolute w-full object-cover  shadow-black  transition-all duration-150  group-hover:grayscale rounded-t object-center "
         :class="route.name === 'profile-id' ? 'h-42' : 'h-full'"
       >
@@ -63,12 +55,11 @@ async function saveRecipe(collectionId:number) {
           no image available
         </span>
       </div>
+
       <div
         class="absolute flex items-center justify-center font-extrabold text-4xl w-full  p-10 z-10  translate-y-[10rem] group-hover:translate-y-4 transition-all duration-300 text-orange-400 bg-gradient-to-t from-black  h-full"
       >
         View Recipe
-
-      
       </div>
     </NuxtLink>
     <div class="p-5 pt-2">
@@ -108,56 +99,46 @@ async function saveRecipe(collectionId:number) {
         </div>
       </div>
       <hr class="my-3">
-
-      <div v-if="selectedCategories.length >= 1" v-auto-animate class="my-5 flex gap-2 flex-wrap p-2">
-        <span v-for="(category, index) in recipe.categories">
+      <div v-if="selectedCategories?.value?.length >= 1" v-auto-animate class="my-5 flex gap-2 flex-wrap p-2">
+        <span v-for="(category, index) in recipe.categories" :key="category.name">
           <UBadge
-
             size="xs"
             class="shadow-md hover:scale-[1.01] hover:shadow-xl transition-all duration-300 hover:cursor-pointer bg-gray-500/40"
-            :class="selectedCategories.includes(category.name) ? 'bg-green-500 text-white' : ''"
+            :class="selectedCategories?.value?.includes(category.name) ? 'bg-green-500 text-white' : ''"
           >
             {{ category.name }}
           </UBadge>
         </span>
       </div>
-
     </div>
-     <UModal v-model="isOpen">
-
-
-     
-        <UCard >
-          <template #header>
-             <h1 class="text-2xl font-bold">Add to Collection</h1>
-                <p class="text-gray-500">Save a recipe to your selected collection</p>
-          </template>
-
-           <div class="p-4">
-       
-        
-        <ul class="">
-
-          <li v-for="collection in collections" :key="collection.id" class=" border-b border-b-gray-200 p-1.5 hover:cursor-pointer hover:bg-gray-100 transition-all duration-200 flex gap-3">
-        <span>
-          {{ collection.title }}
-        </span>
-       
-        <UButton @click="saveRecipe(collection.id)" class="ml-auto">
-          Save
-        </UButton>
-          </li>
-        </ul>
-          </div>
-
-        
-        </UCard>
-
-     
-    
-      </UModal>
+    <UModal v-model="isOpen">
+      <UCard>
+        <template #header>
+          <h1 class="text-2xl font-bold">
+            Add to Collection
+          </h1>
+          <p class="text-gray-500">
+            Save a recipe to your selected collection
+          </p>
+        </template>
+        <div class="p-4">
+          <ul class="">
+            <li
+              v-for="collection in collections" :key="collection.id"
+              class=" border-b border-b-gray-200 p-1.5 hover:cursor-pointer hover:bg-gray-100 transition-all duration-200 flex gap-3"
+            >
+              <span>
+                {{ collection.title }}
+              </span>
+              <UButton class="ml-auto" @click="saveRecipe(collection.id)">
+                Save
+              </UButton>
+            </li>
+          </ul>
+        </div>
+      </UCard>
+    </UModal>
   </UCard>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

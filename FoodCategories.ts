@@ -1,4 +1,3 @@
-
 // slowly marking this off as I go through the data
 const foodCategories = [
   'Cooked Grains',
@@ -57,7 +56,6 @@ const foodCategories = [
   'WATER',
   'Liver and organ meats',
   'Saltine crackers',
-
 
   'Bottled water',
   'Chicken, whole pieces',

@@ -9,7 +9,7 @@ const selectedRating = ref(0)
 const hoverRating = ref(0)
 const hovering = ref(false)
 const selectedRatingLabel = ref('')
-const { signIn} = useAuth()
+const { signIn } = useAuth()
 async function createReview() {
   try {
     toast.add({
@@ -126,7 +126,7 @@ function getRatingLabel(rating: number) {
     <div v-else class="space-y-5">
       <div>Please sign in to write a review for this recipe! </div>
 
-      <UButton @click="signIn" size="xl" class="bg-orange-400 hover:bg-orange-300 transition-all duration-150 hover:scale-[1.01]">
+      <UButton size="xl" class="bg-orange-400 hover:bg-orange-300 transition-all duration-150 hover:scale-[1.01]" @click="signIn">
         Sign In
       </UButton>
     </div>

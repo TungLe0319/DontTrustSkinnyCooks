@@ -1,3 +1,13 @@
+<script lang="ts" setup>
+import RecipeCard from '../recipes/recipe-home/RecipeCard.vue'
+import type { RecipeWithUserAndCategories } from '~/types/types'
+
+const { data }
+  = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes/get')
+
+const recipes = data.value?.slice(0, 6)
+</script>
+
 <template>
   <div class="">
     <div class="mt-5 mb-14 flex items-center justify-center">
@@ -11,14 +21,5 @@
     </div>
   </div>
 </template>
-
-<script lang="ts" setup>
-import type { RecipeWithUserAndCategories } from "~/types/types";
-import RecipeCard from "../recipes/recipe-home/RecipeCard.vue";
-const { data } =
-  await useFetch<RecipeWithUserAndCategories[]>("/api/recipes/get");
-
-const recipes = data.value?.slice(0, 6);
-</script>
 
 <style></style>

@@ -80,13 +80,15 @@ async function deleteRecipe() {
       </h1>
       <div v-if="session?.user?.id === user.id" class="flex gap-3 items-center justify-center mt-1">
         <UButton
-          size="xl" class="bg-orange-400  transition-all duration-150 hover:brightness-75 hover:bg-orange-400 hover:scale-95"
+          size="xl"
+          class="bg-orange-400  transition-all duration-150 hover:brightness-75 hover:bg-orange-400 hover:scale-95"
           @click="editRecipe"
         >
           Edit
         </UButton>
         <UButton
-          size="xl" class="bg-red-400 transition-all duration-150 hover:brightness-75 hover:bg-red-400 hover:scale-95"
+          size="xl"
+          class="bg-red-400 transition-all duration-150 hover:brightness-75 hover:bg-red-400 hover:scale-95"
           @click="deleteRecipe"
         >
           Delete
@@ -109,25 +111,21 @@ async function deleteRecipe() {
     <p class=" my-5">
       {{ description }}
     </p>
-
     <div class="font-bold text-sm">
       Recipe By
     </div>
     <div class=" w-fit flex items-center gap-4">
       <ProfileCard :user="user" />
-
       <hr class="h-14 w-0.5   bg-gray-300">
-
       <div class=" text-sm my-4 font-semibold  flex flex-col gap-2 ">
         <span>
-          Created  {{ formateDate(createdAt).value }}
+          Created {{ formateDate(createdAt).value }}
         </span>
         <span v-if="createdAt !== updatedAt" class="text-gray-500 text-xs">
           Updated {{ formateDate(updatedAt).value }}
         </span>
       </div>
     </div>
-
     <div
       class="flex   bg-gradient-to-r from-orange-500 via-rose-300 to-indigo-600 dark:bg-gradient-to-r dark:from-orange-500 dark:via-rose-300 dark:to-indigo-600  w-fit shadow-xl "
     >
@@ -153,6 +151,4 @@ async function deleteRecipe() {
   </div>
 </template>
 
-<style>
-
-</style>
+<style></style>

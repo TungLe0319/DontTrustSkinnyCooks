@@ -1,55 +1,44 @@
-import { authOptions } from "../../../auth/[...]"
+import { authOptions } from '../../../auth/[...]'
 
 import { getServerSession } from '#auth'
 
 export default defineEventHandler(async (event) => {
-
-
-
   try {
-    
-const body = await  readBody(event)
-console.log(body)
-  const collectionId = getRouterParam(event, 'id')
+    const body = await readBody(event)
+    console.log(body)
+    const collectionId = getRouterParam(event, 'id')
 
     if (!collectionId)
       return createError('Missing id')
 
+    const session = await getServerSession(event, authOptions)
 
-
-   const session = await getServerSession(event, authOptions)
-
-   if (!session?.user) {
-    
+    if (!session?.user) {
       throw createError({
-        statusCode:401,
-        statusMessage:'Unauthorized',
-        
+        statusCode: 401,
+        statusMessage: 'Unauthorized',
+
       })
+    }
 
-   }
-
-
-
-  await prisma().collection.update({
-      where:{
-        id:Number(collectionId)
+    await prisma().collection.update({
+      where: {
+        id: Number(collectionId),
       },
-      data:{
-        recipes:{
-          connect:{
-            id:Number(body.recipeId)
-          }
-        }
-      }
+      data: {
+        recipes: {
+          connect: {
+            id: Number(body.recipeId),
+          },
+        },
+      },
     })
-  
-  
-  } catch (error) {
+  }
+  catch (error) {
     throw createError({
-      statusCode:500,
-      statusMessage:'Internal Server Error',
-      
+      statusCode: 500,
+      statusMessage: 'Internal Server Error',
+
     })
   }
 })

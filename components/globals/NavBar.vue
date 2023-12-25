@@ -6,7 +6,6 @@ const toast = useToast()
 const router = useRouter()
 const colorMode = useColorMode()
 
-
 const drawerIsOpen = ref(false)
 
 const showAlert = ref(true)
@@ -31,7 +30,6 @@ const items = ref([
 
 ])
 
-
 const profileDropdownItems = [
   [
     {
@@ -44,37 +42,37 @@ const profileDropdownItems = [
     {
       label: 'Profile',
       icon: 'i-heroicons-user-20-solid',
-    
-       click: () => {
+
+      click: () => {
         router.push(`/account/profile-info`)
-      }
+      },
     },
-       {
+    {
       label: 'Password',
       icon: 'solar:lock-password-bold',
- 
-        click: () => {
+
+      click: () => {
         router.push(`/account/manage-password`)
-      }
+      },
     },
   ],
- 
+
   [
     {
       label: 'Collections',
       icon: 'material-symbols:collections-bookmark-rounded',
-  
-         click: () => {
+
+      click: () => {
         router.push(`/account/collections`)
-      }
+      },
     },
-       {
+    {
       label: 'My Recipes',
       icon: 'solar:whisk-bold',
-   
-          click: () => {
-          router.push(`/account/my-recipes`)
-        }
+
+      click: () => {
+        router.push(`/account/my-recipes`)
+      },
 
     },
   ],
@@ -88,31 +86,22 @@ const profileDropdownItems = [
   ],
 ]
 
-
-
 onMounted(() => {
-
   welcomeBackUser()
 })
 
- const welcomeBackUser =()=>{
+function welcomeBackUser() {
   if (session.value?.user) {
-   toast.add({
-    id:`welcome-back-${session.value.user.id}`,
-    title:`Welcome back ${session.value.user.name}!`,
-    description:`We're glad to see you again!`,
-    duration:5000,
-    icon:'i-heroicons-user',
-    color:'green',
+    toast.add({
+      id: `welcome-back-${session.value.user.id}`,
+      title: `Welcome back ${session.value.user.name}!`,
+      description: `We're glad to see you again!`,
+      duration: 5000,
+      icon: 'i-heroicons-user',
+      color: 'green',
     })
   }
- 
- }
-
-
-
-
-
+}
 </script>
 
 <template>
@@ -139,7 +128,6 @@ onMounted(() => {
       <div class="lg:flex space-x-4  items-center relative hidden  ">
         <NuxtLink
           v-for="item in items" :key="item.name" :to="item.href" class="text-lg" active-class="active"
-       
         >
           {{ item.name }}
         </NuxtLink>
@@ -147,11 +135,10 @@ onMounted(() => {
       <div class=" hidden lg:flex items-center justify-center space-x-4">
         <div class="flex gap-5">
           <a v-if="!session?.user" href="/api/auth/signin" class="buttonPrimary">Sign in</a>
-      
         </div>
         <UDropdown
           v-if="session?.user" :items="profileDropdownItems"
-          :ui="{ width:'w-fit',item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom-start' }"
+          :ui="{ width: 'w-fit', item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom-start' }"
         >
           <UAvatar size="md" :src="session.user?.image || 'https://i.pravatar.cc/150?img=69'" class="shadow-md" />
           <template #account="{ item }">
@@ -165,17 +152,14 @@ onMounted(() => {
             </div>
           </template>
 
-
-          
           <template #item="{ item }">
-            <div  class="flex items-center justify-between w-full">
+            <div class="flex items-center justify-between w-full">
               <span class="truncate">{{ item.label }}</span>
               <Icon
                 v-if="item.icon" :name="item.icon"
                 class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500 ms-auto"
               />
             </div>
-         
           </template>
         </UDropdown>
         <ClientOnly>

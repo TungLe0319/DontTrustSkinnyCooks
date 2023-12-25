@@ -1,10 +1,9 @@
 <script lang="ts" setup>
+import type { RecipeWithUserAndCategories } from '../../types/types'
 import RecipeCard from '~/components/recipes/recipe-home/RecipeCard.vue'
 import Search from '~/components/recipes/recipe-home/Search.vue'
-import {Prisma} from '@prisma/client'
-import type { RecipeWithUserAndCategories } from '../../types/types'
-const { data } = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes/get')
 
+const { data } = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes/get')
 
 const selectedCategories = useSelectedCategory()
 
@@ -13,8 +12,7 @@ const filteredRecipes = computed(() => {
     return data.value
 
   return data.value?.filter((recipe) => {
-    
-    return recipe.categories?.some((category) =>
+    return recipe.categories?.some(category =>
       selectedCategories.value.includes(category.name),
     )
   })

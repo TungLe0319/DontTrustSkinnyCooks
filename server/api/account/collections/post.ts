@@ -1,37 +1,29 @@
-import { authOptions } from "../../auth/[...]"
+import { authOptions } from '../../auth/[...]'
 
 import { getServerSession } from '#auth'
 
-
 export default defineEventHandler(async (event) => {
-  
-try {
-    const { title} = await readBody(event)
+  try {
+    const { title } = await readBody(event)
 
-const session = await getServerSession(event, authOptions)
+    const session = await getServerSession(event, authOptions)
 
-  const newCollection = prisma().collection.create({
-    data: {
-       title,
-       
-       user:{
-        connect:{
-          id:session.user.id
-        }
-       }
-    },
-    
-    
-  
-  })
+    const newCollection = prisma().collection.create({
+      data: {
+        title,
 
+        user: {
+          connect: {
+            id: session.user.id,
+          },
+        },
+      },
 
-  return newCollection
+    })
 
+    return newCollection
+  }
+  catch (error) {
 
-
-} catch (error) {
-  
-}
-  
+  }
 })

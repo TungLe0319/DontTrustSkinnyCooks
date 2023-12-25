@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-
 defineProps<{
   notes: string
 }>()
@@ -24,6 +23,4 @@ defineProps<{
   </div>
 </template>
 
-<style>
-
-</style>
+<style></style>
