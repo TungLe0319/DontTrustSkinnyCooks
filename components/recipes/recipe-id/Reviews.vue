@@ -7,10 +7,20 @@ const toast = useToast()
 const selectedRating = ref(0)
 const hoverRating = ref(0)
 const hovering = ref(false)
+const comment = ref('')
 const selectedRatingLabel = ref('')
 const { signIn } = useAuth()
 async function createReview() {
+  const body = {
+    rating: selectedRating.value,
+    comment: comment.value,
+  }
+
   try {
+    useFetch(`/api/recipes/${recipe.id}/reviews`, {
+      method: 'POST',
+      body,
+    })
     toast.add({
       id: `create review ${recipe.id}`,
       title: 'Review Created',
@@ -97,7 +107,7 @@ function getRatingLabel(rating: number) {
         <span class="font-semibold">Your Rating (required)</span>
         <div class="flex items-center">
           <div
-            v-for="(star, index) in 5" class="hover:cursor-pointer" @mouseenter="hover(index)" @mouseleave="resetHover"
+            v-for="(star, index) in 5" :key="star" class="hover:cursor-pointer" @mouseenter="hover(index)" @mouseleave="resetHover"
             @click="click(index + 1)"
           >
             <Icon :name="starIcon(index)" class="text-5xl  hover:text-orange-300 duration-150 transition-colors" :class="starColor(index)" />
@@ -114,7 +124,7 @@ function getRatingLabel(rating: number) {
       <div class=" space-y-3">
         <span class="font-semibold">Your Review (required)</span>
 
-        <UTextarea variant="outline" placeholder="Review..." />
+        <UTextarea v-model="comment" variant="outline" placeholder="Review..." />
       </div>
 
       <UButton size="xl" class="bg-orange-400 hover:bg-orange-300 hover:scale-[1.01] transition-all duration-150" @click="createReview">
@@ -138,7 +148,7 @@ function getRatingLabel(rating: number) {
       </div>
 
       <div class=" px-10 space-y-5">
-        <ReviewCard v-for="i in 5" :recipe="recipe" :rating="rating" />
+        <ReviewCard v-for="i in 5" :key="i" :recipe="recipe" :rating="rating" />
       </div>
     </div>
   </div>
