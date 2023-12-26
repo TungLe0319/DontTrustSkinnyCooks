@@ -2,7 +2,7 @@ import { authOptions } from '../../auth/[...]'
 
 import { getServerSession } from '#auth'
 
-export default defineEventHandler(async (event) => {
+export default defineAuthHandler(async (event) => {
   try {
     const session = await getServerSession(event, authOptions)
 
