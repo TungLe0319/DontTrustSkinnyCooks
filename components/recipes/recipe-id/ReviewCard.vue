@@ -1,13 +1,13 @@
-
 <script lang="ts" setup>
-const { recipe: recipeProp, rating,review } = defineProps(['recipe', 'rating','review'])
-const recipe = ref<RecipeWithUser>(recipeProp)
+const { review: reviewProp } = defineProps(['review'])
+const review = ref<ReviewWithUser>(reviewProp)
 const { session } = useAuth()
 const toast = useToast()
 const router = useRouter()
 const route = useRoute()
 const editing = ref(false)
 const hovering = ref(false)
+const timeAgo = useTimeAgo(review.value.updatedAt!)
 const items = [
   [{
     label: editing.value ? 'Save' : 'Edit',
@@ -23,7 +23,7 @@ const items = [
 
     click: async () => {
       toast.add({
-        id: ` delete review ${recipe.value.id}`,
+        id: ` delete review ${review.value.id}`,
         title: 'Delete Review?',
         description: 'Are you sure you want to delete this review?',
         color: 'orange',
@@ -32,7 +32,7 @@ const items = [
           label: 'Confirm',
           click: async () => {
             toast.add({
-              id: `delete review ${recipe.value.id}`,
+              id: `delete review ${review.value.id}`,
               title: 'Review Deleted',
               description: 'Your review has been deleted.',
               color: 'green',
@@ -71,8 +71,8 @@ function starIcon(index: number) {
 function starColor(index: number) {
   return index + 1 <= (hoverRating.value || selectedRating.value) ? 'text-orange-400' : 'text-orange-400/50'
 }
-watch(() => rating, (newValue) => {
-  selectedRating.value = newValue
+watch(() => review.value, (newValue) => {
+  selectedRating.value = newValue.rating
 })
 
 const selectedRatingLabel = ref('')
@@ -105,8 +105,8 @@ function getRatingLabel(rating: number) {
   <div class="flex flex-col p-2 px-5  dark:border-2 dark:border-gray-300/30 space-y-4 dark:bg-gray-800 border-b-2 border-orange-400/60">
     <div class="flex items-center justify-between ">
       <div class="flex items-center gap-3">
-        <UAvatar :src="review.user.image" size="xl" class="shadow-md" alt="Harry Ashford" />
-        <span class=" border-b border-spacing-3 border-orange-400"> {{ review.user.name }} </span>
+        <UAvatar size="xl" class="shadow-md" alt="Harry Ashford" :src="review.user.image!" />
+        <span class=" border-b border-spacing-3 border-orange-400">{{ review.user.name }}</span>
       </div>
       <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
         <Icon name="mi:options-horizontal" class=" text-2xl  " />
@@ -118,19 +118,16 @@ function getRatingLabel(rating: number) {
         </template>
       </UDropdown>
     </div>
-  
 
     <div v-if="!editing" class="flex items-center gap-2">
       <div class="flex items-center gap-1">
         <Icon v-for="i in review.rating" :key="i" name="game-icons:fat" class="text-orange-400 " />
       </div>
-      <span class="text-xs">12/18/23 </span>
-
-      
+      <span class="text-xs">{{ timeAgo }}</span>
     </div>
 
-    <div v-if="!editing" class="p-3">
-     {{ review.comment }}
+    <div v-if="editing" class="p-3">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad qui consectetur eos soluta? Illum neque officiis iusto earum sunt aliquid? Atque, error ipsum. Blanditiis, in!
     </div>
 
     <div v-else class="space-y-4">
@@ -149,8 +146,7 @@ function getRatingLabel(rating: number) {
         </span>
       </div>
 
-    
-      <UTextarea v-model="review.comment" variant="outline" />
+      <UTextarea v-if="review.comment" v-model="review.comment" variant="outline" />
     </div>
   </div>
 </template>

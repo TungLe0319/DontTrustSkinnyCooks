@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import Footer from './components/globals/Footer.vue'
 import NavBar from './components/globals/NavBar.vue'
+
+// const io = useIo()
+// io.emit('joinRoom', (room) => {
+//   console.log('joined room', room)
+// })
 </script>
 
 <template>

@@ -17,12 +17,20 @@ export function socketHandler(server: Server<typeof IncomingMessage, typeof Serv
 
     socket.on('joinRoom', (room, user) => {
       socket.join(room)
-      io.to(room).emit('join', {
-        from_id: user.id,
-        from_name: user.name,
-        system: true,
-        content: `${user.name ?? user.id} joined the thread`,
-      })
+      //   if (room === 'general') {
+      //     setInterval(() => {
+      //       io.to(room).emit('message', 'hello from server')
+      //     }, 1000)
+      //   }
+
+      console.log(`[Socket.io] joinRoom ${room}`)
+
+    //   io.to(room).emit('join', {
+    //     from_id: user.id,
+    //     from_name: user.name,
+    //     system: true,
+    //     content: `${user.name ?? user.id} joined the thread`,
+    //   })
     })
 
     socket.on('leaveRoom', (room, user) => {

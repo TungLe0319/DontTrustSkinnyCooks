@@ -15,7 +15,26 @@ const hoverRating = ref(0)
 const hovering = ref(false)
 const comment = ref('')
 const selectedRatingLabel = ref('')
+const {data:reviews} = await useReviews(recipe.id)
+console.log('reviews', reviews);
+
 const { signIn } = useAuth()
+const io = useIo()
+
+onMounted(() => {
+  io.emit('joinRoom', `recipes-${recipe.id}`)
+  io.on(('newReview'), (review) => {
+    // console.log('new review', review)
+    reviews?.value?.unshift(review)
+  })
+  // io.onAny((event, ...args) => {
+  //   console.log('any', event, args)
+  // })
+})
+
+onBeforeUnmount(() => {
+  io.emit('leaveRoom', `recipes-${recipe.id}`)
+})
 async function createReview() {
   const body = {
     rating: selectedRating.value,
@@ -23,11 +42,12 @@ async function createReview() {
   }
 
   try {
-   await useFetch(`/api/recipes/${recipe.id}/reviews`, {
+    await useFetch(`/api/recipes/${recipe.id}/reviews`, {
       method: 'POST',
       body,
     })
-         refresh()
+    selectedRating.value = 0
+    comment.value = ''
     toast.add({
       id: `create review ${recipe.id}`,
       title: 'Review Created',
@@ -156,7 +176,7 @@ function getRatingLabel(rating: number) {
       </div>
 
       <div class=" px-10 space-y-5">
-        <ReviewCard v-for="i in reviews" :key="i.id" :recipe="i.recipeId" :rating="i.rating" :review="i" />
+        <ReviewCard v-for="i in reviews" :key="i.id" :review="i"/>
       </div>
     </div>
   </div>

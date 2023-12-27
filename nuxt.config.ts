@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@hebilicious/authjs-nuxt',
     '@pinia/nuxt',
     '@formkit/auto-animate/nuxt',
+    '@vueuse/nuxt'
   ],
 
   alias: {
