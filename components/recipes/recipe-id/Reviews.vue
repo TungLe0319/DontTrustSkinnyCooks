@@ -4,10 +4,10 @@ import ReviewCard from '~/components/recipes/recipe-id/ReviewCard.vue'
 const { recipe, rating } = defineProps(['recipe', 'rating'])
 
 
-const {data:Reviews,refresh} = await useFetch(`/api/recipes/${recipe.id}/reviews`,{
+const {data:reviews,refresh} = await useFetch(`/api/recipes/${recipe.id}/reviews`,{
   method:'GET'
 })
-const reviews = Reviews.value
+// const reviews = Reviews.value
 const { session } = useAuth()
 const toast = useToast()
 const selectedRating = ref(0)
@@ -15,7 +15,7 @@ const hoverRating = ref(0)
 const hovering = ref(false)
 const comment = ref('')
 const selectedRatingLabel = ref('')
-const {data:reviews} = await useReviews(recipe.id)
+// const {data:reviews} = await useReviews(recipe.id)
 console.log('reviews', reviews);
 
 const { signIn } = useAuth()
