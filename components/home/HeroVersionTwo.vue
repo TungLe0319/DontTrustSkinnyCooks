@@ -1,32 +1,34 @@
 <script lang="ts" setup>
 import type { RecipeWithUserAndCategories } from '~/types/types'
 
-const { data }
+const { data:Recipes }
   = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes')
 
-const recipes = data.value?.slice(0, 4)
-const mainRecipe = data.value?.find(recipe => recipe.id === 2)
+const {data:MainRecipe} = await useFetch<RecipeWithUserAndCategories>(`/api/recipes/${4}`,{
+  method:'GET'
+})
+const mainRecipe = Recipes.value?.find(recipe => recipe.id === 2)
+const {data:mostRecentRecipes} = await useFetch('/api/recipes/home/mostRecent')
 
-const mostRecentRecipes = data.value
-  ?.sort((a, b) => new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime())
-  ?.slice(0, 4)
 </script>
 
 <template>
-  <div class="flex gap-6 bg-gray-100 dark:bg-gray-800 p-10">
+  <div class="flex gap-6 bg-gray-100 dark:bg-gray-800 p-10 rounded">
     <NuxtLink :to="`/recipes/${mainRecipe?.id}`" class="w-2/3 group ">
       <div class=" mb-5  underline underline-offset-4 text-4xl font-extrabold ">
         What's Cooking
       </div>
+
+    
       <img
-        :src="mainRecipe?.image || ''"
+        :src="MainRecipe?.image || ''"
         alt=""
         class="h-auto w-auto rounded-md shadow-lg group-hover:brightness-75 duration-150 transition-all"
       >
       <div class="mt-5 space-y-3">
         <div class="flex gap-3">
           <UBadge
-            v-for="category in mainRecipe?.categories"
+            v-for="category in MainRecipe?.categories"
             :key="category.id"
             size="md"
             class="bg-orange-400 shadow-md"
@@ -35,15 +37,15 @@ const mostRecentRecipes = data.value
           </UBadge>
         </div>
         <div class="text-3xl font-extrabold group-hover:underline group-hover:underline-offset-4">
-          {{ mainRecipe?.title }}
+          {{ MainRecipe?.title }}
         </div>
-        <p class="group-hover:underline group-hover:underline-offset-4">
-          {{ mainRecipe?.description }}
+        <p class="group-hover:underline group-hover:underline-offset-4 text-gray-500 dark:text-gray-400">
+          {{ MainRecipe?.description }}
         </p>
       </div>
     </NuxtLink>
     <div class="w-1/3">
-      <div class="space-y-5 bg-gray-100 dark:bg-gray-700 p-2">
+      <div class="space-y-5 bg-gray-200 dark:bg-gray-700 p-2 rounded">
         <div
           class="text-center text-2xl font-extrabold underline underline-offset-4"
         >
@@ -65,7 +67,7 @@ const mostRecentRecipes = data.value
               <span class="font-bold underline-offset-2 group-hover:underline">{{ recipe.title }}
               </span>
               <span
-                class="text-sm font-medium underline-offset-2 group-hover:underline"
+                class="text-sm text-gray-500 dark:text-gray-400 underline-offset-2 group-hover:underline"
               >{{ recipe.description.slice(0, 50) }}...
               </span>
             </div>

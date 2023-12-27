@@ -79,7 +79,7 @@ function filterCategories(index: number) {
             v-model="selectedCategories" :options="categories" multiple placeholder="Select Categories"
             searchable searchable-placeholder="Search a Category..." size="xl" value-attribute="name"
             option-attribute="name"
-            :ui-menu="{ base: 'space-y-2', option: { container: 'w-full', selected: 'bg-green-400/50' } }"
+            :ui-menu="{ base: 'space-y-2', option: { container: 'w-full', selected: 'bg-orange-400/50' } }"
           >
             <template #option-empty="{ query }">
               <q>{{ query }}</q> not found

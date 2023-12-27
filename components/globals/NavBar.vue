@@ -128,7 +128,7 @@ function welcomeBackUser() {
       </div>
       <div class="lg:flex space-x-4  items-center relative hidden  ">
         <NuxtLink
-          v-for="item in items" :key="item.name" :to="item.href" class="text-lg" active-class="active"
+          v-for="item in items" :key="item.name" :to="item.href" class="text-xl  font-extralight" active-class="active"
         >
           <div>{{ item.name }}</div>
         </NuxtLink>
@@ -139,7 +139,8 @@ function welcomeBackUser() {
         </div>
         <UDropdown
           v-if="session?.user" :items="profileDropdownItems"
-          :ui="{ width: 'w-fit', item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom-start' }"
+          mode="hover"
+          :ui="{ width: 'w-fit', item: { disabled: 'cursor-text select-text' } }" :popper="{ placement: 'bottom' }"
         >
           <UAvatar size="md" :src="session.user?.image || 'https://i.pravatar.cc/150?img=69'" class="shadow-md" />
           <template #account="{ item }">
