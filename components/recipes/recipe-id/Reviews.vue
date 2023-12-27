@@ -16,7 +16,7 @@ const hovering = ref(false)
 const comment = ref('')
 const selectedRatingLabel = ref('')
 // const {data:reviews} = await useReviews(recipe.id)
-console.log('reviews', reviews);
+// console.log('reviews', reviews);
 
 const { signIn } = useAuth()
 const io = useIo()

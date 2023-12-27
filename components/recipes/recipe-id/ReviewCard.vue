@@ -5,6 +5,7 @@ const { session } = useAuth()
 const toast = useToast()
 const router = useRouter()
 const route = useRoute()
+const {user} = useAuth()
 const editing = ref(false)
 const hovering = ref(false)
 const timeAgo = useTimeAgo(review.value.updatedAt!)
@@ -108,7 +109,7 @@ function getRatingLabel(rating: number) {
         <UAvatar size="xl" class="shadow-md" alt="Harry Ashford" :src="review.user.image!" />
         <span class=" border-b border-spacing-3 border-orange-400">{{ review.user.name }}</span>
       </div>
-      <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
+      <UDropdown v-if="review.userId === user?.id" :items="items" :popper="{ placement: 'bottom-start' }">
         <Icon name="mi:options-horizontal" class=" text-2xl  " />
 
         <template #item="{ item }">
@@ -126,8 +127,8 @@ function getRatingLabel(rating: number) {
       <span class="text-xs">{{ timeAgo }}</span>
     </div>
 
-    <div v-if="editing" class="p-3">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad qui consectetur eos soluta? Illum neque officiis iusto earum sunt aliquid? Atque, error ipsum. Blanditiis, in!
+    <div v-if="!editing" class="p-3">
+      {{ review.comment }}
     </div>
 
     <div v-else class="space-y-4">

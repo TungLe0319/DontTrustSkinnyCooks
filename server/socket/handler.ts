@@ -10,10 +10,10 @@ export function socketHandler(server: Server<typeof IncomingMessage, typeof Serv
   //   const threads = await getThreads()
 
   io.on('connection', (socket) => {
-    console.log('socket connected', socket.id)
-    socket.on('disconnect', () => {
-      console.log('socket disconnected', socket.id)
-    })
+    // console.log('socket connected', socket.id)
+    // socket.on('disconnect', () => {
+    //   console.log('socket disconnected', socket.id)
+    // })
 
     socket.on('joinRoom', (room, user) => {
       socket.join(room)

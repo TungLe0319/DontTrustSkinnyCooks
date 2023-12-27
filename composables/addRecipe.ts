@@ -78,7 +78,7 @@ interface ValidationResults {
   missingFields: string[]
 }
 
-export function validateForm(recipe: Object): ValidationResults {
+export function validateForm(recipe: Record<string,any>): ValidationResults {
   const excludedFields = ['image', 'notes', 'yieldAmount', 'cookTime']
   const validationResults: ValidationResults = {
     isValid: true,
