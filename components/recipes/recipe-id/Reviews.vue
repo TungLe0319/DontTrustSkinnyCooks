@@ -17,7 +17,7 @@ async function createReview() {
   }
 
   try {
-    useFetch(`/api/recipes/${recipe.id}/reviews`, {
+   await useFetch(`/api/recipes/${recipe.id}/reviews`, {
       method: 'POST',
       body,
     })

@@ -18,6 +18,7 @@ export default defineNuxtConfig({
     dirs: ['./types'],
   },
   nitro: {
+    entry: './preset/entry.dev.ts',
     imports: {
       dirs: ['./types'],
       // 'imports':[{name: '*', as:'Bun', from: 'bun', type: true, 'typeFrom': 'bun-types'}]

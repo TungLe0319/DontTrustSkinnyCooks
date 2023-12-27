@@ -1,5 +1,7 @@
+
 <script lang="ts" setup>
-const { recipe, rating } = defineProps(['recipe', 'rating'])
+const { recipe: recipeProp, rating } = defineProps(['recipe', 'rating'])
+const recipe = ref<RecipeWithUser>(recipeProp)
 const { session } = useAuth()
 const toast = useToast()
 const router = useRouter()
@@ -21,7 +23,7 @@ const items = [
 
     click: async () => {
       toast.add({
-        id: ` delete review ${recipe.id}`,
+        id: ` delete review ${recipe.value.id}`,
         title: 'Delete Review?',
         description: 'Are you sure you want to delete this review?',
         color: 'orange',
@@ -30,7 +32,7 @@ const items = [
           label: 'Confirm',
           click: async () => {
             toast.add({
-              id: `delete review ${recipe.id}`,
+              id: `delete review ${recipe.value.id}`,
               title: 'Review Deleted',
               description: 'Your review has been deleted.',
               color: 'green',
@@ -144,6 +146,7 @@ function getRatingLabel(rating: number) {
         </span>
       </div>
 
+    
       <UTextarea v-model="recipe.description" variant="outline" />
     </div>
   </div>
