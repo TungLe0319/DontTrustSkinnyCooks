@@ -1,6 +1,6 @@
 
 <script lang="ts" setup>
-const { recipe: recipeProp, rating } = defineProps(['recipe', 'rating'])
+const { recipe: recipeProp, rating,review } = defineProps(['recipe', 'rating','review'])
 const recipe = ref<RecipeWithUser>(recipeProp)
 const { session } = useAuth()
 const toast = useToast()
@@ -105,8 +105,8 @@ function getRatingLabel(rating: number) {
   <div class="flex flex-col p-2 px-5  dark:border-2 dark:border-gray-300/30 space-y-4 dark:bg-gray-800 border-b-2 border-orange-400/60">
     <div class="flex items-center justify-between ">
       <div class="flex items-center gap-3">
-        <UAvatar size="xl" class="shadow-md" alt="Harry Ashford" />
-        <span class=" border-b border-spacing-3 border-orange-400">username  </span>
+        <UAvatar :src="review.user.image" size="xl" class="shadow-md" alt="Harry Ashford" />
+        <span class=" border-b border-spacing-3 border-orange-400"> {{ review.user.name }} </span>
       </div>
       <UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
         <Icon name="mi:options-horizontal" class=" text-2xl  " />
@@ -118,22 +118,25 @@ function getRatingLabel(rating: number) {
         </template>
       </UDropdown>
     </div>
+  
 
     <div v-if="!editing" class="flex items-center gap-2">
       <div class="flex items-center gap-1">
-        <Icon v-for="i in 5" :key="i" name="game-icons:fat" class="text-orange-400 " />
+        <Icon v-for="i in review.rating" :key="i" name="game-icons:fat" class="text-orange-400 " />
       </div>
       <span class="text-xs">12/18/23 </span>
+
+      
     </div>
 
     <div v-if="!editing" class="p-3">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad qui consectetur eos soluta? Illum neque officiis iusto earum sunt aliquid? Atque, error ipsum. Blanditiis, in!
+     {{ review.comment }}
     </div>
 
     <div v-else class="space-y-4">
       <div class="flex items-center">
         <div
-          v-for="(star, index) in 5" :key="star" class="hover:cursor-pointer" @mouseenter="hover(index)" @mouseleave="resetHover"
+          v-for="(star, index) in review.rating" :key="star" class="hover:cursor-pointer" @mouseenter="hover(index)" @mouseleave="resetHover"
           @click="click(index + 1)"
         >
           <Icon :name="starIcon(index)" class="text-xl hover:text-orange-300 duration-150 transition-colors" :class="starColor(index)" />
@@ -147,7 +150,7 @@ function getRatingLabel(rating: number) {
       </div>
 
     
-      <UTextarea v-model="recipe.description" variant="outline" />
+      <UTextarea v-model="review.comment" variant="outline" />
     </div>
   </div>
 </template>

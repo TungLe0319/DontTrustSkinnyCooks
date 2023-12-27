@@ -9,7 +9,9 @@ import Reviews from '~/components/recipes/recipe-id/Reviews.vue'
 
 const route = useRoute()
 
-const { data } = await useFetch<RecipeWithUserAndCategories>(`/api/recipes/${route.params.id}`)
+const { data } = await useFetch<RecipeWithUserAndCategories>(`/api/recipes/${route.params.id}`,{
+  method:'GET'
+})
 const recipe = data.value
 </script>
 
@@ -44,6 +46,9 @@ const recipe = data.value
         >
       </div>
     </div>
+  </main>
+  <main v-else>
+   {{ data }}
   </main>
 </template>
 

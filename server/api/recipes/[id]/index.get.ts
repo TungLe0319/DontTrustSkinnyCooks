@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
         categories: true,
         _count: {
           select: {
-            reviews: true,
+            Reviews: true,
           },
         },
       },

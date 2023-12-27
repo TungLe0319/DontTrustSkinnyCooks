@@ -2,6 +2,12 @@
 import ReviewCard from '~/components/recipes/recipe-id/ReviewCard.vue'
 
 const { recipe, rating } = defineProps(['recipe', 'rating'])
+
+
+const {data:Reviews,refresh} = await useFetch(`/api/recipes/${recipe.id}/reviews`,{
+  method:'GET'
+})
+const reviews = Reviews.value
 const { session } = useAuth()
 const toast = useToast()
 const selectedRating = ref(0)
@@ -21,6 +27,7 @@ async function createReview() {
       method: 'POST',
       body,
     })
+         refresh()
     toast.add({
       id: `create review ${recipe.id}`,
       title: 'Review Created',
@@ -28,6 +35,7 @@ async function createReview() {
       color: 'green',
       timeout: 5000,
     })
+
   }
   catch (error) {
 
@@ -148,7 +156,7 @@ function getRatingLabel(rating: number) {
       </div>
 
       <div class=" px-10 space-y-5">
-        <ReviewCard v-for="i in 5" :key="i" :recipe="recipe" :rating="rating" />
+        <ReviewCard v-for="i in reviews" :key="i.id" :recipe="i.recipeId" :rating="i.rating" :review="i" />
       </div>
     </div>
   </div>
