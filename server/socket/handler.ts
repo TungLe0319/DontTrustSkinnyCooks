@@ -10,6 +10,8 @@ export function socketHandler(server: Server<typeof IncomingMessage, typeof Serv
   //   const threads = await getThreads()
 
   io.on('connection', (socket) => {
+    // socket.
+    
     // console.log('socket connected', socket.id)
     // socket.on('disconnect', () => {
     //   console.log('socket disconnected', socket.id)
@@ -35,12 +37,12 @@ export function socketHandler(server: Server<typeof IncomingMessage, typeof Serv
 
     socket.on('leaveRoom', (room, user) => {
       socket.leave(room)
-      io.to(room).emit('leave', {
-        from_id: user.id,
-        from_name: user.name,
-        system: true,
-        content: `${user.name ?? user.id} left the thread`,
-      })
+      // io.to(room).emit('leave', {
+      //   from_id: user.id,
+      //   from_name: user.name,
+      //   system: true,
+      //   content: `${user.name ?? user.id} left the thread`,
+      // })
     })
 
     socket.on('message', (room, message) => {
