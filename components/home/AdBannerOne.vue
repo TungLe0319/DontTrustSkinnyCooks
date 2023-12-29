@@ -22,7 +22,7 @@ function handleAlertClose() {
               and creating a recipe.
             </h3>
             <UButton
-              size="xl" class="bg-orange-400 my-5 text-3xl hover:bg-orange-300 transition-all duration-150 hover:scale-[1.01]"
+              size="xl" class="bg-primary my-5 text-3xl hover:bg-primary/70 transition-all duration-150 hover:scale-[1.01]"
               @click="signIn"
             >
               Sign Up!

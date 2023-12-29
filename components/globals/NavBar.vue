@@ -203,7 +203,7 @@ function welcomeBackUser() {
 }
 
 .active {
-  @apply text-orange-400 transition-all duration-300;
+  @apply text-primary transition-all duration-300;
 }
 
 .indicator {

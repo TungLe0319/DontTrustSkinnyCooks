@@ -4,7 +4,7 @@ export default defineAppConfig({
       // Show toasts at the top right of the screen
       position: 'top-12 bottom-auto',
     },
-    primary: 'orange',
+    primary: 'amber',
     safelistColors: ['orange'],
   },
 })

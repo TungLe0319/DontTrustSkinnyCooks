@@ -8,7 +8,7 @@ const recipe = data.value?.[6]
 
 <template>
   <div
-    class=" hero-image   flex items-center justify-center border-y-4 w-full border-orange-300  relative  py-24 text-center"
+    class=" hero-image   flex items-center justify-center border-4 w-full border-primary  relative  py-24 text-center"
     :style="{ backgroundImage: `url('${recipe?.image}')` }"
   >
     <div class=" p-5 w-1/2 h-full z-10 flex flex-col space-y-3 group backdrop-blur-sm rounded border-2 border-white/20">

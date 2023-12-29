@@ -44,8 +44,8 @@ const {data:mostRecentRecipes} = await useFetch('/api/recipes/home/mostRecent')
         </p>
       </div>
     </NuxtLink>
-    <div class="w-1/3">
-      <div class="space-y-5 bg-gray-200 dark:bg-gray-700 p-2 rounded">
+    <div class="w-1/3 ">
+      <div class="space-y-5 bg-gray-200 dark:bg-gray-700 p-2 rounded shadow-sm">
         <div
           class="text-center text-2xl font-extrabold underline underline-offset-4"
         >

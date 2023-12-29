@@ -84,7 +84,7 @@ const handleImageError = (imageUrl:string) => {
          <USkeleton v-else class="h-72 w-full bg-gray-300" /> 
 
       <div
-        class="absolute flex items-center justify-center font-extrabold text-4xl w-full  p-10 z-10  translate-y-[10rem] group-hover:translate-y-4 transition-all duration-300 text-primary-400 bg-gradient-to-t from-black  h-full"
+        class="absolute flex items-center justify-center font-extrabold text-4xl w-full  p-10 z-10  translate-y-[10rem] group-hover:translate-y-4 transition-all duration-300 text-primary bg-gradient-to-t from-black  h-full"
       >
         View Recipe
       </div>
@@ -102,7 +102,7 @@ const handleImageError = (imageUrl:string) => {
             </template>
           </UPopover>
           <UPopover mode="hover" :ui="{ width: 'max-w-72' }">
-            <Icon name="carbon:collapse-categories" class="hover:text-orange-400" />
+            <Icon name="carbon:collapse-categories" class="hover:text-primary" />
             <template #panel>
               <div class=" text-black p-2">
                 <span class="font-extrabold text-xs">Categories</span>
@@ -120,7 +120,7 @@ const handleImageError = (imageUrl:string) => {
               @click="isOpen = true"
             />
           </UTooltip>
-          <div class="ml-auto flex items-center gap-1 text-primary-500 hover:text-orange-300 transition-all duration-300">
+          <div class="ml-auto flex items-center gap-1 text-primary-500 hover:text-primary/70 transition-all duration-300">
             <Icon v-for="i in 5" :key="i" name="game-icons:fat" />
           </div>
         </div>

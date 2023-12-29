@@ -6,7 +6,7 @@ defineProps(['user'])
   <div class="flex flex-col items-center justify-center text-center space-y-1">
     <img
       :src="user.image" alt="tung profile photo"
-      class="rounded-full shadow-lg w-20 h-20 border-4 border-orange-400/50"
+      class="rounded-full shadow-lg w-20 h-20 border-4 border-primary/70"
     >
     <p class="font-bold text-lg">
       {{ user.name }}
