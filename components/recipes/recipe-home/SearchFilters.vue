@@ -1,19 +1,19 @@
 <script lang="ts" setup>
 import type { Prisma } from '@prisma/client'
-import type { RecipeWithUserAndCategories } from '~/types/types'
+
 
 defineProps(['data', 'categories'])
-const items = [{
+const accordionItems = [{
   label: 'Search Filters',
   icon: 'i-heroicons-funnel-20-solid',
   defaultOpen: true,
   slot: 'search',
 }]
-const selectedCategories = useSelectedCategory()
+const filterCategories = useFilterCategories()
 const { data: Categories } = await useFetch<Prisma.CategoryGetPayload<any>[]>('/api/categories')
 const mouseEntered = ref(false)
 
-const categories = Categories.value?.map(category => ({
+const mappedSelectionCategories = Categories.value?.map(category => ({
   name: category.name,
   label: category.name,
   icon: 'i-heroicons-minus-small-20-solid',
@@ -23,27 +23,11 @@ const categories = Categories.value?.map(category => ({
 
 
 
-const prepTime = useFilterPrepTime().value
-const servingSize = useFilterServingSize()
-
-
-
-
-
-
-
-function filterCategories(index: number) {
-  selectedCategories.value = selectedCategories.value.filter((_: any, i: any) => i !== index)
-}
-
-
-
-
 </script>
 
 <template>
   <div class="my-5">
-    <UAccordion :items="items" :ui="{ item: { color: '' } }">
+    <UAccordion :items="accordionItems" :ui="{ item: { color: '' } }">
       <template #default="{ item, index, open }">
         <UButton color="gray" variant="ghost" class="border-b border-gray-200 dark:border-gray-700" :ui="{ rounded: 'rounded-none', padding: { sm: 'p-3' } }">
           <template #leading>
@@ -66,13 +50,15 @@ function filterCategories(index: number) {
 
       <template #search>
         <div class=" my-4 space-y-4">
+
+       
           <div v-auto-animate class="mb-4 flex flex-wrap gap-2">
-            <span v-for="(category, index) in selectedCategories" :key="index">
+            <span v-for="(category, index) in filterCategories" :key="index">
 
               <UBadge
                 size="lg" class="shadow-md hover:scale-[1.01] hover:shadow-xl hover:bg-orange-300 transition-all duration-300 hover:cursor-pointer"
 
-                @click="filterCategories(Number(index))"
+                @click=" useFilterCategories().value  =useFilterCategories().value.filter((_: any, i: any) => i !== index)"
               >
                 {{ category }}
               </UBadge>
@@ -80,7 +66,7 @@ function filterCategories(index: number) {
           </div>
 
           <USelectMenu
-            v-model="selectedCategories" :options="categories" multiple placeholder="Select Categories"
+            v-model="filterCategories" :options="mappedSelectionCategories" multiple placeholder="Select Categories"
             searchable searchable-placeholder="Search a Category..." size="xl" value-attribute="name"
             option-attribute="name"
             :ui-menu="{ base: 'space-y-2', option: { container: 'w-full', selected: 'bg-orange-400/50' } }"
@@ -117,22 +103,22 @@ function filterCategories(index: number) {
       
 
 <div class="flex gap-5">
-  <div class="w-fit">
+  <div class="w-1/12">
     <UFormGroup label="Prep Time">
 
-      <UInput v-model="useFilterPrepTime().value"  size="xl"  type="number" variant="outline" placeholder="Search..." />
+      <UInput v-model="useFilterPrepTime().value"  size="xl"  type="number" variant="outline" placeholder="Search..."  />
     </UFormGroup>
 
-    {{ prepTime }}
+
   </div>
 
-    <div class="w-fit">
+    <div class="w-1/12">
       <UFormGroup label="Serving Size">
 
         <UInput v-model="useFilterServingSize().value"   size="xl" type="number" variant="outline" placeholder="Search..."    />
       </UFormGroup>
 
-      {{ servingSize }}
+  
     </div>
 
 

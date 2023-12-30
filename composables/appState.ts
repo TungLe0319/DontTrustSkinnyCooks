@@ -1,4 +1,4 @@
-// export const useSelectedCategory ('selectedState',()=>{
+// export const useFilterCategories ('selectedState',()=>{
 //   selectedCategory = []
 
 import type { Category } from '@prisma/client'
@@ -6,9 +6,7 @@ import type { Category } from '@prisma/client'
 // })
 export const useCounter = () => useState<number>('counter', () => 0)
 
-export function useSelectedCategory() {
-  return useState<string[]>('selectedCategory', () => [])
-}
+
 
 export const useSelectedRating = () => useState<number>('selectedRating', () => 0)
 
@@ -22,7 +20,7 @@ export function formateDate(date: Date) {
     },
   ))
 }
-export const useCategories = () => useState<Category[]>('categories', () => [])
+export const useFilterCategories = () => useState<string[]>('filterCategories', () => [])
 
 export const useFilterPrepTime = () => useState<number>('filterPrepTime', () => 0)
 

@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import type { RecipeWithUserAndCategories } from '../../types/types'
 import RecipeCard from '~/components/recipes/recipe-home/RecipeCard.vue'
-import Search from '~/components/recipes/recipe-home/Search.vue'
+import SearchFilters from '~/components/recipes/recipe-home/SearchFilters.vue'
 import LoadingSpinner from '~/components/globals/LoadingSpinner.vue';
 const { data,pending,error } = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes')
-const selectedCategories = useSelectedCategory();
+const selectedCategories = useFilterCategories();
 const filterPrepTime = useFilterPrepTime();
 const filterServingSize = useFilterServingSize();
 
@@ -40,7 +40,7 @@ const filteredRecipes = computed(() => {
     <h1 class="text-8xl font-extrabold  text-center ">
       Recipes
     </h1>
-    <Search :data="data" />
+    <SearchFilters :data="data" />
     <div v-if="!pending" v-auto-animate class="grid grid-cols-4  gap-6   pb-20 ">
 
   

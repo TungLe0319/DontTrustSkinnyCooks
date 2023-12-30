@@ -12,9 +12,8 @@ const { user } = useAuth()
 const route = useRoute()
 const toast = useToast()
 const isOpen = ref(false)
-const selectedCategories = useSelectedCategory()
-const filterPrepTime = useFilterPrepTime()
-const filterServingSize = useFilterServingSize()
+const filterCategories = useFilterCategories()
+
 
 async function saveRecipe(collectionId: number) {
   try {
@@ -128,12 +127,12 @@ const handleImageError = (imageUrl:string) => {
         </div>
       </div>
       <hr class="my-3">
-      <div v-if="selectedCategories?.length >= 1" v-auto-animate class="my-5 flex gap-2 flex-wrap p-2">
+      <div v-if="useFilterCategories().value.length >= 1" v-auto-animate class="my-5 flex gap-2 flex-wrap p-2">
         <span v-for="category in recipe.categories" :key="category.name">
           <UBadge
             size="xs"
-            class="shadow-md hover:scale-[1.01] hover:shadow-xl transition-all duration-300 hover:cursor-pointer bg-gray-500/40"
-            :class="selectedCategories?.includes(category.name) ? 'bg-green-500 text-white' : ''"
+            class="shadow-md hover:scale-[1.01] hover:shadow-xl transition-all duration-300 hover:cursor-pointer bg-gray-500/40 text-gray-700"
+            :class="useFilterCategories().value.includes(category.name) ? 'bg-primary text-white' : ''"
           >
             {{ category.name }}
           </UBadge>
@@ -144,14 +143,15 @@ const handleImageError = (imageUrl:string) => {
 <div class="flex gap-5">
   <div v-if="useFilterPrepTime().value > 0">
     <div class="flex items-center gap-2">
-      <Icon name="carbon:timer" class="text-xl" />
+      <Icon name="material-symbols:alarm-rounded" class="text-xl" />
       <span class="text-sm">{{ recipe.prepTime }}</span>
     </div>
   </div>
   <div v-if="useFilterServingSize().value > 0">
     <div class="flex items-center gap-2">
-      <Icon name="carbon:fork" class="text-xl" />
-      <span class="text-sm">{{ recipe.servingSize }}</span>
+      <Icon name="ion:people" class="text-xl" />
+      <span class="text-sm">{{ recipe.servingSize }} Serving<span>{{ recipe.servingSize >1 ? 's' : '' }} </span>
+      </span>
     </div>
   </div>
 
