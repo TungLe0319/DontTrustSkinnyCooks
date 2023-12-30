@@ -4,37 +4,46 @@ import type { Prisma } from '@prisma/client'
 const toast = useToast()
 const isOpen = ref(false)
 
-const newCollection = ref<Prisma.CollectionCreateInput>({
+
+const emit = defineEmits(['refreshCollections']);
+const newCollection = ref({
   title: '',
 })
 
-async function createCollection() {
+const createCollection = async () => {
   try {
-    const response = await useFetch('/api/account/collections', {
+
+
+
+   await useFetch('/api/account/collections', {
       method: 'POST',
       body: newCollection.value,
-    })
+    });
 
+  
+     emit('refreshCollections');
+    const createdCollectionTitle = newCollection.value.title;
     toast.add({
       id: `Created_Collection`,
-      title: `Created_Collection ${newCollection.value.title}`,
-
+      title: `Successfully Created Collection ${createdCollectionTitle}!`,
       icon: 'i-heroicons-check-circle',
+      color:'green',
       timeout: 2000,
-
-    })
-  }
-  catch (error) {
+    });
+   
+  } catch (error) {
+    console.error('Error creating collection:', error);
     throw createError({
       statusMessage: 'Error creating collection',
-    })
+    });
   }
 }
+
 </script>
 
 <template>
   <div>
-    <UButton label="Open" @click="isOpen = true" />
+    <UButton label="Create Collection" @click="isOpen = true" />
 
     <UModal v-model="isOpen">
       <div class="p-4 space-y-5">
