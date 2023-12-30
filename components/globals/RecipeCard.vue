@@ -35,27 +35,7 @@ async function saveRecipe(collectionId: number) {
   }
 }
 
-// const checkCollectionRelation = (
-//   collectionId: number,
-//   recipeId: number,
-//   userId: string
-// ) => {
-//   const { data: Collections } = useFetch<Collection[]>('/api/account/collections');
-//   const collections = ref(Collections.value);
 
-//   // Check if recipeId is present in any collection
-//   const isRecipeInCollection = (collection: Collection) => {
-//     return collection.recipes.some((id:number) => id === recipeId);
-//   };
-
-//   // Filter collections to include only those that do not have the recipeId
-//   const filteredCollections = collections?.value?.filter(
-//     (collection) => !isRecipeInCollection(collection)
-//   );
-
-//   // Update the collections reference with the filtered result
-//   collections.value = filteredCollections;
-// };
 
 function handleImageError(imageUrl: string) {
   return imageUrl = 'https://t4.ftcdn.net/jpg/04/70/29/97/240_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg'
@@ -69,7 +49,7 @@ function handleImageError(imageUrl: string) {
   >
     <NuxtLink
       :to="`/recipes/${recipe.id}`" class="flex items-center mb-2 relative  w-full overflow-hidden  "
-      :class="route.name === 'profile-id' ? 'h-52' : 'h-44'"
+      :class="route.name === 'profile-id' ? 'h-52' : route.path === '/' ? 'h-72' : 'h-44'"
     >
       <img
         v-if="recipe.image" :src="recipe?.image " :alt="recipe?.title"

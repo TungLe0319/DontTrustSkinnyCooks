@@ -6,23 +6,22 @@ import SpecialFeatureRecipe from '~/components/home/SpecialFeatureRecipe.vue'
 import TeamAndContributors from '~/components/home/TeamAndContributors.vue'
 import RecommendedRecipes from '~/components/home/RecommendedRecipes.vue'
 
-// async function seedCategories() {
-//   await useFetch('/api/categories/seed')
-// }
+
 </script>
 
 <template>
   <main class="min-h-screen py-16 space-y-24">
-    <!-- <Hero /> -->
+   
     <HeroVersionTwo />
     <div class=" space-y-24">
       <AdBannerOne />
       <FeaturedRecipes />
       <TeamAndContributors />
+         <RecommendedRecipes />
+      <SpecialFeatureRecipe />
     </div>
-    <RecommendedRecipes />
-    <SpecialFeatureRecipe />
-    <!-- <button @click="seedCategories">Seed Categories</button> -->
+ 
+
   </main>
 </template>
 

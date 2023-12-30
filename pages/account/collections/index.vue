@@ -5,21 +5,22 @@ import type { Collection } from '~/types/types'
 const toast = useToast()
 
 const { data: collectionsData, refresh, pending: collectionsPending, error: collectionsError } = await useFetch<Collection[]>('/api/account/collections')
-const collections = ref(collectionsData.value)
-
+const collections =  computed(() => collectionsData.value)
+const confirmYes = ref(false)
+const {session} = useAuth()
 const isOpen = ref(false)
 const newCollection = ref({
   title: '',
 })
 
-async function createCollection() {
+const createCollection = async() => {
   try {
     await useFetch('/api/account/collections', {
       method: 'POST',
       body: newCollection.value,
     })
 
-    refresh()
+  
     const createdCollectionTitle = newCollection.value.title
     toast.add({
       id: `Created_Collection`,
@@ -27,7 +28,10 @@ async function createCollection() {
       icon: 'i-heroicons-check-circle',
       timeout: 2000,
     })
+      refresh()
+      isOpen.value = false
   }
+  
   catch (error) {
     console.error('Error creating collection:', error)
     throw createError({
@@ -36,7 +40,64 @@ async function createCollection() {
   }
 }
 
-// Add more functions if needed for better modularity
+
+const  deleteCollection = async (collection:Collection) => {
+  try {
+    toast.add({
+      id: `delete_Collection ${collection?.id}`,
+      title: 'Delete Collection?',
+      description: 'Are you sure you want to delete this collection?',
+      icon: 'i-heroicons-question-mark-circle',
+      timeout: 80000,
+      color: 'amber',
+
+      actions: [{
+        label: 'Confirm',
+        click: async () => {
+          confirmYes.value = true
+
+          if (confirmYes.value === true) {
+            if (session.value?.user?.id !== collection.userId) {
+              toast.add({
+                id: `delete_collection_error ${collection?.id}`,
+                title: 'Error',
+                description: 'You are not authorized to delete this recipe',
+                icon: 'i-heroicons-exclamation-circle',
+                timeout: 2000,
+                color: 'red',
+              })
+            }
+
+            const res = await useFetch(`/api/account/collections/${collection.id}`, {
+              method: 'DELETE',
+            })
+
+            if (res) {
+           refresh()
+
+              toast.add({
+                id: `delete_collection_success ${collection.id}`,
+                title: `Success`,
+                description: `Successfully Deleted ${collection.title} from collections`,
+                icon: 'i-heroicons-exclamation-circle',
+                timeout: 2000,
+                color: 'green',
+
+              })
+            }
+          }
+        },
+      }],
+
+    })
+  }
+  catch (error) {
+    console.error('Error deleting collection:', error)
+    throw createError({
+      statusMessage: 'Error deleting collection',
+    })
+  }
+}
 </script>
 
 <template>
@@ -66,12 +127,12 @@ async function createCollection() {
           </div>
         </UModal>
       </div>
-      <div class="grid grid-cols-3 gap-2 mt-5">
-        <NuxtLink
-          v-for="collection in collections" :key="collection.id" :to="`/account/collections/${collection.id}`"
-          class="space-y-3"
-        >
-          <UCard class="hover:shadow-lg transition-all duration-200">
+      <div v-auto-animate class="grid grid-cols-4 gap-2 mt-5">
+        <UCard v-for="collection in collections" :key="collection.id"  class="hover:shadow-lg transition-all duration-200 relative">
+            <NuxtLink
+              :to="`/account/collections/${collection.id}`"
+              class="space-y-3 relative"
+            >
             <h4 class="font-extrabold text-lg">
               {{ collection?.title }}
             </h4>
@@ -81,8 +142,12 @@ async function createCollection() {
             <p class="text-sm text-gray-500">
               Recipes: {{ collection?._count.recipes }}
             </p>
-          </UCard>
-        </NuxtLink>
+         
+          </NuxtLink>
+             <div class=" absolute top-6 right-6 z-50 ">
+                <UIcon name="i-heroicons-trash-20-solid" class="text-xl hover:cursor-pointer " @click="deleteCollection(collection)" />
+              </div>
+        </UCard>
       </div>
     </div>
     <div v-else-if="collectionsError">

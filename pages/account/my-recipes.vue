@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import RecipeCard from '~/components/recipes/recipe-home/RecipeCard.vue'
+import RecipeCard from '~/components/globals/RecipeCard.vue';
 import type { RecipeWithUserAndCategories } from '~/types/types'
 
 const { session } = useAuth()

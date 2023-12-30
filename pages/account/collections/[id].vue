@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import RecipeCard from '~/components/recipes/recipe-home/RecipeCard.vue'
+import RecipeCard from '~/components/globals/RecipeCard.vue';
 import type { CollectionWithUserAndRecipes } from '~/types/types'
 import LoadingSpinner from '~/components/globals/LoadingSpinner.vue'
 

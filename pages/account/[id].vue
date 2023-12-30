@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import RecipeCard from '~/components/recipes/recipe-home/RecipeCard.vue'
+import RecipeCard from '~/components/globals/RecipeCard.vue';
 
 import type { RecipeWithUserAndCategories } from '~/types/types'
 
@@ -174,7 +174,7 @@ async function createCollection() {
             </UModal>
           </div>
 
-          <div class="grid  grid-cols-3 gap-2  mt-5 ">
+          <!-- <div class="grid  grid-cols-3 gap-2  mt-5 ">
             <UCard v-for="collection in collections" :key="collection.id" class=" ">
               <div class="">
                 {{ collection.title }}
@@ -184,7 +184,7 @@ async function createCollection() {
                 {{ collection }}
               </div>
             </UCard>
-          </div>
+          </div> -->
 
           <!-- <div class="grid  grid-cols-3 gap-2  ">
 
