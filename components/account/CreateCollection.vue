@@ -3,7 +3,7 @@ import type { Prisma } from '@prisma/client'
 
 const toast = useToast()
 const isOpen = ref(false)
-
+const {refresh} = await useCollections()
 
 const emit = defineEmits(['refreshCollections']);
 const newCollection = ref({
@@ -21,7 +21,7 @@ const createCollection = async () => {
     });
 
   
-     emit('refreshCollections');
+    refresh()
     const createdCollectionTitle = newCollection.value.title;
     toast.add({
       id: `Created_Collection`,

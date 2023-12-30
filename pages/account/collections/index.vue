@@ -9,6 +9,8 @@ const { data: collectionsData, refresh, pending: collectionsPending, error: coll
 const collections = ref(collectionsData.value);
 
 
+const {data:collectionsTest} = await useCollections()
+
 const testEmit = () => {
   console.log('testEmit');
 
@@ -42,7 +44,7 @@ const testEmit = () => {
       </div>
       <div class="grid grid-cols-3 gap-2 mt-5">
    
-        <CollectionCard v-for="collection in collections" :key="collection.id" :collection="collection" @refreshCollections="refresh()"/>
+        <CollectionCard v-for="collection in collectionsTest" :key="collection?.id!"  :collection="collection" />
       </div>
     </div>
     <div v-else-if="collectionsError">
