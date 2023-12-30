@@ -2,7 +2,6 @@ import '#internal/nitro/virtual/polyfill'
 import { Server as HttpServer } from 'node:http'
 import type { AddressInfo } from 'node:net'
 import { Server as HttpsServer } from 'node:https'
-import { Server as SocketServer } from 'socket.io'
 import destr from 'destr'
 import { toNodeListener } from 'h3'
 
@@ -53,7 +52,7 @@ const listener = server.listen(path ? { path } : { port, host }, (err) => {
 
 const io = socketHandler(server)
 nitroApp.hooks.hook('request', (event) => {
-    event.context.io = io
+  event.context.io = io
 })
 // Trap unhandled errors
 trapUnhandledNodeErrors()

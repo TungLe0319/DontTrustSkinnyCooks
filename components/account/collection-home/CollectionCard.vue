@@ -1,35 +1,11 @@
-<template>
-  <UCard class="hover:shadow-lg transition-all duration-200 relative">
-      <NuxtLink :to="`/account/collections/${collection?.id}`" class="space-y-3 relative">
-    
-       <h4 class="font-extrabold text-lg">{{ collection?.title }}</h4>
-    
-   
-      <p class="text-sm">Created: {{ formateDate(collection?.createdAt!).value }}</p>
-      <p class="text-sm text-gray-500">Recipes: {{ collection?._count.recipes }}</p>
-      <!-- <div class="flex items-center gap-2">
-        <Icon name="heroicons-outline:bookmark" class="text-xl" />
-        <span class="text-sm">{{ collection?._count.recipes }}</span>
-      </div> -->
-  
-    </NuxtLink>
-        <div class=" absolute top-6 right-6 z-50 ">
-             <UIcon name="i-heroicons-trash-20-solid" class="text-xl hover:cursor-pointer " @click="deleteCollection"/>
-          </div>
-    </UCard>
-  
-</template>
-
 <script lang="ts" setup>
 const { collection } = defineProps(['collection'])
 const emit = defineEmits(['refreshCollections'])
-const {session} = useAuth()
+const { session } = useAuth()
 const toast = useToast()
 const confirmYes = ref(false)
-const deleteCollection = async() => {
+async function deleteCollection() {
   try {
-
-
     toast.add({
       id: `delete_Collection ${collection?.id}`,
       title: 'Delete Collection?',
@@ -59,9 +35,8 @@ const deleteCollection = async() => {
               method: 'DELETE',
             })
 
-         
             if (res) {
-                emit('refreshCollections')
+              emit('refreshCollections')
 
               toast.add({
                 id: `delete_collection_success ${collection.id}`,
@@ -78,32 +53,38 @@ const deleteCollection = async() => {
       }],
 
     })
-
-  } catch (error) {
-    console.error('Error deleting collection:', error);
+  }
+  catch (error) {
+    console.error('Error deleting collection:', error)
     throw createError({
       statusMessage: 'Error deleting collection',
-    });
+    })
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
+
+<template>
+  <UCard class="hover:shadow-lg transition-all duration-200 relative">
+    <NuxtLink :to="`/account/collections/${collection?.id}`" class="space-y-3 relative">
+      <h4 class="font-extrabold text-lg">
+        {{ collection?.title }}
+      </h4>
+
+      <p class="text-sm">
+        Created: {{ formateDate(collection?.createdAt!).value }}
+      </p>
+      <p class="text-sm text-gray-500">
+        Recipes: {{ collection?._count.recipes }}
+      </p>
+      <!-- <div class="flex items-center gap-2">
+        <Icon name="heroicons-outline:bookmark" class="text-xl" />
+        <span class="text-sm">{{ collection?._count.recipes }}</span>
+      </div> -->
+    </NuxtLink>
+    <div class=" absolute top-6 right-6 z-50 ">
+      <UIcon name="i-heroicons-trash-20-solid" class="text-xl hover:cursor-pointer " @click="deleteCollection" />
+    </div>
+  </UCard>
+</template>
 
 <style></style>

@@ -1,12 +1,8 @@
 // export const useFilterCategories ('selectedState',()=>{
 //   selectedCategory = []
 
-import type { Category } from '@prisma/client'
-
 // })
 export const useCounter = () => useState<number>('counter', () => 0)
-
-
 
 export const useSelectedRating = () => useState<number>('selectedRating', () => 0)
 

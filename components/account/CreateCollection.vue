@@ -1,44 +1,37 @@
 <script lang="ts" setup>
-import type { Prisma } from '@prisma/client'
-
+const emit = defineEmits(['refreshCollections'])
 const toast = useToast()
 const isOpen = ref(false)
-const {refresh} = await useCollections()
+const { refresh } = await useCollections()
 
-const emit = defineEmits(['refreshCollections']);
 const newCollection = ref({
   title: '',
 })
 
-const createCollection = async () => {
+async function createCollection() {
   try {
-
-
-
-   await useFetch('/api/account/collections', {
+    await useFetch('/api/account/collections', {
       method: 'POST',
       body: newCollection.value,
-    });
+    })
 
-  
     refresh()
-    const createdCollectionTitle = newCollection.value.title;
+    const createdCollectionTitle = newCollection.value.title
     toast.add({
       id: `Created_Collection`,
       title: `Successfully Created Collection ${createdCollectionTitle}!`,
       icon: 'i-heroicons-check-circle',
-      color:'green',
+      color: 'green',
       timeout: 2000,
-    });
-   
-  } catch (error) {
-    console.error('Error creating collection:', error);
+    })
+  }
+  catch (error) {
+    console.error('Error creating collection:', error)
     throw createError({
       statusMessage: 'Error creating collection',
-    });
+    })
   }
 }
-
 </script>
 
 <template>

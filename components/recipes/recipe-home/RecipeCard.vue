@@ -14,7 +14,6 @@ const toast = useToast()
 const isOpen = ref(false)
 const filterCategories = useFilterCategories()
 
-
 async function saveRecipe(collectionId: number) {
   try {
     await useFetch(`/api/account/collections/${collectionId}`, {
@@ -58,8 +57,7 @@ async function saveRecipe(collectionId: number) {
 //   collections.value = filteredCollections;
 // };
 
-
-const handleImageError = (imageUrl:string) => {
+function handleImageError(imageUrl: string) {
   return imageUrl = 'https://t4.ftcdn.net/jpg/04/70/29/97/240_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg'
 }
 </script>
@@ -69,20 +67,17 @@ const handleImageError = (imageUrl:string) => {
     class=" rounded shadow-md hover:bg-zinc-800 hover:text-white  transition-all duration-200 group hover:shadow-xl hover:shadow-black/30 group dark:bg-gray-800 dark:hover:bg-white dark:hover:text-gray-800 dark:hover:shadow-white/20"
     :ui="{ body: { padding: {} } }"
   >
- 
     <NuxtLink
       :to="`/recipes/${recipe.id}`" class="flex items-center mb-2 relative  w-full overflow-hidden  "
       :class="route.name === 'profile-id' ? 'h-52' : 'h-44'"
     >
-
-     
       <img
         v-if="recipe.image" :src="recipe?.image " :alt="recipe?.title"
-        @error="handleImageError(recipe.image)"
         class="absolute w-full object-cover  shadow-black  transition-all duration-150  group-hover:grayscale rounded-t object-center "
         :class="route.name === 'profile-id' ? 'h-42' : 'h-full'"
+        @error="handleImageError(recipe.image)"
       >
-         <USkeleton v-else class="h-72 w-full bg-gray-300" /> 
+      <USkeleton v-else class="h-72 w-full bg-gray-300" />
 
       <div
         class="absolute flex items-center justify-center font-extrabold text-4xl w-full  p-10 z-10  translate-y-[10rem] group-hover:translate-y-4 transition-all duration-300 text-primary bg-gradient-to-t from-black  h-full"
@@ -139,25 +134,21 @@ const handleImageError = (imageUrl:string) => {
         </span>
       </div>
 
-
-<div class="flex gap-5">
-  <div v-if="useFilterPrepTime().value > 0">
-    <div class="flex items-center gap-2">
-      <Icon name="material-symbols:alarm-rounded" class="text-xl" />
-      <span class="text-sm">{{ recipe.prepTime }}</span>
-    </div>
-  </div>
-  <div v-if="useFilterServingSize().value > 0">
-    <div class="flex items-center gap-2">
-      <Icon name="ion:people" class="text-xl" />
-      <span class="text-sm">{{ recipe.servingSize }} Serving<span>{{ recipe.servingSize >1 ? 's' : '' }} </span>
-      </span>
-    </div>
-  </div>
-
-</div>
-
-
+      <div class="flex gap-5">
+        <div v-if="useFilterPrepTime().value > 0">
+          <div class="flex items-center gap-2">
+            <Icon name="material-symbols:alarm-rounded" class="text-xl" />
+            <span class="text-sm">{{ recipe.prepTime }}</span>
+          </div>
+        </div>
+        <div v-if="useFilterServingSize().value > 0">
+          <div class="flex items-center gap-2">
+            <Icon name="ion:people" class="text-xl" />
+            <span class="text-sm">{{ recipe.servingSize }} Serving<span>{{ recipe.servingSize > 1 ? 's' : '' }} </span>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
     <UModal v-model="isOpen">
       <UCard>

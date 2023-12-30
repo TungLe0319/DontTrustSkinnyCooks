@@ -22,8 +22,10 @@ const homePage = computed(() => {
       <div class="relative mt-5">
         <div class="relative z-10">
           <div class="w-8/12">
-            <h3 class="font-medium text-gray-800 dark:text-gray-400"
-            :class="homePage ? 'text-base' : 'text-sm'">
+            <h3
+              class="font-medium text-gray-800 dark:text-gray-400"
+              :class="homePage ? 'text-base' : 'text-sm'"
+            >
               Do you have a recipe that you think will be a big hit? Advertise it with us by signing up for a free account
               and creating a recipe.
             </h3>
@@ -41,8 +43,10 @@ const homePage = computed(() => {
             </p>
           </div>
         </div>
-        <div class="hidden md:inline-block  z-0 -bottom-6 right-10"
-        :class="homePage ? 'absolute' : ''">
+        <div
+          class="hidden md:inline-block  z-0 -bottom-6 right-10"
+          :class="homePage ? 'absolute' : ''"
+        >
           <svg
             id="currentIllo" xmlns="http://www.w3.org/2000/svg" width="275.52567" height="250.00006"
             viewBox="0 0 713.52567 614.00006" class="injected-svg DownloadModal__ImageFile-sc-p17csy-5 iIfSkb grid_media"

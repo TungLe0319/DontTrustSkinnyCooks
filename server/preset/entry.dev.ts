@@ -6,17 +6,12 @@ import { mkdirSync } from 'node:fs'
 import { parentPort, threadId } from 'node:worker_threads'
 import { isWindows, provider } from 'std-env'
 import {
-  defineEventHandler,
-  getQuery,
-  getRouterParam,
-  readBody,
   toNodeListener,
 } from 'h3'
 
 // import { Server as WSServer } from 'ws'
 
 // import { nitroApp } from '../app'
-import { Server as SocketServer } from 'socket.io'
 
 // @ts-expect-error it is there
 import { trapUnhandledNodeErrors } from '#internal/nitro/utils'

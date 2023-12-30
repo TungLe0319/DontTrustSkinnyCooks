@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
 
   })
   const io = event.context.io
-  
+
   io?.to(`recipes-${recipeId}`).emit('newReview', newReview)
   return newReview
 })

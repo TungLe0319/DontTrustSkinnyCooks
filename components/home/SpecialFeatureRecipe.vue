@@ -15,11 +15,11 @@ const recipe = data.value?.[6]
       <span class="drop-shadow text-white font-extrabold text-3xl group-hover:underline-offset-4 group-hover:underline"> Special Feature Recipe!
       </span>
       <span class="drop-shadow text-white font-extrabold text-3xl group-hover:underline-offset-4 group-hover:underline"> {{ recipe?.title }} </span>
-      <span class="drop-shadow text-white text-xl  "> 
-       Revolutionize Your Rice: The Ultimate Fried Rice Mastery
+      <span class="drop-shadow text-white text-xl  ">
+        Revolutionize Your Rice: The Ultimate Fried Rice Mastery
       </span>
-      <span class="drop-shadow text-white   "> 
-     Embark on a journey to culinary excellence with our featured Fried Rice recipes. From classic comfort to exotic twists, discover the secrets of crafting the perfect fried rice dish. Elevate your home-cooked meals with techniques that promise flavor-packed bites and the satisfaction of becoming a wok virtuoso.
+      <span class="drop-shadow text-white   ">
+        Embark on a journey to culinary excellence with our featured Fried Rice recipes. From classic comfort to exotic twists, discover the secrets of crafting the perfect fried rice dish. Elevate your home-cooked meals with techniques that promise flavor-packed bites and the satisfaction of becoming a wok virtuoso.
       </span>
     </div>
     <div

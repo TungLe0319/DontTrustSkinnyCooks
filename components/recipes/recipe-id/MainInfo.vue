@@ -39,7 +39,7 @@ async function deleteRecipe() {
 
           const res = await fetch(`/api/recipes/${id}`, {
             method: 'DELETE',
-            
+
           })
           if (res.ok) {
             router.push('/recipes')
@@ -59,8 +59,6 @@ async function deleteRecipe() {
     }],
 
   })
-
- 
 }
 </script>
 

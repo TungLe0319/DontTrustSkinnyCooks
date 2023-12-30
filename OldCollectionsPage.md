@@ -40,7 +40,6 @@ async function createCollection() {
 // Add more functions if needed for better modularity
 </script>
 
-
 <template>
   <main class="py-5 min-h-screen">
     <div v-if="!collectionsPending">
@@ -81,7 +80,6 @@ async function createCollection() {
     </div>
   </main>
 </template>
-
 
 <style>
 

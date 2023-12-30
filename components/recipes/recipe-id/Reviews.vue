@@ -3,9 +3,8 @@ import ReviewCard from '~/components/recipes/recipe-id/ReviewCard.vue'
 
 const { recipe, rating } = defineProps(['recipe', 'rating'])
 
-
-const {data:reviews,refresh} = await useFetch(`/api/recipes/${recipe.id}/reviews`,{
-  method:'GET'
+const { data: reviews, refresh } = await useFetch(`/api/recipes/${recipe.id}/reviews`, {
+  method: 'GET',
 })
 // const reviews = Reviews.value
 const { session } = useAuth()
@@ -55,7 +54,6 @@ async function createReview() {
       color: 'green',
       timeout: 5000,
     })
-
   }
   catch (error) {
 
@@ -176,7 +174,7 @@ function getRatingLabel(rating: number) {
       </div>
 
       <div class=" px-10 space-y-5">
-        <ReviewCard v-for="i in reviews" :key="i.id" :review="i"/>
+        <ReviewCard v-for="i in reviews" :key="i.id" :review="i" />
       </div>
     </div>
   </div>

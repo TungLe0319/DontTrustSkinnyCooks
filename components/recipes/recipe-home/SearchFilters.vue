@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { Prisma } from '@prisma/client'
 
-
 defineProps(['data', 'categories'])
 const accordionItems = [{
   label: 'Search Filters',
@@ -18,11 +17,6 @@ const mappedSelectionCategories = Categories.value?.map(category => ({
   label: category.name,
   icon: 'i-heroicons-minus-small-20-solid',
 }))
-
-
-
-
-
 </script>
 
 <template>
@@ -50,15 +44,13 @@ const mappedSelectionCategories = Categories.value?.map(category => ({
 
       <template #search>
         <div class=" my-4 space-y-4">
-
-       
           <div v-auto-animate class="mb-4 flex flex-wrap gap-2">
             <span v-for="(category, index) in filterCategories" :key="index">
 
               <UBadge
                 size="lg" class="shadow-md hover:scale-[1.01] hover:shadow-xl hover:bg-orange-300 transition-all duration-300 hover:cursor-pointer"
 
-                @click=" useFilterCategories().value  =useFilterCategories().value.filter((_: any, i: any) => i !== index)"
+                @click=" useFilterCategories().value = useFilterCategories().value.filter((_: any, i: any) => i !== index)"
               >
                 {{ category }}
               </UBadge>
@@ -75,67 +67,45 @@ const mappedSelectionCategories = Categories.value?.map(category => ({
               <q>{{ query }}</q> not found
             </template>
           </USelectMenu>
-    
-            <USelectMenu
-              v-if="data" :options="data" placeholder="Search Recipes..." searchable
-              searchable-placeholder="Search by title or description" option-attribute="title" by="id" size="xl"
-              :search-attributes="['title', 'description']"
-              :ui-menu="{ height: 'max-h-96', option: { size: 'text-xl', container: 'w-full' } }"
-            >
-              <template #option="{ option: data }">
-                <div class="relative" @mouseenter="mouseEntered = true">
-                  <NuxtLink :to="`recipes/${data.id}`" class="flex gap-5 w-full  items-center ">
-                    <img :src="data.image" alt="" class="w-1/12 h-14 shadow-md rounded object-cover">
-                    <div class=" flex flex-col w-11/12">
-                      <div class="flex gap-5 items-center">
-                        <span class="truncate font-extrabold">{{ data.title }}</span>
-                        <span class="text-xs flex items-center gap-2">
-                          <UAvatar size="3xs" :src="data.user.image" class="shadow-md shadow-black/20" />
-                          <span class="underline">   {{ data.user.name }}</span>
-                        </span>
-                      </div>
-                      <span class="truncate text-sm text-gray-500">{{ data.description }}</span>
+
+          <USelectMenu
+            v-if="data" :options="data" placeholder="Search Recipes..." searchable
+            searchable-placeholder="Search by title or description" option-attribute="title" by="id" size="xl"
+            :search-attributes="['title', 'description']"
+            :ui-menu="{ height: 'max-h-96', option: { size: 'text-xl', container: 'w-full' } }"
+          >
+            <template #option="{ option: data }">
+              <div class="relative" @mouseenter="mouseEntered = true">
+                <NuxtLink :to="`recipes/${data.id}`" class="flex gap-5 w-full  items-center ">
+                  <img :src="data.image" alt="" class="w-1/12 h-14 shadow-md rounded object-cover">
+                  <div class=" flex flex-col w-11/12">
+                    <div class="flex gap-5 items-center">
+                      <span class="truncate font-extrabold">{{ data.title }}</span>
+                      <span class="text-xs flex items-center gap-2">
+                        <UAvatar size="3xs" :src="data.user.image" class="shadow-md shadow-black/20" />
+                        <span class="underline">   {{ data.user.name }}</span>
+                      </span>
                     </div>
-                  </NuxtLink>
-                </div>
-              </template>
-            </USelectMenu>
-      
+                    <span class="truncate text-sm text-gray-500">{{ data.description }}</span>
+                  </div>
+                </NuxtLink>
+              </div>
+            </template>
+          </USelectMenu>
 
-<div class="flex gap-5">
-  <div class="w-1/12">
-    <UFormGroup label="Prep Time">
+          <div class="flex gap-5">
+            <div class="w-1/12">
+              <UFormGroup label="Prep Time">
+                <UInput v-model="useFilterPrepTime().value" size="xl" type="number" variant="outline" placeholder="Search..." />
+              </UFormGroup>
+            </div>
 
-      <UInput v-model="useFilterPrepTime().value"  size="xl"  type="number" variant="outline" placeholder="Search..."  />
-    </UFormGroup>
-
-
-  </div>
-
-    <div class="w-1/12">
-      <UFormGroup label="Serving Size">
-
-        <UInput v-model="useFilterServingSize().value"   size="xl" type="number" variant="outline" placeholder="Search..."    />
-      </UFormGroup>
-
-  
-    </div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
+            <div class="w-1/12">
+              <UFormGroup label="Serving Size">
+                <UInput v-model="useFilterServingSize().value" size="xl" type="number" variant="outline" placeholder="Search..." />
+              </UFormGroup>
+            </div>
+          </div>
 
           <!-- POSSIBLE EXTRA FEATURE -->
           <!-- <div class="">

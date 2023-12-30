@@ -1,15 +1,14 @@
 <script lang="ts" setup>
 import type { RecipeWithUserAndCategories } from '~/types/types'
 
-const { data:Recipes }
+const { data: Recipes }
   = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes')
 
-const {data:MainRecipe} = await useFetch<RecipeWithUserAndCategories>(`/api/recipes/${4}`,{
-  method:'GET'
+const { data: MainRecipe } = await useFetch<RecipeWithUserAndCategories>(`/api/recipes/${4}`, {
+  method: 'GET',
 })
 const mainRecipe = Recipes.value?.find(recipe => recipe.id === 2)
-const {data:mostRecentRecipes} = await useFetch('/api/recipes/home/mostRecent')
-
+const { data: mostRecentRecipes } = await useFetch('/api/recipes/home/mostRecent')
 </script>
 
 <template>
@@ -19,7 +18,6 @@ const {data:mostRecentRecipes} = await useFetch('/api/recipes/home/mostRecent')
         What's Cooking
       </div>
 
-    
       <img
         :src="MainRecipe?.image || ''"
         alt=""
