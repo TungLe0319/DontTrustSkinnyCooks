@@ -1,22 +1,42 @@
 <script setup lang="ts">
 import LoadingSpinner from '~/components/globals/LoadingSpinner.vue';
-import type { Collection } from '~/types/types';
-import CreateCollection from '~/components/account/CreateCollection.vue';
-import CollectionCard from '~/components/account/collection-home/CollectionCard.vue';
+import type { Collection, RecipeWithUserAndCategories } from '~/types/types';
+
+const toast = useToast();
 
 
 const { data: collectionsData, refresh, pending: collectionsPending, error: collectionsError } = await useFetch<Collection[]>('/api/account/collections');
 const collections = ref(collectionsData.value);
 
+const isOpen = ref(false);
+const newCollection = ref({
+  title: '',
+});
 
-const {data:collectionsTest} = await useCollections()
+const createCollection = async() => {
+  try {
+    await useFetch('/api/account/collections', {
+      method: 'POST',
+      body: newCollection.value,
+    });
 
-const testEmit = () => {
-  console.log('testEmit');
-
+    refresh();
+    const createdCollectionTitle = newCollection.value.title;
+    toast.add({
+      id: `Created_Collection`,
+      title: `Collection Created: ${createdCollectionTitle}`,
+      icon: 'i-heroicons-check-circle',
+      timeout: 2000,
+    });
+  } catch (error) {
+    console.error('Error creating collection:', error);
+    throw createError({
+      statusMessage: 'Error creating collection',
+    });
+  }
 }
 
-
+// Add more functions if needed for better modularity
 </script>
 
 
@@ -28,7 +48,7 @@ const testEmit = () => {
         <span class="tracking-wide">My Saved Recipes</span>
       </div>
       <div>
-        <!-- <UButton label="Create Collection" @click="isOpen = true" />
+        <UButton label="Create Collection" @click="isOpen = true" />
         <UModal v-model="isOpen">
           <div class="p-4 space-y-5">
             <h1 class="text-2xl font-bold">Create Collection</h1>
@@ -39,12 +59,17 @@ const testEmit = () => {
             </UFormGroup>
             <UButton @click="createCollection">Create Collection</UButton>
           </div>
-        </UModal> -->
-        <CreateCollection  @refreshCollections="refresh()"/>
+        </UModal>
       </div>
       <div class="grid grid-cols-3 gap-2 mt-5">
-   
-        <CollectionCard v-for="collection in collectionsTest" :key="collection?.id!"  :collection="collection" />
+        <NuxtLink v-for="collection in collections" :key="collection.id" :to="`/account/collections/${collection.id}`"
+          class="space-y-3">
+          <UCard class="hover:shadow-lg transition-all duration-200">
+            <h4 class="font-extrabold text-lg">{{ collection?.title }}</h4>
+            <p class="text-sm">Created: {{ formateDate(collection?.createdAt!).value }}</p>
+            <p class="text-sm text-gray-500">Recipes: {{ collection?._count.recipes }}</p>
+          </UCard>
+        </NuxtLink>
       </div>
     </div>
     <div v-else-if="collectionsError">
@@ -57,6 +82,4 @@ const testEmit = () => {
 </template>
 
 
-<style>
-
-</style>
+<style></style>

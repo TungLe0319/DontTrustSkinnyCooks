@@ -5,8 +5,8 @@ import type { RecipeWithUserAndCategories } from '~/types/types'
 defineProps(['data', 'categories'])
 const items = [{
   label: 'Search Filters',
-  icon: 'i-heroicons-information-circle',
-  defaultOpen: false,
+  icon: 'i-heroicons-funnel-20-solid',
+  defaultOpen: true,
   slot: 'search',
 }]
 const selectedCategories = useSelectedCategory()
@@ -16,31 +16,35 @@ const mouseEntered = ref(false)
 const categories = Categories.value?.map(category => ({
   name: category.name,
   label: category.name,
-  icon: 'i-heroicons-information-circle',
+  icon: 'i-heroicons-minus-small-20-solid',
 }))
 
-const searchResults = ref<RecipeWithUserAndCategories[] | null>([])
 
-async function search(event: any) {
-  const q = event.target.value
-  const recipes = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes/search', {
-    method: 'POST',
-    body: JSON.stringify({ q }),
-  })
 
-  console.log(recipes.data.value)
-  searchResults.value = recipes.data.value
-}
+
+
+const prepTime = useFilterPrepTime().value
+const servingSize = useFilterServingSize()
+
+
+
+
+
+
 
 function filterCategories(index: number) {
   selectedCategories.value = selectedCategories.value.filter((_: any, i: any) => i !== index)
 }
+
+
+
+
 </script>
 
 <template>
   <div class="my-5">
     <UAccordion :items="items" :ui="{ item: { color: '' } }">
-      <template #default="{ item, _index, open }">
+      <template #default="{ item, index, open }">
         <UButton color="gray" variant="ghost" class="border-b border-gray-200 dark:border-gray-700" :ui="{ rounded: 'rounded-none', padding: { sm: 'p-3' } }">
           <template #leading>
             <div class="w-6 h-6 rounded-full bg-primary-500 dark:bg-primary-400 flex items-center justify-center -my-1">
@@ -61,9 +65,9 @@ function filterCategories(index: number) {
       </template>
 
       <template #search>
-        <div class=" my-4">
+        <div class=" my-4 space-y-4">
           <div v-auto-animate class="mb-4 flex flex-wrap gap-2">
-            <span v-for="(category, index) in selectedCategories" :key="category">
+            <span v-for="(category, index) in selectedCategories" :key="index">
 
               <UBadge
                 size="lg" class="shadow-md hover:scale-[1.01] hover:shadow-xl hover:bg-orange-300 transition-all duration-300 hover:cursor-pointer"
@@ -85,7 +89,7 @@ function filterCategories(index: number) {
               <q>{{ query }}</q> not found
             </template>
           </USelectMenu>
-          <div class="my-4">
+    
             <USelectMenu
               v-if="data" :options="data" placeholder="Search Recipes..." searchable
               searchable-placeholder="Search by title or description" option-attribute="title" by="id" size="xl"
@@ -110,7 +114,42 @@ function filterCategories(index: number) {
                 </div>
               </template>
             </USelectMenu>
-          </div>
+      
+
+<div class="flex gap-5">
+  <div class="w-fit">
+    <UFormGroup label="Prep Time">
+
+      <UInput v-model="useFilterPrepTime().value"  size="xl"  type="number" variant="outline" placeholder="Search..." />
+    </UFormGroup>
+
+    {{ prepTime }}
+  </div>
+
+    <div class="w-fit">
+      <UFormGroup label="Serving Size">
+
+        <UInput v-model="useFilterServingSize().value"   size="xl" type="number" variant="outline" placeholder="Search..."    />
+      </UFormGroup>
+
+      {{ servingSize }}
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
           <!-- POSSIBLE EXTRA FEATURE -->
           <!-- <div class="">

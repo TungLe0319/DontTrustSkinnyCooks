@@ -4,19 +4,35 @@ import RecipeCard from '~/components/recipes/recipe-home/RecipeCard.vue'
 import Search from '~/components/recipes/recipe-home/Search.vue'
 import LoadingSpinner from '~/components/globals/LoadingSpinner.vue';
 const { data,pending,error } = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes')
-
-const selectedCategories = useSelectedCategory()
+const selectedCategories = useSelectedCategory();
+const filterPrepTime = useFilterPrepTime();
+const filterServingSize = useFilterServingSize();
 
 const filteredRecipes = computed(() => {
-  if (selectedCategories.value.length === 0)
-    return data.value
-
   return data.value?.filter((recipe) => {
-    return recipe.categories?.some(category =>
-      selectedCategories.value.includes(category.name),
-    )
-  })
-})
+    // Check selected categories
+    const categoryFilter =
+      selectedCategories.value.length === 0 ||
+      recipe.categories?.some((category) =>
+        selectedCategories.value.includes(category.name)
+      );
+
+    // Check prep time
+    const prepTimeFilter =
+      filterPrepTime.value === 0 || // If filterPrepTime is 0, don't filter by prep time
+      (recipe.prepTime &&
+        parseInt(recipe.prepTime.split(' ')[0], 10) <= filterPrepTime.value);
+
+    // Check serving size
+    const servingSizeFilter =
+      filterServingSize.value === 0 || // If filterServingSize is 0, don't filter by serving size
+      (recipe.servingSize && recipe.servingSize <= filterServingSize.value);
+
+    // Combine filters
+    return categoryFilter && prepTimeFilter && servingSizeFilter;
+  });
+});
+
 </script>
 
 <template>
@@ -26,6 +42,8 @@ const filteredRecipes = computed(() => {
     </h1>
     <Search :data="data" />
     <div v-if="!pending" v-auto-animate class="grid grid-cols-4  gap-6   pb-20 ">
+
+  
       <RecipeCard v-for="(recipe, index) in filteredRecipes" :key="index" :recipe="recipe" />
     </div>
     <div v-else-if="error" class="min-h-screen flex items-center justify-center">

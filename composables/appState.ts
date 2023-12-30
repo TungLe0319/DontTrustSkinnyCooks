@@ -23,3 +23,7 @@ export function formateDate(date: Date) {
   ))
 }
 export const useCategories = () => useState<Category[]>('categories', () => [])
+
+export const useFilterPrepTime = () => useState<number>('filterPrepTime', () => 0)
+
+export const useFilterServingSize = () => useState<number>('filterServingSize', () => 0)

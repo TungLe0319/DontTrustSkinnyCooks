@@ -13,6 +13,8 @@ const route = useRoute()
 const toast = useToast()
 const isOpen = ref(false)
 const selectedCategories = useSelectedCategory()
+const filterPrepTime = useFilterPrepTime()
+const filterServingSize = useFilterServingSize()
 
 async function saveRecipe(collectionId: number) {
   try {
@@ -35,27 +37,27 @@ async function saveRecipe(collectionId: number) {
   }
 }
 
-const checkCollectionRelation = (
-  collectionId: number,
-  recipeId: number,
-  userId: string
-) => {
-  const { data: Collections } = useFetch<Collection[]>('/api/account/collections');
-  const collections = ref(Collections.value);
+// const checkCollectionRelation = (
+//   collectionId: number,
+//   recipeId: number,
+//   userId: string
+// ) => {
+//   const { data: Collections } = useFetch<Collection[]>('/api/account/collections');
+//   const collections = ref(Collections.value);
 
-  // Check if recipeId is present in any collection
-  const isRecipeInCollection = (collection: Collection) => {
-    return collection.recipes.some((id:number) => id === recipeId);
-  };
+//   // Check if recipeId is present in any collection
+//   const isRecipeInCollection = (collection: Collection) => {
+//     return collection.recipes.some((id:number) => id === recipeId);
+//   };
 
-  // Filter collections to include only those that do not have the recipeId
-  const filteredCollections = collections?.value?.filter(
-    (collection) => !isRecipeInCollection(collection)
-  );
+//   // Filter collections to include only those that do not have the recipeId
+//   const filteredCollections = collections?.value?.filter(
+//     (collection) => !isRecipeInCollection(collection)
+//   );
 
-  // Update the collections reference with the filtered result
-  collections.value = filteredCollections;
-};
+//   // Update the collections reference with the filtered result
+//   collections.value = filteredCollections;
+// };
 
 
 const handleImageError = (imageUrl:string) => {
@@ -137,6 +139,25 @@ const handleImageError = (imageUrl:string) => {
           </UBadge>
         </span>
       </div>
+
+
+<div class="flex gap-5">
+  <div v-if="useFilterPrepTime().value > 0">
+    <div class="flex items-center gap-2">
+      <Icon name="carbon:timer" class="text-xl" />
+      <span class="text-sm">{{ recipe.prepTime }}</span>
+    </div>
+  </div>
+  <div v-if="useFilterServingSize().value > 0">
+    <div class="flex items-center gap-2">
+      <Icon name="carbon:fork" class="text-xl" />
+      <span class="text-sm">{{ recipe.servingSize }}</span>
+    </div>
+  </div>
+
+</div>
+
+
     </div>
     <UModal v-model="isOpen">
       <UCard>
