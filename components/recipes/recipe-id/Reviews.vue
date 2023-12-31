@@ -119,9 +119,9 @@ function getRatingLabel(rating: number) {
 </script>
 
 <template>
-  <div class="flex flex-col  space-y-10 ">
+  <div id="recipeReviews" class="flex flex-col  space-y-10 ">
     <div class=" flex flex-col  space-y-3">
-      <div class="flex gap-3">
+      <div class="flex gap-3 items-center">
         <Icon name="ic:baseline-rate-review" class="text-4xl text-orange-400" />
         <span class="text-4xl font-extrabold">Review this Recipe</span>
       </div>
@@ -173,7 +173,7 @@ function getRatingLabel(rating: number) {
         Reviews
       </div>
 
-      <div class=" px-10 space-y-5">
+      <div class="  space-y-5">
         <ReviewCard v-for="i in reviews" :key="i.id" :review="i" />
       </div>
     </div>

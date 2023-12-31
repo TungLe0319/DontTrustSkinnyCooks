@@ -76,7 +76,9 @@ const { averageRating } = useAverageRating(recipe?.value?.reviews!)
       <Reviews :recipe="recipe" />
     </div>
     <div class="w-1/3  pt-5">
-      <AdBannerOne />
+     <div class="sticky top-5">
+       <AdBannerOne />
+     </div>
     </div>
   </main>
 </template>

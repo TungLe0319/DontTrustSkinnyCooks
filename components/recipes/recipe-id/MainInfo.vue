@@ -82,6 +82,74 @@ async function deleteRecipe() {
 
   })
 }
+
+
+const scrollToReviews = () => {
+  const reviewsElement = document.getElementById('recipeReviews');
+
+  if (reviewsElement) {
+    reviewsElement.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline:'nearest',
+    
+    });
+  }
+};
+
+const shareItems = [
+  [
+    {
+      label: 'Facebook',
+      icon: 'brandico:facebook-rect',
+      click: () => {
+        // Implement Facebook sharing logic
+        console.log('Share on Facebook');
+      },
+    },
+    {
+      label: 'Twitter',
+      icon: 'brandico:twitter-bird',
+      click: () => {
+        // Implement Twitter sharing logic
+        console.log('Share on Twitter');
+      },
+    },
+      {
+      label: 'LinkedIn',
+      icon: 'brandico:linkedin-rect',
+      click: () => {
+        // Implement LinkedIn sharing logic
+        console.log('Share on LinkedIn');
+      },
+    },
+    {
+      label: 'Instagram',
+      icon: 'brandico:instagram',
+      click: () => {
+        // Implement Instagram sharing logic
+        console.log('Share on Instagram');
+      },
+    }, {
+      label: 'Pinterest',
+      icon: 'fa6-brands:pinterest',
+      click: () => {
+        // Implement Pinterest sharing logic
+        console.log('Share on Pinterest');
+      },
+    },
+    {
+      label: 'Email',
+      icon: 'mdi:email',
+      click: () => {
+        // Implement Email sharing logic
+        console.log('Share via Email');
+      },
+    }
+  ],
+ 
+
+];
 </script>
 
 <template>
@@ -119,11 +187,16 @@ async function deleteRecipe() {
        ({{ recipe.reviews.length }})
         </span>
       </div>
-    
+  
     </div>
       <div v-else class=" text-gray-600 underline-offset-4 underline">
           Not Yet Rated
         </div>
+
+          <UButton  @click="scrollToReviews" variant="link" class=" text-gray-900 uppercase text-xs font-bold  underline underline-offset-4">
+       <span> Read Reviews</span>
+       <Icon name="material-symbols:arrow-drop-down-rounded" class="text-xl" />
+      </UButton>
     <p class=" my-5">
       {{ recipe.description }}
     </p>
@@ -143,27 +216,35 @@ async function deleteRecipe() {
       </div>
     </div>
     <div
-      class="flex   bg-gradient-to-r from-orange-500 via-rose-300 to-indigo-600 dark:bg-gradient-to-r dark:from-orange-500 dark:via-rose-300 dark:to-indigo-600  w-fit shadow-xl "
+      class="flex   "
     >
       <UButton
         :ui="{ rounded: 'rounded-none' }" size="xl" icon="i-heroicons-heart" :trailing="true"
-        class="bg-transparent hover:bg-black/20 transition-all duration-150"
+        class="  transition-all duration-150"
       >
         Save
       </UButton>
-      <UButton
-        :ui="{ rounded: 'rounded-none' }" size="xl" icon="i-heroicons-star" :trailing="true"
-        class="bg-transparent hover:bg-black/20 transition-all duration-150"
-      >
-        Rate
-      </UButton>
+  
       <UButton
         :ui="{ rounded: 'rounded-none' }" size="xl" icon="i-heroicons-share" :trailing="true"
-        class="bg-transparent hover:bg-black/20 transition-all duration-150"
+        class="  transition-all duration-150"
       >
         Share
       </UButton>
     </div>
+
+
+
+  <UDropdown :items="shareItems"  :ui="{width:'w-fit'}" :popper="{ placement: 'bottom' }">
+       <Icon name="material-symbols:share" class="flex-shrink-0  text-2xl text-gray-900 dark:text-gray-500 ms-auto" />
+
+  
+      <template #item="{ item }">
+        <!-- <span class="truncate">{{ item.label }}</span> -->
+
+        <Icon :name="item.icon" class="flex-shrink-0  text-2xl text-gray-900 dark:text-gray-500 ms-auto" />
+      </template>
+    </UDropdown>
   </div>
 </template>
 

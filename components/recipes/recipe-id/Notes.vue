@@ -6,7 +6,7 @@ defineProps<{
 
 <template>
   <div class="">
-    <div class="flex gap-3">
+    <div class="flex gap-3 items-center">
       <Icon name="material-symbols:speaker-notes-rounded" class="text-4xl text-orange-400" />
       <h2 class="text-3xl font-extrabold text-orange-400">
         Extra Notes
