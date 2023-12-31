@@ -1,19 +1,41 @@
 <script lang="ts" setup>
+import type { Prisma } from '@prisma/client';
 import ProfileCard from '~/components/globals/ProfileCard.vue'
 
-const { id, title, user, description, createdAt, updatedAt } = defineProps(['title', 'user', 'description', 'id', 'createdAt', 'updatedAt'])
+const {  recipe,averageRating} = defineProps<{
+  recipe: Prisma.RecipeGetPayload<{
+    include: {
+      user: true
+      categories: true,
+      _count:{
+        select:{
+          reviews:true
+        }
+      }
+      reviews: {
+        select:{
+          id:true,
+          rating:true
+        }
+      }
+    }
+  }>
+  averageRating: number
+
+}>()
+
 const { session } = useAuth()
 const route = useRoute()
 const router = useRouter()
 const toast = useToast()
 
 function editRecipe() {
-  router.push(`/recipes/${id}/edit`)
+  router.push(`/recipes/${recipe.id}/edit`)
 }
 const confirmYes = ref(false)
 async function deleteRecipe() {
   toast.add({
-    id: `delete_recipe ${id}`,
+    id: `delete_recipe ${recipe.id}`,
     title: 'Delete Recipe?',
     description: 'Are you sure you want to delete this recipe?',
     icon: 'i-heroicons-question-mark-circle',
@@ -26,9 +48,9 @@ async function deleteRecipe() {
         confirmYes.value = true
 
         if (confirmYes.value === true) {
-          if (session.value?.user?.id !== user.id) {
+          if (session.value?.user?.id !== recipe.userId) {
             toast.add({
-              id: `delete_recipe_error ${id}`,
+              id: `delete_recipe_error ${recipe.id}`,
               title: 'Error',
               description: 'You are not authorized to delete this recipe',
               icon: 'i-heroicons-exclamation-circle',
@@ -37,7 +59,7 @@ async function deleteRecipe() {
             })
           }
 
-          const res = await fetch(`/api/recipes/${id}`, {
+          const res = await fetch(`/api/recipes/${recipe.id}`, {
             method: 'DELETE',
 
           })
@@ -45,9 +67,9 @@ async function deleteRecipe() {
             router.push('/recipes')
 
             toast.add({
-              id: `delete_recipe_success ${id}`,
+              id: `delete_recipe_success ${recipe.id}`,
               title: `Success`,
-              description: `Successfully Deleted ${title}`,
+              description: `Successfully Deleted ${recipe.title}`,
               icon: 'i-heroicons-exclamation-circle',
               timeout: 2000,
               color: 'green',
@@ -66,9 +88,9 @@ async function deleteRecipe() {
   <div class=" space-y-4">
     <div class="flex   items-start gap-4">
       <h1 class="text-5xl font-extrabold mb-5">
-        {{ title }}
+        {{ recipe.title }}
       </h1>
-      <div v-if="session?.user?.id === user.id" class="flex gap-3 items-center justify-center mt-1">
+      <div v-if="session?.user?.id === recipe.userId" class="flex gap-3 items-center justify-center mt-1">
         <UButton
           size="xl"
           class="bg-orange-400  transition-all duration-150 hover:brightness-75 hover:bg-orange-400 hover:scale-95"
@@ -85,34 +107,38 @@ async function deleteRecipe() {
         </UButton>
       </div>
     </div>
-    <div class="flex gap-3  text-orange-400">
+    <div v-if="averageRating > 0" class="flex gap-3  text-orange-400">
       <div class="flex gap-1">
-        <Icon v-for="rating in 5" :key="rating" name="game-icons:fat" class="text-2xl" />
+        <Icon v-for="rating in averageRating" :key="rating" name="game-icons:fat" class="text-2xl" />
       </div>
-      <div class="dark:text-white text-gray-900 space-x-1 font-semibold">
+      <div  class="dark:text-white text-gray-900 space-x-1 font-semibold">
         <span class="border-b border-spacing-2 border-orange-400 ">
-          4.5
+         {{ averageRating }}
         </span>
         <span class="text-gray-500">
-          (24)
+       ({{ recipe.reviews.length }})
         </span>
       </div>
+    
     </div>
+      <div v-else class=" text-gray-600 underline-offset-4 underline">
+          Not Yet Rated
+        </div>
     <p class=" my-5">
-      {{ description }}
+      {{ recipe.description }}
     </p>
     <div class="font-bold text-sm">
       Recipe By
     </div>
     <div class=" w-fit flex items-center gap-4">
-      <ProfileCard :user="user" />
+      <ProfileCard :user="recipe.user" />
       <hr class="h-14 w-0.5   bg-gray-300">
       <div class=" text-sm my-4 font-semibold  flex flex-col gap-2 ">
         <span>
-          Created {{ formateDate(createdAt).value }}
+          Created {{ formateDate(recipe.createdAt).value }}
         </span>
-        <span v-if="createdAt !== updatedAt" class="text-gray-500 text-xs">
-          Updated {{ formateDate(updatedAt).value }}
+        <span v-if="recipe.createdAt !== recipe.updatedAt" class="text-gray-500 text-xs">
+          Updated {{ formateDate(recipe.updatedAt).value }}
         </span>
       </div>
     </div>

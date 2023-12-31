@@ -19,6 +19,13 @@ export default defineEventHandler(async (event) => {
             reviews: true,
           },
         },
+        reviews:{
+          select:{
+            id:true,
+            rating:true,
+            
+          }
+        }
       },
     })
 
