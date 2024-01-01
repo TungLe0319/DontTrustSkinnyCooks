@@ -60,9 +60,9 @@ function handleImageError(imageUrl: string) {
       <USkeleton v-else class="h-72 w-full bg-gray-300" />
 
       <div
-        class="absolute flex items-center justify-center font-extrabold text-4xl w-full  p-10 z-10  translate-y-[10rem] group-hover:translate-y-4 transition-all duration-300 text-primary bg-gradient-to-t from-black  h-full"
+        class="absolute flex items-center justify-center font-extrabold text-4xl w-full  p-10 z-10  translate-y-[10rem] group-hover:translate-y-4 transition-all duration-300 text-primary bg-gradient-to-t from-black/80  h-full"
       >
-        View Recipe
+    
       </div>
     </NuxtLink>
     <div class="p-5 pt-2">

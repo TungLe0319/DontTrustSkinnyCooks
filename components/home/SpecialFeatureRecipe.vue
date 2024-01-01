@@ -41,5 +41,9 @@ const recipe = data.value?.[6]
   /* keeps the image fixed while scrolling , neat effect. */
   background-attachment: fixed;
 
+  @media screen and (max-width: 1286px) {
+    height:50vh
+  }
+
 }
 </style>

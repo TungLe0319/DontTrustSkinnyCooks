@@ -1,9 +1,8 @@
 <template>
-  <div class="m-4 p-10 rounded inset-0  bg-gray-100 ">
-    <div class="relative overflow-hidden space-y-5">
-      <h2 class="text-5xl font-extrabold underline underline-offset-4">
-        Our Team
-      </h2>
+  <div class="m-4  rounded inset-0  bg-gray-100 ">
+    <SectionHeader title="Our Team"/>
+    <div class="relative overflow-hidden space-y-5 p-10 m">
+     
       <p>We’re a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best
         results for our clients.</p>
       <div class="space-y-3">
@@ -65,6 +64,7 @@
 <script lang="ts" setup>
 import type { Prisma } from '@prisma/client';
 import TeamUserCard from '../globals/TeamUserCard.vue';
+import SectionHeader from '../globals/SectionHeader.vue';
 const { data: Contributors } = await useFetch<Contributor[]>('/api/users/topcontributors')
 
 const contributors = Contributors.value

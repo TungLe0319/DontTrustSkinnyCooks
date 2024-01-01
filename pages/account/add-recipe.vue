@@ -29,40 +29,7 @@ const initialRecipeState: RecipeFormObject = {
 
 // const newRecipe = ref<RecipeFormObject>({...intialRecipeState});
 
-const newRecipe = ref({
-  title: 'Ramen with Soft-Boiled Egg',
-  description: 'A comforting bowl of ramen featuring savory broth, noodles, and a perfectly soft-boiled egg for a satisfying and delicious meal.',
-  ingredients: [
-    '2 packs of ramen noodles',
-    '4 cups chicken or vegetable broth',
-    '2 large eggs',
-    '2 tablespoons soy sauce',
-    '1 tablespoon sesame oil',
-    '1 tablespoon mirin (optional)',
-    '1 teaspoon grated ginger',
-    '2 cloves garlic, minced',
-    'Green onions, sliced (for garnish)',
-    'Red pepper flakes (optional, for added heat)',
-  ],
-  directions: [
-    'Bring a pot of water to a boil. Carefully add the eggs and boil for 6 minutes for a soft-boiled egg. Transfer the eggs to an ice water bath to cool and stop the cooking process. Once cooled, peel and set aside.',
-    'In a separate pot, bring the chicken or vegetable broth to a simmer. Add soy sauce, sesame oil, mirin (if using), grated ginger, and minced garlic. Allow the broth to simmer for 10-15 minutes to infuse the flavors.',
-    'Cook the ramen noodles according to the package instructions. Drain and set aside.',
-    'Divide the cooked ramen noodles into serving bowls.',
-    'Pour the hot broth over the noodles, ensuring each bowl has a good amount of flavorful broth.',
-    'Slice the soft-boiled eggs in half and place them on top of the ramen.',
-    'Garnish with sliced green onions and red pepper flakes if you like some heat.',
-    'Serve immediately and enjoy your comforting bowl of ramen with a soft-boiled egg!',
-  ],
-  servingSize: 2,
-  yieldAmount: '2 servings',
-  prepTime: '15 minutes',
-  cookTime: '20 minutes',
-  notes: ['Feel free to customize your ramen with additional toppings such as seaweed, bean sprouts, or sliced mushrooms. Adjust the soy sauce quantity based on your taste preference.'],
-  image: 'ramen_with_soft_boiled_egg.jpg',
-  isPublic: true,
-  categories: ['Ramen', 'Japanese', 'Vegetarian', 'Vegan', 'Dairy-Free', 'Gluten-Free', 'Keto-Friendly', 'Low-Carb'],
-})
+const newRecipe = ref({ ...initialRecipeState })
 const imageDisplay = computed(() => newRecipe.value.image)
 
 // To reset the form, you can use a function like this:

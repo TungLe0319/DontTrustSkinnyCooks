@@ -27,6 +27,7 @@ const isDark = computed({
 const items = ref([
   { name: 'Home', label: 'Home', icon: 'i-heroicons-home', href: '/', to: '/' },
   { name: 'Recipes', label: 'recipes', icon: 'i-heroicons-home', href: '/recipes' },
+  { name: 'About us', label: 'about us', icon: 'i-heroicons-user', href: '/about' },
 ])
 if (user.value)
   items.value.push({ name: 'Add Recipe', label: 'add-recipe', icon: 'i-heroicons-home', href: '/account/add-recipe' })

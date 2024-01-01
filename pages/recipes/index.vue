@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { RecipeWithUserAndCategories } from '../../types/types'
-import RecipeCard from '~/components/globals/RecipeCard.vue';
+import LazyRecipeCard from '~/components/globals/RecipeCard.vue';
 import SearchFilters from '~/components/recipes/recipe-home/SearchFilters.vue'
 import LoadingSpinner from '~/components/globals/LoadingSpinner.vue'
 
@@ -42,7 +42,7 @@ const filteredRecipes = computed(() => {
     </h1>
     <SearchFilters :data="data" />
     <div v-if="!pending" v-auto-animate class="grid grid-cols-4  gap-6   pb-20 ">
-      <RecipeCard v-for="(recipe, index) in filteredRecipes" :key="index" :recipe="recipe" />
+      <LazyRecipeCard v-for="(recipe, index) in filteredRecipes" :key="index" :recipe="recipe" />
     </div>
     <div v-else-if="error" class="min-h-screen flex items-center justify-center">
       <p class="text-5xl font-bold text-center">

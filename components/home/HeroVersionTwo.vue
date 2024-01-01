@@ -1,32 +1,57 @@
 <script lang="ts" setup>
 import type { RecipeWithUserAndCategories } from '~/types/types'
+import SectionHeader from '../globals/SectionHeader.vue';
+import type { Prisma } from '@prisma/client';
 
-const { data: Recipes }
-  = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes')
 
 const { data: MainRecipe } = await useFetch<RecipeWithUserAndCategories>(`/api/recipes/${4}`, {
   method: 'GET',
 })
-const mainRecipe = Recipes.value?.find(recipe => recipe.id === 2)
-const { data: mostRecentRecipes } = await useFetch('/api/recipes/home/mostRecent')
+const mainRecipe = ref(MainRecipe.value)
+
+
+const { data: MostRecentRecipes } = await useFetch<Prisma.RecipeGetPayload<{
+  include: {
+    user: true
+    categories: true,
+    _count: {
+      select: {
+        reviews: true
+      }
+    }
+    reviews: {
+      select: {
+        id: true,
+        rating: true
+      }
+    }
+  }
+}>[]>('/api/recipes/home/mostRecent')
+const mostRecentRecipes = ref(MostRecentRecipes.value)
+
+
+
 </script>
 
 <template>
-  <div class="flex gap-6 bg-gray-100 dark:bg-gray-800 p-10 rounded">
-    <NuxtLink :to="`/recipes/${mainRecipe?.id}`" class="w-2/3 group ">
-      <div class=" mb-5  underline underline-offset-4 text-4xl font-extrabold ">
-        What's Cooking
-      </div>
 
+<div class="bg-gray-100 dark:bg-gray-800">
+    <SectionHeader title="What's Cooking"/>
+  <div class="flex gap-6  p-10 rounded">
+
+
+
+    <NuxtLink :to="`/recipes/${mainRecipe?.id}`" class="w-2/3 group ">
+     
       <img
-        :src="MainRecipe?.image || ''"
+        :src="mainRecipe?.image || ''"
         alt=""
         class="h-auto w-auto rounded-md shadow-lg group-hover:brightness-75 duration-150 transition-all"
       >
       <div class="mt-5 space-y-3">
         <div class="flex gap-3">
           <UBadge
-            v-for="category in MainRecipe?.categories"
+            v-for="category in mainRecipe?.categories"
             :key="category.id"
             size="md"
             class="bg-orange-400 shadow-md"
@@ -35,10 +60,10 @@ const { data: mostRecentRecipes } = await useFetch('/api/recipes/home/mostRecent
           </UBadge>
         </div>
         <div class="text-3xl font-extrabold group-hover:underline group-hover:underline-offset-4">
-          {{ MainRecipe?.title }}
+          {{ mainRecipe?.title }}
         </div>
         <p class="group-hover:underline group-hover:underline-offset-4 text-gray-500 dark:text-gray-400">
-          {{ MainRecipe?.description }}
+          {{ mainRecipe?.description }}
         </p>
       </div>
     </NuxtLink>
@@ -74,6 +99,7 @@ const { data: mostRecentRecipes } = await useFetch('/api/recipes/home/mostRecent
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <style></style>

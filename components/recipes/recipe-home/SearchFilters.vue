@@ -21,6 +21,11 @@ const mappedSelectionCategories = Categories.value?.map(category => ({
 
 <template>
   <div class="my-5">
+    <ul><li v-for="i in mappedSelectionCategories">
+
+      {{ i.name }}
+    </li></ul>
+
     <UAccordion :items="accordionItems" :ui="{ item: { color: '' } }">
       <template #default="{ item, index, open }">
         <UButton color="gray" variant="ghost" class="border-b border-gray-200 dark:border-gray-700" :ui="{ rounded: 'rounded-none', padding: { sm: 'p-3' } }">

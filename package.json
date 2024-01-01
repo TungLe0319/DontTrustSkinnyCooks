@@ -30,6 +30,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^2.4.6",
     "@nuxt/devtools": "latest",
+    "@tailwindcss/typography": "^0.5.10",
     "eslint": "^8.56.0",
     "nuxt": "^3.8.2",
     "prettier": "^3.1.1",
