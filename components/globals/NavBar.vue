@@ -46,7 +46,7 @@ const profileDropdownItems = [
       icon: 'i-heroicons-user-20-solid',
 
       click: () => {
-        router.push(`/account/profile-info`)
+        router.push(`/profile/${session.value.user.id}`)
       },
     },
     {

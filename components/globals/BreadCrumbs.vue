@@ -23,7 +23,7 @@ const links = ref([
   {
     label: 'Profile Info',
     icon: 'i-heroicons-archive',
-    to: '/account/profile-info',
+    to: '/profile',
   },
   {
     label: 'Add Recipe',
