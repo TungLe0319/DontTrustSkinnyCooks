@@ -21,10 +21,11 @@ const mappedSelectionCategories = Categories.value?.map(category => ({
 
 <template>
   <div class="my-5">
-    <ul><li v-for="i in mappedSelectionCategories">
-
-      {{ i.name }}
-    </li></ul>
+    <ul>
+      <li v-for="i in mappedSelectionCategories">
+        {{ i.name }}
+      </li>
+    </ul>
 
     <UAccordion :items="accordionItems" :ui="{ item: { color: '' } }">
       <template #default="{ item, index, open }">

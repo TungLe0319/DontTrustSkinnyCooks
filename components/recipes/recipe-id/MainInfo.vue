@@ -1,21 +1,21 @@
 <script lang="ts" setup>
-import type { Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/client'
 import ProfileCard from '~/components/globals/ProfileCard.vue'
 
-const {  recipe,averageRating} = defineProps<{
+const { recipe, averageRating } = defineProps<{
   recipe: Prisma.RecipeGetPayload<{
     include: {
       user: true
-      categories: true,
-      _count:{
-        select:{
-          reviews:true
+      categories: true
+      _count: {
+        select: {
+          reviews: true
         }
       }
       reviews: {
-        select:{
-          id:true,
-          rating:true
+        select: {
+          id: true
+          rating: true
         }
       }
     }
@@ -83,19 +83,18 @@ async function deleteRecipe() {
   })
 }
 
-
-const scrollToReviews = () => {
-  const reviewsElement = document.getElementById('recipeReviews');
+function scrollToReviews() {
+  const reviewsElement = document.getElementById('recipeReviews')
 
   if (reviewsElement) {
     reviewsElement.scrollIntoView({
       behavior: 'smooth',
       block: 'start',
-      inline:'nearest',
-    
-    });
+      inline: 'nearest',
+
+    })
   }
-};
+}
 
 const shareItems = [
   [
@@ -104,7 +103,7 @@ const shareItems = [
       icon: 'brandico:facebook-rect',
       click: () => {
         // Implement Facebook sharing logic
-        console.log('Share on Facebook');
+        console.log('Share on Facebook')
       },
     },
     {
@@ -112,15 +111,15 @@ const shareItems = [
       icon: 'brandico:twitter-bird',
       click: () => {
         // Implement Twitter sharing logic
-        console.log('Share on Twitter');
+        console.log('Share on Twitter')
       },
     },
-      {
+    {
       label: 'LinkedIn',
       icon: 'brandico:linkedin-rect',
       click: () => {
         // Implement LinkedIn sharing logic
-        console.log('Share on LinkedIn');
+        console.log('Share on LinkedIn')
       },
     },
     {
@@ -128,14 +127,15 @@ const shareItems = [
       icon: 'brandico:instagram',
       click: () => {
         // Implement Instagram sharing logic
-        console.log('Share on Instagram');
+        console.log('Share on Instagram')
       },
-    }, {
+    },
+    {
       label: 'Pinterest',
       icon: 'fa6-brands:pinterest',
       click: () => {
         // Implement Pinterest sharing logic
-        console.log('Share on Pinterest');
+        console.log('Share on Pinterest')
       },
     },
     {
@@ -143,13 +143,12 @@ const shareItems = [
       icon: 'mdi:email',
       click: () => {
         // Implement Email sharing logic
-        console.log('Share via Email');
+        console.log('Share via Email')
       },
-    }
+    },
   ],
- 
 
-];
+]
 </script>
 
 <template>
@@ -179,24 +178,23 @@ const shareItems = [
       <div class="flex gap-1">
         <Icon v-for="rating in averageRating" :key="rating" name="game-icons:fat" class="text-2xl" />
       </div>
-      <div  class="dark:text-white text-gray-900 space-x-1 font-semibold">
+      <div class="dark:text-white text-gray-900 space-x-1 font-semibold">
         <span class="border-b border-spacing-2 border-orange-400 ">
-         {{ averageRating }}
+          {{ averageRating }}
         </span>
         <span class="text-gray-500">
-       ({{ recipe.reviews.length }})
+          ({{ recipe.reviews.length }})
         </span>
       </div>
-  
     </div>
-      <div v-else class=" text-gray-600 underline-offset-4 underline">
-          Not Yet Rated
-        </div>
+    <div v-else class=" text-gray-600 underline-offset-4 underline">
+      Not Yet Rated
+    </div>
 
-          <UButton  @click="scrollToReviews" variant="link" class=" text-gray-900 uppercase text-xs font-bold  underline underline-offset-4">
-       <span> Read Reviews</span>
-       <Icon name="material-symbols:arrow-drop-down-rounded" class="text-xl" />
-      </UButton>
+    <UButton variant="link" class=" text-gray-900 uppercase text-xs font-bold  underline underline-offset-4" @click="scrollToReviews">
+      <span> Read Reviews</span>
+      <Icon name="material-symbols:arrow-drop-down-rounded" class="text-xl" />
+    </UButton>
     <p class=" my-5">
       {{ recipe.description }}
     </p>
@@ -224,7 +222,7 @@ const shareItems = [
       >
         Save
       </UButton>
-  
+
       <UButton
         :ui="{ rounded: 'rounded-none' }" size="xl" icon="i-heroicons-share" :trailing="true"
         class="  transition-all duration-150"
@@ -233,12 +231,9 @@ const shareItems = [
       </UButton>
     </div>
 
+    <UDropdown :items="shareItems" :ui="{ width: 'w-fit' }" :popper="{ placement: 'bottom' }">
+      <Icon name="material-symbols:share" class="flex-shrink-0  text-2xl text-gray-900 dark:text-gray-500 ms-auto" />
 
-
-  <UDropdown :items="shareItems"  :ui="{width:'w-fit'}" :popper="{ placement: 'bottom' }">
-       <Icon name="material-symbols:share" class="flex-shrink-0  text-2xl text-gray-900 dark:text-gray-500 ms-auto" />
-
-  
       <template #item="{ item }">
         <!-- <span class="truncate">{{ item.label }}</span> -->
 

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import RecipeCard from '~/components/globals/RecipeCard.vue';
+import SectionHeader from '../globals/SectionHeader.vue'
+import RecipeCard from '~/components/globals/RecipeCard.vue'
 import type { RecipeWithUserAndCategories } from '~/types/types'
-import SectionHeader from '../globals/SectionHeader.vue';
 
 const { data }
   = await useFetch<RecipeWithUserAndCategories[]>('/api/recipes')

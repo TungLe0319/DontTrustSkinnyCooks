@@ -15,9 +15,6 @@
         <p class="w-full md:w-2/3 text-gray-400">
           To ensure that all Wikipedia content is verifiable, anyone may question an uncited claim. If your work has been tagged
         </p>
-        <div class="w-44 pt-6 md:pt-0">
-          <a class="bg-red-500 justify-center text-center rounded-lg shadow px-10 py-3 flex items-center">Contact US</a>
-        </div>
       </div>
       <div class="flex flex-col">
         <div class="flex mt-24 mb-12 flex-row justify-between">

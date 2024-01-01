@@ -35,8 +35,6 @@ async function saveRecipe(collectionId: number) {
   }
 }
 
-
-
 function handleImageError(imageUrl: string) {
   return imageUrl = 'https://t4.ftcdn.net/jpg/04/70/29/97/240_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg'
 }
@@ -61,9 +59,7 @@ function handleImageError(imageUrl: string) {
 
       <div
         class="absolute flex items-center justify-center font-extrabold text-4xl w-full  p-10 z-10  translate-y-[10rem] group-hover:translate-y-4 transition-all duration-300 text-primary bg-gradient-to-t from-black/80  h-full"
-      >
-    
-      </div>
+      />
     </NuxtLink>
     <div class="p-5 pt-2">
       <div class="flex flex-col gap-5">

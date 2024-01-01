@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { RecipeWithUserAndCategories } from '../../types/types'
-import LazyRecipeCard from '~/components/globals/RecipeCard.vue';
+import LazyRecipeCard from '~/components/globals/RecipeCard.vue'
 import SearchFilters from '~/components/recipes/recipe-home/SearchFilters.vue'
 import LoadingSpinner from '~/components/globals/LoadingSpinner.vue'
 

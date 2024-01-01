@@ -5,22 +5,21 @@ import type { Collection } from '~/types/types'
 const toast = useToast()
 
 const { data: collectionsData, refresh, pending: collectionsPending, error: collectionsError } = await useFetch<Collection[]>('/api/account/collections')
-const collections =  computed(() => collectionsData.value)
+const collections = computed(() => collectionsData.value)
 const confirmYes = ref(false)
-const {session} = useAuth()
+const { session } = useAuth()
 const isOpen = ref(false)
 const newCollection = ref({
   title: '',
 })
 
-const createCollection = async() => {
+async function createCollection() {
   try {
     await useFetch('/api/account/collections', {
       method: 'POST',
       body: newCollection.value,
     })
 
-  
     const createdCollectionTitle = newCollection.value.title
     toast.add({
       id: `Created_Collection`,
@@ -28,10 +27,10 @@ const createCollection = async() => {
       icon: 'i-heroicons-check-circle',
       timeout: 2000,
     })
-      refresh()
-      isOpen.value = false
+    refresh()
+    isOpen.value = false
   }
-  
+
   catch (error) {
     console.error('Error creating collection:', error)
     throw createError({
@@ -40,8 +39,7 @@ const createCollection = async() => {
   }
 }
 
-
-const  deleteCollection = async (collection:Collection) => {
+async function deleteCollection(collection: Collection) {
   try {
     toast.add({
       id: `delete_Collection ${collection?.id}`,
@@ -73,7 +71,7 @@ const  deleteCollection = async (collection:Collection) => {
             })
 
             if (res) {
-           refresh()
+              refresh()
 
               toast.add({
                 id: `delete_collection_success ${collection.id}`,
@@ -128,11 +126,11 @@ const  deleteCollection = async (collection:Collection) => {
         </UModal>
       </div>
       <div v-auto-animate class="grid grid-cols-4 gap-2 mt-5">
-        <UCard v-for="collection in collections" :key="collection.id"  class="hover:shadow-lg transition-all duration-200 relative">
-            <NuxtLink
-              :to="`/account/collections/${collection.id}`"
-              class="space-y-3 relative"
-            >
+        <UCard v-for="collection in collections" :key="collection.id" class="hover:shadow-lg transition-all duration-200 relative">
+          <NuxtLink
+            :to="`/account/collections/${collection.id}`"
+            class="space-y-3 relative"
+          >
             <h4 class="font-extrabold text-lg">
               {{ collection?.title }}
             </h4>
@@ -142,11 +140,10 @@ const  deleteCollection = async (collection:Collection) => {
             <p class="text-sm text-gray-500">
               Recipes: {{ collection?._count.recipes }}
             </p>
-         
           </NuxtLink>
-             <div class=" absolute top-6 right-6 z-50 ">
-                <UIcon name="i-heroicons-trash-20-solid" class="text-xl hover:cursor-pointer " @click="deleteCollection(collection)" />
-              </div>
+          <div class=" absolute top-6 right-6 z-50 ">
+            <UIcon name="i-heroicons-trash-20-solid" class="text-xl hover:cursor-pointer " @click="deleteCollection(collection)" />
+          </div>
         </UCard>
       </div>
     </div>
