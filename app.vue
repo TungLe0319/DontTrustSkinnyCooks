@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AdPopUpModal from './components/globals/AdPopUpModal.vue';
 import Footer from './components/globals/Footer.vue'
 import NavBar from './components/globals/NavBar.vue'
 
@@ -27,6 +28,8 @@ import NavBar from './components/globals/NavBar.vue'
       </template>
     </UNotifications>
     <NuxtLoadingIndicator :height="6" />
+
+    <AdPopUpModal/>
   </div>
 </template>
 

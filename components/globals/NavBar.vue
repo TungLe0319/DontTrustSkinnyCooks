@@ -126,6 +126,7 @@ function welcomeBackUser() {
         <span class="font-extrabold lg:text-2xl">
           Don't Trust Skinny Cooks
         </span>
+        {{ userRecipeInteractionCount().value }}
       </div>
       <div class="lg:flex space-x-4  items-center relative hidden  ">
         <NuxtLink
@@ -195,7 +196,7 @@ function welcomeBackUser() {
       <!-- !MOBIlE MENU -->
     </div>
   </div>
-  <BreadCrumbs />
+
 </template>
 
 <style>

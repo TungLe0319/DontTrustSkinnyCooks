@@ -39,3 +39,6 @@ export default function useAverageRating(reviews: { id: number, rating: number }
 
   return { averageRating }
 }
+
+
+export const userRecipeInteractionCount = () => useState<number>('userRecipeInteractionCount', () => 0)

@@ -42,6 +42,7 @@ function handleImageError(imageUrl: string) {
 
 <template>
   <UCard
+  @click="userRecipeInteractionCount().value  += 1"
     class=" rounded shadow-md hover:bg-zinc-800 hover:text-white  transition-all duration-200 group hover:shadow-xl hover:shadow-black/30 group dark:bg-gray-800 dark:hover:bg-white dark:hover:text-gray-800 dark:hover:shadow-white/20"
     :ui="{ body: { padding: {} } }"
   >
