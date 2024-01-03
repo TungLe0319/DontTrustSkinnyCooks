@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import ProfileCard from '~/components/globals/ProfileCard.vue'
 import type { Collection, RecipeWithUserAndCategories } from '~/types/types'
+import SaveToCollectionModal from './SaveToCollectionModal.vue';
 
 const { recipe } = defineProps<{
   recipe: RecipeWithUserAndCategories
@@ -12,32 +13,11 @@ const { user } = useAuth()
 const route = useRoute()
 const toast = useToast()
 const isOpen = ref(false)
-const filterCategories = useFilterCategories()
 
-async function saveRecipe(collectionId: number) {
-  try {
-    await useFetch(`/api/account/collections/${collectionId}`, {
-      method: 'PUT',
-      body: {
-        recipeId: recipe.id,
-      },
-    })
 
-    toast.add({
-      title: 'Recipe Saved',
-      timeout: 3000,
-      description: 'You can view your saved recipes in your profile.',
-      icon: 'i-heroicons-bookmark-20-solid',
-    })
-  }
-  catch (error) {
 
-  }
-}
 
-function handleImageError(imageUrl: string) {
-  return imageUrl = 'https://t4.ftcdn.net/jpg/04/70/29/97/240_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg'
-}
+
 </script>
 
 <template>
@@ -54,7 +34,7 @@ function handleImageError(imageUrl: string) {
         v-if="recipe.image" :src="recipe?.image " :alt="recipe?.title"
         class="absolute w-full object-cover  shadow-black  transition-all duration-150  group-hover:grayscale rounded-t object-center "
         :class="route.name === 'profile-id' ? 'h-42' : 'h-full'"
-        @error="handleImageError(recipe.image)"
+       
       >
       <USkeleton v-else class="h-72 w-full bg-gray-300" />
 
@@ -88,10 +68,15 @@ function handleImageError(imageUrl: string) {
             </template>
           </UPopover>
           <UTooltip v-if="user" text="Save Recipe" :popper="{ arrow: true }">
-            <Icon
-              name="material-symbols:bookmark-add" class="text-xl  hover:text-primary-500 hover:cursor-pointer "
-              @click="isOpen = true"
-            />
+          
+            <SaveToCollectionModal :recipe="recipe">
+    <Icon
+                name="material-symbols:bookmark-add" class="text-xl  hover:text-primary-500 hover:cursor-pointer "
+            
+              />
+            </SaveToCollectionModal>
+            
+          
           </UTooltip>
           <div class="ml-auto flex items-center gap-1 text-primary-500 hover:text-primary/70 transition-all duration-300">
             <Icon v-for="i in 5" :key="i" name="game-icons:fat" />
@@ -127,33 +112,7 @@ function handleImageError(imageUrl: string) {
         </div>
       </div>
     </div>
-    <UModal v-model="isOpen">
-      <UCard>
-        <template #header>
-          <h1 class="text-2xl font-bold">
-            Add to Collection
-          </h1>
-          <p class="text-gray-500">
-            Save a recipe to your selected collection
-          </p>
-        </template>
-        <div class="p-4">
-          <ul class="">
-            <li
-              v-for="collection in collections" :key="collection.id"
-              class=" border-b border-b-gray-200 p-1.5 hover:cursor-pointer hover:bg-gray-100 transition-all duration-200 flex gap-3"
-            >
-              <span>
-                {{ collection.title }}
-              </span>
-              <UButton class="ml-auto" @click="saveRecipe(collection.id)">
-                Save
-              </UButton>
-            </li>
-          </ul>
-        </div>
-      </UCard>
-    </UModal>
+  
   </UCard>
 </template>
 
