@@ -29,6 +29,9 @@ dependencies:
   '@vueuse/nuxt':
     specifier: ^10.7.1
     version: 10.7.1(nuxt@3.8.2)(vue@3.3.13)
+  nuxt-swiper:
+    specifier: ^1.2.2
+    version: 1.2.2
   socket.io:
     specifier: ^4.7.2
     version: 4.7.2
@@ -1406,7 +1409,6 @@ packages:
     transitivePeerDependencies:
       - rollup
       - supports-color
-    dev: false
 
   /@nuxt/schema@3.8.2:
     resolution: {integrity: sha512-AMpysQ/wHK2sOujLShqYdC4OSj/S3fFJGjhYXqA2g6dgmz+FNQWJRG/ie5sI9r2EX9Ela1wt0GN1jZR3wYNE8Q==}
@@ -1445,13 +1447,12 @@ packages:
     transitivePeerDependencies:
       - rollup
       - supports-color
-    dev: false
 
   /@nuxt/telemetry@2.5.3:
     resolution: {integrity: sha512-Ghv2MgWbJcUM9G5Dy3oQP0cJkUwEgaiuQxEF61FXJdn0a69Q4StZEP/hLF0MWPM9m6EvAwI7orxkJHM7MrmtVg==}
     hasBin: true
     dependencies:
-      '@nuxt/kit': 3.8.2
+      '@nuxt/kit': 3.9.0
       ci-info: 4.0.0
       consola: 3.2.3
       create-require: 1.1.1
@@ -1585,7 +1586,7 @@ packages:
   /@nuxtjs/color-mode@3.3.2:
     resolution: {integrity: sha512-BLpBfrYZngV2QWFQ4HNEFwAXa3Pno43Ge+2XHcZJTTa1Z4KzRLvOwku8yiyV3ovIaaXKGwduBdv3Z5Ocdp0/+g==}
     dependencies:
-      '@nuxt/kit': 3.8.2
+      '@nuxt/kit': 3.9.0
       lodash.template: 4.5.0
       pathe: 1.1.1
     transitivePeerDependencies:
@@ -1596,7 +1597,7 @@ packages:
   /@nuxtjs/tailwindcss@6.10.1:
     resolution: {integrity: sha512-LqOWiKUpCYErQoVTA7HN6QkjOBVGC24AmfgO/csQHRsRp8Bvw7rW+85fZ1cWY4KqlY0Rvx6pwZuOTcyiH31Orw==}
     dependencies:
-      '@nuxt/kit': 3.8.2
+      '@nuxt/kit': 3.9.0
       autoprefixer: 10.4.16(postcss@8.4.32)
       chokidar: 3.5.3
       clear-module: 4.1.2
@@ -5822,13 +5823,23 @@ packages:
       '@iconify/collections': 1.0.372
       '@iconify/vue': 4.1.1(vue@3.3.13)
       '@nuxt/devtools-kit': 1.0.6(nuxt@3.8.2)(vite@5.0.10)
-      '@nuxt/kit': 3.8.2
+      '@nuxt/kit': 3.9.0
     transitivePeerDependencies:
       - nuxt
       - rollup
       - supports-color
       - vite
       - vue
+    dev: false
+
+  /nuxt-swiper@1.2.2:
+    resolution: {integrity: sha512-y4s/srISP4OuhXbYg9/W1/6EWnbcoHRGEKBKAvGP0I2h0b3enhqZNEk7854M3F89ys8waacBXektPzamgl5xwQ==}
+    dependencies:
+      '@nuxt/kit': 3.9.0
+      swiper: 10.3.1
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
     dev: false
 
   /nuxt@3.8.2(eslint@8.56.0)(typescript@5.3.3)(vite@5.0.10):
@@ -7254,7 +7265,6 @@ packages:
 
   /std-env@3.7.0:
     resolution: {integrity: sha512-JPbdCEQLj1w5GilpiHAx3qJvFndqybBysA3qUOnznweH4QbNYUsW/ea8QzSrnh0vNsezMMw5bcVool8lM0gwzg==}
-    dev: false
 
   /streamx@2.15.6:
     resolution: {integrity: sha512-q+vQL4AAz+FdfT137VF69Cc/APqUbxy+MDOImRrMvchJpigHj9GksgDU2LYbO9rx7RX6osWgxJB2WxhYv4SZAw==}
@@ -7382,6 +7392,11 @@ packages:
       css-what: 6.1.0
       csso: 5.0.5
       picocolors: 1.0.0
+
+  /swiper@10.3.1:
+    resolution: {integrity: sha512-24Wk3YUdZHxjc9faID97GTu6xnLNia+adMt6qMTZG/HgdSUt4fS0REsGUXJOgpTED0Amh/j+gRGQxsLayJUlBQ==}
+    engines: {node: '>= 4.7.0'}
+    dev: false
 
   /tailwind-config-viewer@1.7.3(tailwindcss@3.3.7):
     resolution: {integrity: sha512-rgeFXe9vL4njtaSI1y2uUAD1aRx05RYHbReN72ARAVEVSlNmS0Zf46pj3/ORc3xQwLK/AzbaIs6UFcK7hJSIlA==}
@@ -7699,7 +7714,6 @@ packages:
       unplugin: 1.5.1
     transitivePeerDependencies:
       - rollup
-    dev: false
 
   /unique-filename@3.0.0:
     resolution: {integrity: sha512-afXhuC55wkAmZ0P18QsVE6kp8JaxrEokN2HGIoIVv2ijHQd419H0+6EigAFcIzXeMIkcIkNBpB3L/DXB3cTS/g==}
