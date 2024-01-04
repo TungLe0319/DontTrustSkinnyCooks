@@ -39,16 +39,7 @@ const mostRecentRecipes = ref(MostRecentRecipes.value)
           class="h-auto w-auto rounded-md shadow-lg group-hover:brightness-75 duration-150 transition-all"
         >
         <div class="mt-5 space-y-3">
-          <div class="flex gap-3">
-            <UBadge
-              v-for="category in mainRecipe?.categories"
-              :key="category.id"
-              size="md"
-              class="bg-orange-400 shadow-md"
-            >
-              {{ category.name }}
-            </UBadge>
-          </div>
+        
           <div class="text-3xl font-extrabold group-hover:underline group-hover:underline-offset-4">
             {{ mainRecipe?.title }}
           </div>

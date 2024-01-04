@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { Prisma } from '@prisma/client'
 import ProfileCard from '~/components/globals/ProfileCard.vue'
+import SaveToCollectionModal from '~/components/globals/SaveToCollectionModal.vue';
 
 const { recipe, averageRating } = defineProps<{
   recipe: Prisma.RecipeGetPayload<{
@@ -213,24 +214,17 @@ const shareItems = [
         </span>
       </div>
     </div>
-    <div
-      class="flex   "
+<SaveToCollectionModal :recipe="recipe">
+
+    <UButton
+      size="xl"
+      class="bg-orange-400  transition-all duration-150 hover:brightness-75 hover:bg-orange-400 hover:scale-95"
+  
     >
-      <UButton
-        :ui="{ rounded: 'rounded-none' }" size="xl" icon="i-heroicons-heart" :trailing="true"
-        class="  transition-all duration-150"
-      >
-        Save
-      </UButton>
-
-      <UButton
-        :ui="{ rounded: 'rounded-none' }" size="xl" icon="i-heroicons-share" :trailing="true"
-        class="  transition-all duration-150"
-      >
-        Share
-      </UButton>
-    </div>
-
+      Save
+    </UButton>
+ 
+</SaveToCollectionModal>
     <UDropdown :items="shareItems" :ui="{ width: 'w-fit' }" :popper="{ placement: 'bottom' }">
       <Icon name="material-symbols:share" class="flex-shrink-0  text-2xl text-gray-900 dark:text-gray-500 ms-auto" />
 
@@ -240,6 +234,13 @@ const shareItems = [
         <Icon :name="item.icon" class="flex-shrink-0  text-2xl text-gray-900 dark:text-gray-500 ms-auto" />
       </template>
     </UDropdown>
+
+    <div class="my-3  gap-3 flex flex-wrap">
+      <UBadge size="lg" v-for="category in recipe.categories">
+       
+         {{ category.name }}
+      </UBadge>
+    </div>
   </div>
 </template>
 

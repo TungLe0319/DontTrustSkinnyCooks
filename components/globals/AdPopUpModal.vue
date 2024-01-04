@@ -8,7 +8,7 @@ const { session,signIn } = useAuth(); // replace with your actual auth package
 const isOpen = ref(false);
 
 watchEffect(() => {
-  if ( userRecipeInteractionCount().value > 2) {
+  if ( userRecipeInteractionCount().value > 5) {
     userRecipeInteractionCount().value = 0; // Reset count to 0
     isOpen.value = true;
   }

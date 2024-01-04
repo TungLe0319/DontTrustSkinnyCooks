@@ -11,7 +11,7 @@ import AdBannerOne from '~/components/home/AdBannerOne.vue'
 import useAverageRating from '~/composables/appState'
 
 const route = useRoute()
-
+const router = useRouter()
 const { data, pending, error } = await useFetch<Prisma.RecipeGetPayload<{
   include: {
     user: true
@@ -33,19 +33,22 @@ const { data, pending, error } = await useFetch<Prisma.RecipeGetPayload<{
 })
 const recipe = ref(data.value)
 
-const { averageRating } = useAverageRating(recipe?.value?.reviews!)
+const { averageRating } = useAverageRating(recipe?.value?.reviews || [])
+
+onMounted(() => {
+  if (!recipe.value) {
+    router.replace('/404') // Replace with the actual path to your 404 page
+  }
+})
 </script>
 
 <template>
-  <main class="flex   justify-center gap-3 min-h-screen">
+  <main   class="flex   justify-center gap-3 min-h-screen">
     <div v-if="pending" class="text-center w-full p-5 min-h-screen">
       <LoadingSpinner />
     </div>
-    <div v-else-if="error" class="text-center w-full p-5">
-      {{ error.value?.message || '' }}
-      Error fetching data. Please try again later.
-    </div>
-    <div v-if="recipe" class="w-2/3  p-5 space-y-10">
+  
+    <div v-else-if="recipe" class="w-2/3  p-5 space-y-10">
       <MainInfo :average-rating="averageRating" :recipe="recipe" />
       <hr>
       <div class="">
