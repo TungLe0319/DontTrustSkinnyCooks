@@ -29,18 +29,37 @@ const { data: Categories } = await useFetch<Category[]>('/api/categories', {
   method: 'GET',
 });
 
-const includedCategories = ["Italian",'Korean','Japanese','Chinese','Vietnamese','Italian','Mexican','Indian','Irish','SouthWestern','Mediterranean','Greek','French','Thai','German','Cuban','Brazilian','Portuguese','Swedish'];
+const includedCategories = [
+  'Brazilian',
+  'Chinese',
+  'Cuban',
+  'French',
+  'German',
+  'Greek',
+  'Indian',
+  'Irish',
+  'Italian',
+  'Japanese',
+  'Korean',
+  'Mediterranean',
+  'Mexican',
+  'Portuguese',
+  'SouthWestern',
+  'Swedish',
+  'Thai',
+  'Vietnamese'
+];
 const categories = Categories.value?.filter(c => includedCategories.includes(c.name));
 
 const selectedCategory = ref<string | null>(null);
 
 const filterRecipes = () => {
   if (selectedCategory.value) {
-    recipes.value = Recipes.value?.filter(recipe => {
-      return recipe.categories.some(category => category.name === selectedCategory.value);
-    })?.slice(0, 6);
+    recipes.value = Recipes.value?.filter((recipe: any) => {
+      return recipe.categories.some((category: any) => category.name === selectedCategory.value);
+    })?.slice(0, 6) ?? [];
   } else {
-    recipes.value = Recipes.value?.slice(0, 6);
+    recipes.value = Recipes.value?.slice(0, 6) ?? [];
   }
 };
 

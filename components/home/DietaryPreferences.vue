@@ -2,45 +2,35 @@
 import { ref } from 'vue';
 import SectionHeader from '../globals/SectionHeader.vue';
 import RecipeCard from '~/components/globals/RecipeCard.vue';
-import type { Category, Prisma } from '@prisma/client';
+import { Prisma, type Category } from '@prisma/client';
 
-const { data: Recipes } = await useFetch<Prisma.RecipeGetPayload<
-{
+
+const { data: Recipes } = await useFetch<Prisma.RecipeGetPayload<{
   include: {
-      user: true,
-      categories: true,
-      _count: {
-        select: {
-          reviews: true,
-        },
-      },
-      reviews: {
-        select: {
-          id: true,
-          rating: true,
-
-        },
-      },
-    },
+    categories: true,
+    user: true,
+  },
 }>[]>('/api/recipes');
-const recipes = ref(Recipes.value);
+
+// Ensure that Recipes.value is an array of the expected type
+const recipes = ref(Recipes.value );
 
 const { data: Categories } = await useFetch<Category[]>('/api/categories', {
   method: 'GET',
 });
 
-const includedCategories = ["Dairy-Free", "Vegetarian", "Vegan", "Gluten-Free", "Nut-Free","Keto-Friendly"];
+const includedCategories = ["Dairy-Free", "Vegetarian", "Vegan", "Gluten-Free", "Nut-Free", "Keto-Friendly"];
 const categories = Categories.value?.filter(c => includedCategories.includes(c.name));
 
 const selectedCategory = ref<string | null>(null);
 
 const filterRecipes = () => {
   if (selectedCategory.value) {
-    recipes.value = Recipes.value?.filter(recipe => {
-      return recipe.categories.some(category => category.name === selectedCategory.value);
-    })?.slice(0, 6);
+    recipes.value = Recipes.value?.filter((recipe: any) => {
+      return recipe.categories.some((category: any) => category.name === selectedCategory.value);
+    })?.slice(0, 6) ?? [];
   } else {
-    recipes.value = Recipes.value?.slice(0, 6);
+    recipes.value = Recipes.value?.slice(0, 6) ?? [];
   }
 };
 
