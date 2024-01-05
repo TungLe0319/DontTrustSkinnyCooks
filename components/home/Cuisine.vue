@@ -29,7 +29,7 @@ const { data: Categories } = await useFetch<Category[]>('/api/categories', {
   method: 'GET',
 });
 
-const includedCategories = ["Dairy-Free", "Vegetarian", "Vegan", "Gluten-Free", "Nut-Free","Keto-Friendly"];
+const includedCategories = ["Italian",'Korean','Japanese','Chinese','Vietnamese','Italian','Mexican','Indian','Irish','SouthWestern','Mediterranean','Greek','French','Thai','German','Cuban','Brazilian','Portuguese','Swedish'];
 const categories = Categories.value?.filter(c => includedCategories.includes(c.name));
 
 const selectedCategory = ref<string | null>(null);
@@ -62,7 +62,7 @@ const selectCategory = (categoryName: string) => {
 
 <template>
   <div class="">
-    <SectionHeader title="Recipes Based On Dietary Preferences" />
+    <SectionHeader title="Your Favorite Cuisines" />
   
     <div class="mb-5 mt-2 flex items-center justify-center gap-3 flex-wrap">
         <UButton v-for="category in categories"   :key="category.id" @click="selectCategory(category.name)">

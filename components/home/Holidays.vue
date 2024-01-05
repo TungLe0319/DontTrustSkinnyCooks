@@ -29,7 +29,7 @@ const { data: Categories } = await useFetch<Category[]>('/api/categories', {
   method: 'GET',
 });
 
-const includedCategories = ["Dairy-Free", "Vegetarian", "Vegan", "Gluten-Free", "Nut-Free","Keto-Friendly"];
+const includedCategories = ["Christmas", "New Year's", "4th of July", "Easter", "Father's Day","Mother's Day","Halloween","Labor Day","Valentine's Day","Cinco De Mayo","St. Patrick's Day"];
 const categories = Categories.value?.filter(c => includedCategories.includes(c.name));
 
 const selectedCategory = ref<string | null>(null);
@@ -62,7 +62,7 @@ const selectCategory = (categoryName: string) => {
 
 <template>
   <div class="">
-    <SectionHeader title="Recipes Based On Dietary Preferences" />
+    <SectionHeader title="Recipes for the Holidays!" />
   
     <div class="mb-5 mt-2 flex items-center justify-center gap-3 flex-wrap">
         <UButton v-for="category in categories"   :key="category.id" @click="selectCategory(category.name)">
