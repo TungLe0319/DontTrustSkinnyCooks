@@ -43,7 +43,7 @@ const mostRecentRecipes = ref(MostRecentRecipes.value)
           <div class="text-3xl font-extrabold group-hover:underline group-hover:underline-offset-4">
             {{ mainRecipe?.title }}
           </div>
-          <p class="group-hover:underline group-hover:underline-offset-4 text-gray-500 dark:text-gray-400">
+          <p class=" text-gray-500 dark:text-gray-400">
             {{ mainRecipe?.description }}
           </p>
         </div>
@@ -71,7 +71,7 @@ const mostRecentRecipes = ref(MostRecentRecipes.value)
                 <span class="font-bold underline-offset-2 group-hover:underline">{{ recipe.title }}
                 </span>
                 <span
-                  class="text-sm text-gray-500 dark:text-gray-400 underline-offset-2 group-hover:underline"
+                  class="text-sm text-gray-500 dark:text-gray-400 underline-offset-2 "
                 >{{ recipe.description.slice(0, 50) }}...
                 </span>
               </div>

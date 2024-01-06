@@ -15,12 +15,12 @@ import Cuisine from '~/components/home/Cuisine.vue'
   <main class="min-h-screen py-16 space-y-24">
     <WhatsCookingHeroSection />
     <div class=" space-y-24">
-      <Cuisine/>
-      <DietaryPreferences/>
-      <Holidays/>
+      <!-- <Cuisine/> -->
+      <!-- <Holidays/> -->
       <AdBannerOne />
       <FeaturedRecipes />
       <TeamAndContributors />
+      <DietaryPreferences/>
       <RecommendedRecipes />
       <SpecialFeatureRecipe />
       <AdBannerTwo  />

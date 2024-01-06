@@ -57,9 +57,9 @@ const filterRecipes = () => {
   if (selectedCategory.value) {
     recipes.value = Recipes.value?.filter((recipe: any) => {
       return recipe.categories.some((category: any) => category.name === selectedCategory.value);
-    })?.slice(0, 6) ?? [];
+    }) ?? [];
   } else {
-    recipes.value = Recipes.value?.slice(0, 6) ?? [];
+    recipes.value = Recipes.value ?? [];
   }
 };
 

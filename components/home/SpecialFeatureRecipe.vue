@@ -11,7 +11,7 @@ const recipe = data.value?.[6]
     class=" hero-image   flex items-center justify-center border-4 w-full border-primary  relative  py-24 text-center"
     :style="{ backgroundImage: `url('${recipe?.image}')` }"
   >
-    <div class=" p-5 w-1/2 h-full z-10 flex flex-col space-y-3 group backdrop-blur-sm rounded border-2 border-white/20">
+    <div class=" p-5 w-1/2 h-full z-10 flex flex-col space-y-3 group backdrop-blur rounded border-2 border-white/20">
       <span class="drop-shadow text-white font-extrabold text-3xl group-hover:underline-offset-4 group-hover:underline"> Special Feature Recipe!
       </span>
       <span class="drop-shadow text-white font-extrabold text-3xl group-hover:underline-offset-4 group-hover:underline"> {{ recipe?.title }} </span>
