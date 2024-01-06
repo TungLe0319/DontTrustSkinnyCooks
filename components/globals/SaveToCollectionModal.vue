@@ -15,13 +15,16 @@
           </template>
           <div class="p-4">
 
- <div class="space-y-4">
+ <div class="space-y-4 space-x-4">
   
                 <UFormGroup label="Title">
                   <UInput v-model="newCollection.title" placeholder="favorites" icon="i-heroicons-star" />
                 </UFormGroup>
                 <UButton @click="createCollection">
                   Create Collection
+                </UButton>
+                <UButton @click="modifyCollections">
+                   Modify Collections
                 </UButton>
  </div>
     <hr class="my-4">
@@ -36,7 +39,7 @@
                 <UButton class="ml-auto" @click="saveRecipe(collection.id)">
                   Save
                 </UButton>
-                <UButton @click="deleteCollection(collection.id)">
+                <UButton v-if="modifyingCollections" @click="deleteCollection(collection.id)">
                   Delete
                 </UButton>
               </li>
@@ -50,6 +53,10 @@
 <script lang="ts" setup>
 import ProfileCard from '~/components/globals/ProfileCard.vue'
 import type { Collection, RecipeWithUserAndCategories } from '~/types/types'
+const modifyingCollections = ref(false)
+const modifyCollections = () => {
+modifyingCollections.value = !modifyingCollections.value
+}
 
 const { recipe } = defineProps<{
   recipe: RecipeWithUserAndCategories
@@ -101,7 +108,7 @@ async function createCollection() {
       timeout: 2000,
     })
     refresh()
-    isOpen.value = false
+    // isOpen.value = false
   }
 
   catch (error) {
@@ -134,6 +141,7 @@ async function createCollection() {
       statusMessage: 'Error deleting collection',
     })
   }
+}
 </script>
 
 <style>
