@@ -5,13 +5,34 @@ import LoadingSpinner from '~/components/globals/LoadingSpinner.vue'
 
 const toast = useToast()
 const route = useRoute()
-const collection = ref<CollectionWithUserAndRecipes | null>(null)
-const { data, error, pending } = useFetch<CollectionWithUserAndRecipes>(`/api/account/collections/${route.params.id}`)
+const collection = computed(()=> Collection.value)
+const { data:Collection, error, pending,refresh } = useFetch<CollectionWithUserAndRecipes>(`/api/account/collections/${route.params.id}`)
 
-// Had to do onMounted because the data was having hydration issues
-onMounted(async () => {
-  collection.value = data.value
-})
+// // Had to do onMounted because the data was having hydration issues
+// onMounted(async () => {
+//   collection.value = data.value
+// })
+async function removeRecipeFromCollection(recipeId: number) {
+  try {
+    await useFetch(`/api/account/collections/${route.params.id}`, {
+      method: 'PUT',
+      body: {
+        recipeId,
+      },
+    })
+    toast.add({
+      title: 'Recipe Removed',
+      timeout: 3000,
+      description: 'You can view your saved recipes in your profile.',
+      icon: 'i-heroicons-bookmark-20-solid',
+      color:'green'
+    })
+    refresh()
+  }
+  catch (error) {
+
+  }
+}
 </script>
 
 <template>
@@ -25,8 +46,16 @@ onMounted(async () => {
         Created: {{ formateDate(collection?.createdAt!).value }}
       </p>
     </div>
-    <div v-if="collection?.recipes?.length! >= 1" class=" grid grid-cols-4 gap-5">
-      <RecipeCard v-for="recipe in collection?.recipes" :key="recipe.id" :recipe="recipe" />
+    <div v-if="collection?.recipes?.length >= 1" class=" grid grid-cols-4 gap-5">
+     <div  v-for="recipe in collection?.recipes" :key="recipe.id"  class="relative">
+
+       <RecipeCard :recipe="recipe" />
+        <div class="absolute top-0 right-0">
+          <UButton @click="removeRecipeFromCollection(recipe.id)">
+            Remove
+          </UButton>
+          </div>
+     </div>
     </div>
     <div v-else class="">
       <p class="text-5xl  mb-5">

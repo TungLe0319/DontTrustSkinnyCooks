@@ -36,7 +36,7 @@
                 <span>
                   {{ collection.title }}
                 </span>
-                <UButton class="ml-auto" @click="saveRecipe(collection.id)">
+                <UButton v-if="!recipeExistsInCollections" class="ml-auto" @click="saveRecipe(collection.id)">
                   Save
                 </UButton>
                 <UButton v-if="modifyingCollections" @click="deleteCollection(collection.id)">
@@ -51,6 +51,7 @@
 </template>
 
 <script lang="ts" setup>
+import type { Prisma } from '@prisma/client';
 import ProfileCard from '~/components/globals/ProfileCard.vue'
 import type { Collection, RecipeWithUserAndCategories } from '~/types/types'
 const modifyingCollections = ref(false)
@@ -62,13 +63,28 @@ const { recipe } = defineProps<{
   recipe: RecipeWithUserAndCategories
 
 }>()
-const { data: Collections,refresh } = useFetch<Collection[]>('/api/account/collections')
-const collections = ref(Collections.value)
+const { data: Collections,refresh } = useFetch<Prisma.CollectionGetPayload<{
+  include: {
+  _count:{
+    select: {
+      recipes: true
+    }
+  
+  },
+    recipes: true
+  }
+
+}>[]>('/api/account/collections')
+const collections = computed(()=> Collections.value)
 const { user } = useAuth()
 
 const toast = useToast()
 const isOpen = ref(false)
 
+const recipeExistsInCollections = computed(() => {
+  // Check if the recipe exists in any of the collections
+  return collections?.value?.some((collection) => collection.recipes.some((rec) => rec.id === recipe.id));
+});
 
 async function saveRecipe(collectionId: number) {
   try {
@@ -84,6 +100,7 @@ async function saveRecipe(collectionId: number) {
       timeout: 3000,
       description: 'You can view your saved recipes in your profile.',
       icon: 'i-heroicons-bookmark-20-solid',
+      color:'green'
     })
   }
   catch (error) {
@@ -106,9 +123,11 @@ async function createCollection() {
       title: `Collection Created: ${createdCollectionTitle}`,
       icon: 'i-heroicons-check-circle',
       timeout: 2000,
+      color:'green'
     })
     refresh()
     // isOpen.value = false
+    newCollection.value.title = ''
   }
 
   catch (error) {
@@ -131,6 +150,7 @@ async function createCollection() {
       title: `Collection Deleted`,
       icon: 'i-heroicons-check-circle',
       timeout: 2000,
+    color:'green'
     })
     refresh()
   }

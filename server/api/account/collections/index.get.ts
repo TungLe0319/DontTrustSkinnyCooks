@@ -24,6 +24,7 @@ export default defineAuthHandler(async (event) => {
             recipes: true,
           },
         },
+        recipes:true
       },
     },
     )
