@@ -80,6 +80,7 @@ const { user } = useAuth()
 
 const toast = useToast()
 const isOpen = ref(false)
+const confirmYes = ref(false)
 
 const recipeExistsInCollections = computed(() => {
   // Check if the recipe exists in any of the collections
@@ -141,19 +142,45 @@ async function createCollection() {
 
  async function deleteCollection(collectionId: number) {
   try {
-    await useFetch(`/api/account/collections/${collectionId}`, {
-      method: 'DELETE',
-    })
 
-    toast.add({
-      id: `Deleted_Collection`,
-      title: `Collection Deleted`,
-      icon: 'i-heroicons-check-circle',
-      timeout: 2000,
-    color:'green'
-    })
-    refresh()
+      toast.add({
+      id: `delete_collection ${collectionId}`,
+title: 'Delete Collection?',
+description: 'Are you sure you want to delete this collection?',
+icon: 'i-heroicons-question-mark-circle',
+timeout: 80000,
+color: 'amber',
+actions:[{
+  label:'Confirm',
+  click: async () => {
+    confirmYes.value = true
+    if (confirmYes.value === true) {
+      const res = await useFetch(`/api/account/collections/${collectionId}`, {
+        method: 'DELETE',
+
+      })
+      if (res) {
+          refresh()
+
+        toast.add({
+          id: `delete_collection_success ${collectionId}`,
+          title: `Success`,
+          description: `Successfully Deleted ${collectionId}`,
+          icon: 'i-heroicons-exclamation-circle',
+          timeout: 2000,
+          color: 'green',
+
+        })
+      }
+    }
   }
+}]
+    })
+  }
+
+
+
+
 
   catch (error) {
     console.error('Error deleting collection:', error)
@@ -162,6 +189,11 @@ async function createCollection() {
     })
   }
 }
+
+
+
+
+
 </script>
 
 <style>

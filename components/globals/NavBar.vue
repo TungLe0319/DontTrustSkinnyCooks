@@ -89,7 +89,7 @@ const profileDropdownItems = [
 ]
 
 onMounted(() => {
-  welcomeBackUser()
+  // welcomeBackUser()
 })
 
 function welcomeBackUser() {

@@ -1,5 +1,5 @@
 <template>
-  <div class="border rounded shadow-sm ">
+  <div class="border rounded shadow-xl  h-72">
   
     <div class="  flex justify-between gap-5">
       <div class=" w-1/2 p-5   h-full space-y-10">
@@ -7,7 +7,7 @@
           Elevate Your Cooking Experience!
         </h2>
         <p class="text-xl">
-          What happens next: Join us, contribute your recipes, and savor the joy of sharing culinary delights.
+         Sign up and get unlimited access to all of our recipes.
         </p>
       </div>
       <div class="w-1/2">
@@ -18,33 +18,9 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue';
-
 
 </script>
 
 <style scoped>
-.ad-banner {
-  position: relative;
-  border-radius: 15px;
-  overflow: hidden;
 
-}
-
-.blob {
-  position: absolute;
-background: orange
-}
-
-
-.text {
-  flex: 1;
-
-}
-
-.svg-container {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-}
 </style>
