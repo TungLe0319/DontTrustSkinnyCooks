@@ -36,6 +36,9 @@
                 <UButton class="ml-auto" @click="saveRecipe(collection.id)">
                   Save
                 </UButton>
+                <UButton @click="deleteCollection(collection.id)">
+                  Delete
+                </UButton>
               </li>
             </ul>
           </div>
@@ -108,6 +111,29 @@ async function createCollection() {
     })
   }
 }
+
+
+ async function deleteCollection(collectionId: number) {
+  try {
+    await useFetch(`/api/account/collections/${collectionId}`, {
+      method: 'DELETE',
+    })
+
+    toast.add({
+      id: `Deleted_Collection`,
+      title: `Collection Deleted`,
+      icon: 'i-heroicons-check-circle',
+      timeout: 2000,
+    })
+    refresh()
+  }
+
+  catch (error) {
+    console.error('Error deleting collection:', error)
+    throw createError({
+      statusMessage: 'Error deleting collection',
+    })
+  }
 </script>
 
 <style>
