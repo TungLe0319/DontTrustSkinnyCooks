@@ -9,12 +9,14 @@ import AdBannerTwo from '~/components/globals/AdBannerTwo.vue'
 import DietaryPreferences from '~/components/home/DietaryPreferences.vue'
 import Holidays from '~/components/home/Holidays.vue'
 import Cuisine from '~/components/home/Cuisine.vue'
+import FeaturedReviews from '~/components/home/FeaturedReviews.vue'
 </script>
 
 <template>
   <main class="min-h-screen py-16 space-y-24">
     <WhatsCookingHeroSection />
     <div class=" space-y-24">
+      <FeaturedReviews/>
       <!-- <Cuisine/> -->
       <!-- <Holidays/> -->
       <AdBannerOne />
