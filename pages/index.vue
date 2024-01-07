@@ -16,14 +16,14 @@ import FeaturedReviews from '~/components/home/FeaturedReviews.vue'
   <main class="min-h-screen py-16 space-y-24">
     <WhatsCookingHeroSection />
     <div class=" space-y-24">
-      <FeaturedReviews/>
       <!-- <Cuisine/> -->
       <!-- <Holidays/> -->
-      <AdBannerOne />
       <FeaturedRecipes />
       <TeamAndContributors />
+      <AdBannerOne />
       <DietaryPreferences/>
       <RecommendedRecipes />
+      <FeaturedReviews/>
       <SpecialFeatureRecipe />
       <AdBannerTwo  />
     </div>
