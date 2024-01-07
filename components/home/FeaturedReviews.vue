@@ -16,7 +16,7 @@ const reviews = ref(Reviews.value)
 
 <template>
   <div class="">
-    <SectionHeader title="What people had to say about recipes" />
+    <SectionHeader title="What people had to say about recipes " />
   
     <Swiper :modules="[SwiperAutoplay]" :slides-per-view="1" :loop="true" 
     :autoplay="{

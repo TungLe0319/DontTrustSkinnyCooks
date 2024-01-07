@@ -2,7 +2,7 @@
 export default defineEventHandler(async (event) => {
 
 
-  const reviewsWithUsers = await prisma().review.findMany({
+  const reviews = await prisma().review.findMany({
     include: {
       user: {
         select: {
@@ -12,8 +12,15 @@ export default defineEventHandler(async (event) => {
           // email: true,
         },
       },
+      recipe:{
+        select:{
+          title:true,
+          id:true,
+          image:true
+        }
+      }
     },
   })
 
-  return reviewsWithUsers
+  return reviews
 })
