@@ -214,33 +214,42 @@ const shareItems = [
         </span>
       </div>
     </div>
-<SaveToCollectionModal :recipe="recipe">
+<div class="flex gap-4 items-center ">
+  <SaveToCollectionModal :recipe="recipe">
 
-    <UButton
-      size="xl"
-      class="bg-orange-400  transition-all duration-150 hover:brightness-75 hover:bg-orange-400 hover:scale-95"
-  
-    >
-      Save
-    </UButton>
+      <UButton
+        size="xl"
+      variant="soft"
+    class="transition-all duration-200"
+      >
+        Save This Recipe
+      </UButton>
  
-</SaveToCollectionModal>
-    <UDropdown :items="shareItems" :ui="{ width: 'w-fit' }" :popper="{ placement: 'bottom' }">
-      <Icon name="material-symbols:share" class="flex-shrink-0  text-2xl text-gray-900 dark:text-gray-500 ms-auto" />
+  </SaveToCollectionModal>
+      <UDropdown :items="shareItems" :ui="{ width: 'w-fit' }" :popper="{ placement: 'bottom' }">
+        <Icon name="material-symbols:share" class="flex-shrink-0  text-2xl text-gray-900 dark:text-gray-500 ms-auto" />
 
-      <template #item="{ item }">
-        <!-- <span class="truncate">{{ item.label }}</span> -->
+        <template #item="{ item }">
+          <span class="truncate">{{ item.label }}</span>
 
-        <Icon :name="item.icon" class="flex-shrink-0  text-2xl text-gray-900 dark:text-gray-500 ms-auto" />
-      </template>
-    </UDropdown>
+          <Icon :name="item.icon" class="flex-shrink-0  text-2xl text-gray-900 dark:text-gray-500 ms-auto" />
+        </template>
+      </UDropdown>
 
-    <div class="my-3  gap-3 flex flex-wrap">
-      <UBadge size="lg" v-for="category in recipe.categories">
+</div>
+
+<div class="pt-5">
+  <div class="font-bold underline underline-offset-4">
+    Categories
+  </div>
+  <div class="mt-3  gap-3 flex flex-wrap">
+        <UBadge size="lg" v-for="category in recipe.categories">
        
-         {{ category.name }}
-      </UBadge>
-    </div>
+           {{ category.name }}
+        </UBadge>
+      </div>
+</div>
+    
   </div>
 </template>
 

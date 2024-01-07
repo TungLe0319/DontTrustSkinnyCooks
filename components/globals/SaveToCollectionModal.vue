@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div @click="isOpen = true" class="flex items-center justify-center">
+    <div @click="isOpen = true" class="">
       <slot/>
     </div>
        <UModal v-model="isOpen">
