@@ -105,6 +105,7 @@ const shareItems = [
       click: () => {
         // Implement Facebook sharing logic
         console.log('Share on Facebook')
+        shareOnFacebook()
       },
     },
     {
@@ -150,6 +151,13 @@ const shareItems = [
   ],
 
 ]
+
+const shareOnFacebook = () => {
+  const currentUrl = 'https://samadhiyogaidaho.com/#/'
+  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}&title=${encodeURIComponent(recipe.title)}&description=${encodeURIComponent(recipe.description)}&picture=${encodeURIComponent(recipe.image || 'https://images.unsplash.com/photo-1612833609248-5e8b9f3b9b0f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVjaXBlJTIwY29sbGVjdGlvbnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80')}`;
+
+  window.open(facebookShareUrl, 'targetWindow', 'toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250');
+};
 </script>
 
 <template>
@@ -224,8 +232,12 @@ const shareItems = [
       >
         Save This Recipe
       </UButton>
- 
+
   </SaveToCollectionModal>
+
+    <a target="_blank" OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); return false;" href="https://www.facebook.com/sharer/sharer.php">
+     share
+    </a>
       <UDropdown :items="shareItems" :ui="{ width: 'w-fit' }" :popper="{ placement: 'bottom' }">
         <Icon name="material-symbols:share" class="flex-shrink-0  text-2xl text-gray-900 dark:text-gray-500 ms-auto" />
 
