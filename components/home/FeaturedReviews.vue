@@ -15,14 +15,14 @@ const reviews = ref(Reviews.value)
 
 
 <template>
-  <div class="">
+  <div class="bg-gray-100">
     <SectionHeader title="What people had to say about recipes " />
   
     <Swiper :modules="[SwiperAutoplay]" :slides-per-view="1" :loop="true" 
     :autoplay="{
         delay: 8000,
         disableOnInteraction: true,
-      }" class="w-full h-[500px] ">
+      }" class="w-full h-[500px]  ">
       <SwiperSlide v-auto-animate v-for="review in  reviews" :key="review.id"  class="">
        <div class="space-y-3 flex items-center justify-center h-full">
 
