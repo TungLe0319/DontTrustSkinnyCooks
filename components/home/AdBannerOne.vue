@@ -14,7 +14,7 @@ const homePage = computed(() => {
 
 <template>
   <div v-auto-animate class="">
-    <div v-if="showBanner" class=" relative p-5 rounded border border-black/20 dark:bg-gray-900">
+    <div v-if="showBanner && !session?.user" class=" relative p-5 rounded border border-black/20 dark:bg-gray-900">
       <div class="flex items-center gap-2  ">
         <Icon name="i-heroicons-bookmark-20-solid" class="text-5xl" />
         <span class="  font-extrabold underline underline-offset-4" :class="homePage ? 'text-5xl' : 'text-3xl' "> Advertise Your Recipes</span>
