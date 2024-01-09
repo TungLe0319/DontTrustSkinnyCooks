@@ -16,19 +16,19 @@ const { data }
 
 const recipes = data.value?.slice(0, 6)
 
-const fiveStarRecipes = data.value
+const fiveStarRecipes = data.value?.filter(recipe => useAverageRating(recipe.reviews).averageRating.value > 2)
 
 
 </script>
 
 <template>
   <div class="">
-    <SectionHeader title="Five-Star Feasting" />
-<div class="" v-for="f in fiveStarRecipes?.filter(recipe => useAverageRating(recipe.reviews).averageRating.value > 3 )">
+    <SectionHeader title="Highly Rated Feasting" />
+<!-- <div class="" v-for="f in fiveStarRecipes">
   {{ useAverageRating(f.reviews)}}
-</div>
+</div> -->
     <div class="grid grid-cols-3 gap-4">
-      <RecipeCard v-for="recipe in recipes" :key="recipe.id" :recipe="recipe" />
+      <RecipeCard v-for="recipe in fiveStarRecipes" :key="recipe.id" :recipe="recipe" />
     </div>
   </div>
 </template>
