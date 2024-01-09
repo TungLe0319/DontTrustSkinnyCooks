@@ -15,22 +15,29 @@
           </template>
           <div class="p-4">
 
- <div class="space-y-4 space-x-4">
+ <div class="space-y-4  ">
   
                 <UFormGroup label="Title">
                   <UInput v-model="newCollection.title" placeholder="favorites" icon="i-heroicons-star" />
                 </UFormGroup>
-                <UButton @click="createCollection">
-                  Create Collection
-                </UButton>
-                <UButton @click="modifyCollections">
-                   Modify Collections
-                </UButton>
+             <div class="flex gap-4">
+                 <UButton @click="createCollection">
+                    Create Collection
+                  </UButton>
+                  <UButton @click="modifyCollections">
+                     Modify Collections
+                  </UButton>
+                <NuxtLink :to="`/account/collections`" @click="isOpen = false">
+                    <UButton >
+                       View Collections
+                    </UButton>
+                </NuxtLink>
+             </div>
  </div>
     <hr class="my-4">
             <ul class="">
               <li
-                v-for="collection in collections" :key="collection.id"
+                v-for="collection in collections" :key="collection.id" v-auto-animate
                 class=" border-b border-b-gray-200 p-1.5 hover:cursor-pointer hover:bg-gray-100 transition-all duration-200 flex gap-3"
               >
                 <span>
@@ -39,7 +46,7 @@
                 <UButton v-if="!recipeExistsInCollections" class="ml-auto" @click="saveRecipe(collection.id)">
                   Save
                 </UButton>
-                <UButton v-if="modifyingCollections" @click="deleteCollection(collection.id)">
+                <UButton variant="outline" v-if="modifyingCollections" @click="deleteCollection(collection.id)">
                   Delete
                 </UButton>
               </li>

@@ -29,10 +29,10 @@ const reviews = ref(Reviews.value)
 
        
         <div class="space-y-6 flex flex-col items-center justify-center">
-         <NuxtLink :to="`recipes/${review.recipe.id}`" class="flex flex-col items-center justify-center group">
-           <div class="">
+         <NuxtLink :to="`recipes/${review.recipe.id}`" class="flex flex-col items-center justify-center group space-y-6">
+           
               <img :src="review.recipe.image || ''" alt=""  class="w-52 h-52 shadow-lg rounded-full object-cover object-center group-hover:brightness-75 transition-all duration-200">
-            </div>
+           
              <div class=" text-xl group-hover:underline group-hover:underline-offset-4 font-extrabold">
 
               {{ review.recipe.title }}

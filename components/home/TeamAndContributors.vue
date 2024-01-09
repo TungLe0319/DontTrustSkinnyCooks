@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4  rounded inset-0  bg-gray-100 ">
+  <div class="  rounded inset-0  bg-gray-100 ">
     <SectionHeader title="Our Team"/>
     <div class="relative overflow-hidden space-y-5 p-10 m">
      
