@@ -81,7 +81,9 @@ const isOpen = ref(false)
           
           </UTooltip>
           <div class="ml-auto flex items-center gap-1 text-primary-500 hover:text-primary/70 transition-all duration-300">
-            <Icon v-for="i in 5" :key="i" name="game-icons:fat" />
+            <Icon v-if="recipe?.averageRating > 0"  v-for="i in recipe?.averageRating" :key="i" name="game-icons:fat" />
+<div v-else class="underline underline-offset-4 text-sm text-gray-900 opacity-60 group-hover:text-white">Not Rated</div>
+           
           </div>
         </div>
       </div>
