@@ -44,9 +44,19 @@ const isOpen = ref(false)
     </NuxtLink>
     <div class="p-5 pt-2">
       <div class="flex flex-col gap-5">
-        <h3 class="text-xl  font-extrabold group-hover:underline group-hover:underline-offset-2">
-          {{ recipe.title }}
-        </h3>
+   
+
+
+  <UTooltip :text="recipe.title" v-if="recipe.title.length > 21" >
+        <h3 class="text-xl font-extrabold group-hover:underline group-hover:underline-offset-2 truncate">
+      {{ recipe.title }}
+    </h3>
+    </UTooltip>
+    <h3 v-else class="text-xl font-extrabold group-hover:underline group-hover:underline-offset-2 truncate">
+        {{ recipe.title }}
+      </h3>
+
+
         <div class="flex gap-3">
           <UPopover mode="hover" :ui="{ width: 'max-w-72' }">
             <UAvatar size="3xs" :src="recipe.user.image || ''" alt="Avatar" />
