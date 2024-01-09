@@ -70,10 +70,12 @@ const isOpen = ref(false)
           <UTooltip v-if="user" text="Save Recipe" :popper="{ arrow: true }">
           
             <SaveToCollectionModal :recipe="recipe">
-    <Icon
-                name="material-symbols:bookmark-add" class="text-xl  hover:text-primary-500 hover:cursor-pointer "
+   <div class="flex items-center justify-center">
+     <Icon
+                  name="material-symbols:bookmark-add" class="text-xl  hover:text-primary-500 hover:cursor-pointer "
             
-              />
+                />
+   </div>
             </SaveToCollectionModal>
             
           
