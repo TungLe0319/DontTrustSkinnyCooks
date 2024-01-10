@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-import type { type Category, Prisma } from '@prisma/client'
 
+import type { Category, Prisma } from '@prisma/client';
 import SectionHeader from '../globals/SectionHeader.vue'
 import RecipeCard from '~/components/globals/RecipeCard.vue'
 
