@@ -3,7 +3,6 @@ export default defineEventHandler(async (event) => {
     // Retrieve 'id' from the router parameters
     const id = getRouterParam(event, 'id')
 
-
     // Check if 'id' is missing
     if (!id)
       return createError('Missing id')
@@ -13,49 +12,47 @@ export default defineEventHandler(async (event) => {
       where: {
         id,
       },
-      include:{
-       reviews:{
-      where:{
-        rating:{
-          not: 0
-        }
-      },
-    include:{
-recipe:{
- include: {
-        user: true,
-        categories: true,
-        _count: {
-          select: {
-            reviews: true,
-          },
-        },
+      include: {
         reviews: {
-          select: {
-            id: true,
-            rating: true,
-
+          where: {
+            rating: {
+              not: 0,
+            },
           },
+          include: {
+            recipe: {
+              include: {
+                user: true,
+                categories: true,
+                _count: {
+                  select: {
+                    reviews: true,
+                  },
+                },
+                reviews: {
+                  select: {
+                    id: true,
+                    rating: true,
+
+                  },
+                },
+              },
+            },
+          },
+          orderBy: {
+            id: 'desc',
+          },
+          distinct: ['recipeId'],
         },
+
       },
-}
-    },
-      orderBy:{
-        id:'desc'
-      },
-    distinct: ['recipeId'],
-       }
-      
-      }
     })
 
     // Check if the recipe exists
     if (!foundUser)
       return createError('Recipe not found')
 
-   
-return foundUser
-  
+    return foundUser
   }
   catch (error) {
     // Handle errors appropriately, log or rethrow if needed

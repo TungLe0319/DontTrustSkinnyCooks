@@ -1,7 +1,5 @@
 // users should be able to see all reviews for a recipe, even if not logged in
 export default defineEventHandler(async (event) => {
-
-
   const reviews = await prisma().review.findMany({
     include: {
       user: {
@@ -12,13 +10,13 @@ export default defineEventHandler(async (event) => {
           // email: true,
         },
       },
-      recipe:{
-        select:{
-          title:true,
-          id:true,
-          image:true
-        }
-      }
+      recipe: {
+        select: {
+          title: true,
+          id: true,
+          image: true,
+        },
+      },
     },
   })
 

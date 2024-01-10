@@ -22,7 +22,7 @@ export type ReviewWithUser = Prisma.ReviewGetPayload<{
   include: { user: { select: { id: true, name: true, image: true } } }
 }>
 
-export type RecipeWithUserAndCategories =  Prisma.RecipeGetPayload<{
+export type RecipeWithUserAndCategories = Prisma.RecipeGetPayload<{
   include: { user: true, categories: true }
 }>
 

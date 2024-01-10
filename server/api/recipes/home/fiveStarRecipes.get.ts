@@ -1,15 +1,12 @@
 export default defineEventHandler(async (event) => {
- 
   try {
-
- 
     const recipes = await prisma().recipe.findMany({
       include: {
         categories: true,
         user: true,
-        reviews:{
-          
-        }
+        reviews: {
+
+        },
       },
     })
 
