@@ -8,11 +8,8 @@ const { recipe } = defineProps<{
 
 }>()
 const { data: Collections } = useFetch<Collection[]>('/api/account/collections')
-const collections = ref(Collections.value)
 const { user } = useAuth()
 const route = useRoute()
-const toast = useToast()
-const isOpen = ref(false)
 
 
 
