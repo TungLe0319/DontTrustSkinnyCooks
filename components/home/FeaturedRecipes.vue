@@ -12,7 +12,7 @@ const { data }
       categories:true,
       reviews:true
     }
-  }>[]>('/api/recipes/home/fiveStarRecipes')
+  }>[]>('/api/recipes',{method:'GET'})
 
 const recipes = data.value?.slice(0, 6)
 
