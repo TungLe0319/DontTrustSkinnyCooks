@@ -15,20 +15,39 @@ const newCollection = ref({
 
 async function createCollection() {
   try {
-    await useFetch('/api/account/collections', {
+
+
+    
+    if (newCollection.value.title === '') {
+   toast.add({
+        id: `create_collection_error`,
+        title: 'Error',
+        description: 'You must enter a title for your collection',
+        icon: 'i-heroicons-exclamation-circle',
+        timeout: 2000,
+        color: 'red',
+      })
+      return
+    }
+  const res =  await useFetch('/api/account/collections', {
       method: 'POST',
       body: newCollection.value,
     })
 
-    const createdCollectionTitle = newCollection.value.title
-    toast.add({
-      id: `Created_Collection`,
-      title: `Collection Created: ${createdCollectionTitle}`,
-      icon: 'i-heroicons-check-circle',
-      timeout: 2000,
-    })
-    refresh()
-    isOpen.value = false
+    if (res.data) {
+          const createdCollectionTitle = newCollection.value.title
+      toast.add({
+        id: `Created_Collection`,
+        title: `Collection Created: ${createdCollectionTitle}`,
+        icon: 'i-heroicons-check-circle',
+        timeout: 2000,
+      })
+      refresh()
+      isOpen.value = false
+      newCollection.value.title = ''
+    }
+
+
   }
 
   catch (error) {
@@ -41,6 +60,8 @@ async function createCollection() {
 
 async function deleteCollection(collection: Collection) {
   try {
+
+
     toast.add({
       id: `delete_Collection ${collection?.id}`,
       title: 'Delete Collection?',
@@ -116,7 +137,7 @@ async function deleteCollection(collection: Collection) {
               Create a collection to save your favorite recipes
             </p>
             <hr class="my-4">
-            <UFormGroup label="Title">
+            <UFormGroup label="Title" required>
               <UInput v-model="newCollection.title" placeholder="favorites" icon="i-heroicons-star" />
             </UFormGroup>
             <UButton @click="createCollection">
@@ -141,8 +162,8 @@ async function deleteCollection(collection: Collection) {
               Recipes: {{ collection?._count.recipes }}
             </p>
           </NuxtLink>
-          <div class=" absolute top-6 right-6 z-50 ">
-            <UIcon name="i-heroicons-trash-20-solid" class="text-xl hover:cursor-pointer " @click="deleteCollection(collection)" />
+          <div class=" absolute top-6 right-6  ">
+            <UIcon name="i-heroicons-trash-20-solid" class="text-xl hover:cursor-pointer hover:text-primary hover:shadow transition-all duration-200 " @click="deleteCollection(collection)" />
           </div>
         </UCard>
       </div>

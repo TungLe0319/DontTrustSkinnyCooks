@@ -81,8 +81,8 @@ async function deleteCollection() {
         <span class="text-sm">{{ collection?._count.recipes }}</span>
       </div> -->
     </NuxtLink>
-    <div class=" absolute top-6 right-6 z-50 ">
-      <UIcon name="i-heroicons-trash-20-solid" class="text-xl hover:cursor-pointer " @click="deleteCollection" />
+    <div class=" absolute top-6 right-6 -z-10  ">
+      <UIcon name="i-heroicons-trash-20-solid" class="text-xl hover:cursor-pointer hover:text-primary transition-color duration-200 " @click="deleteCollection" />
     </div>
   </UCard>
 </template>
