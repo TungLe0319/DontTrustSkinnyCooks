@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Prisma } from '@prisma/client'
 import ProfileCard from '~/components/globals/ProfileCard.vue'
-import SaveToCollectionModal from '~/components/globals/SaveToCollectionModal.vue';
+import SaveToCollectionModal from '~/components/globals/SaveToCollectionModal.vue'
 
 const { recipe, averageRating } = defineProps<{
   recipe: Prisma.RecipeGetPayload<{
@@ -152,12 +152,12 @@ const shareItems = [
 
 ]
 
-const shareOnFacebook = () => {
+function shareOnFacebook() {
   const currentUrl = 'https://samadhiyogaidaho.com/#/'
-  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}&title=${encodeURIComponent(recipe.title)}&description=${encodeURIComponent(recipe.description)}&picture=${encodeURIComponent(recipe.image || 'https://images.unsplash.com/photo-1612833609248-5e8b9f3b9b0f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVjaXBlJTIwY29sbGVjdGlvbnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80')}`;
+  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}&title=${encodeURIComponent(recipe.title)}&description=${encodeURIComponent(recipe.description)}&picture=${encodeURIComponent(recipe.image || 'https://images.unsplash.com/photo-1612833609248-5e8b9f3b9b0f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVjaXBlJTIwY29sbGVjdGlvbnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80')}`
 
-  window.open(facebookShareUrl, 'targetWindow', 'toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250');
-};
+  window.open(facebookShareUrl, 'targetWindow', 'toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250')
+}
 </script>
 
 <template>
@@ -222,22 +222,20 @@ const shareOnFacebook = () => {
         </span>
       </div>
     </div>
-<div class="flex gap-4 items-center ">
-  <SaveToCollectionModal :recipe="recipe">
+    <div class="flex gap-4 items-center ">
+      <SaveToCollectionModal :recipe="recipe">
+        <UButton
+          size="xl"
+          variant="soft"
+          class="transition-all duration-200"
+        >
+          Save This Recipe
+        </UButton>
+      </SaveToCollectionModal>
 
-      <UButton
-        size="xl"
-      variant="soft"
-    class="transition-all duration-200"
-      >
-        Save This Recipe
-      </UButton>
-
-  </SaveToCollectionModal>
-
-    <a target="_blank" OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); return false;" href="https://www.facebook.com/sharer/sharer.php">
-     share
-    </a>
+      <a target="_blank" OnClick="window.open(this.href,'targetWindow','toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250'); return false;" href="https://www.facebook.com/sharer/sharer.php">
+        share
+      </a>
       <UDropdown :items="shareItems" :ui="{ width: 'w-fit' }" :popper="{ placement: 'bottom' }">
         <Icon name="material-symbols:share" class="flex-shrink-0  text-2xl text-gray-900 dark:text-gray-500 ms-auto" />
 
@@ -247,21 +245,18 @@ const shareOnFacebook = () => {
           <Icon :name="item.icon" class="flex-shrink-0  text-2xl text-gray-900 dark:text-gray-500 ms-auto" />
         </template>
       </UDropdown>
+    </div>
 
-</div>
-
-<div class="pt-5">
-  <div class="font-bold underline underline-offset-4">
-    Categories
-  </div>
-  <div class="mt-3  gap-3 flex flex-wrap">
-        <UBadge size="lg" v-for="category in recipe.categories">
-       
-           {{ category.name }}
+    <div class="pt-5">
+      <div class="font-bold underline underline-offset-4">
+        Categories
+      </div>
+      <div class="mt-3  gap-3 flex flex-wrap">
+        <UBadge v-for="category in recipe.categories" size="lg">
+          {{ category.name }}
         </UBadge>
       </div>
-</div>
-    
+    </div>
   </div>
 </template>
 

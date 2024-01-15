@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@formkit/auto-animate/nuxt',
     '@vueuse/nuxt',
-    'nuxt-swiper'
+    'nuxt-swiper',
   ],
 
   alias: {

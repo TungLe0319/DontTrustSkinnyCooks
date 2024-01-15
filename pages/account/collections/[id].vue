@@ -5,8 +5,8 @@ import LoadingSpinner from '~/components/globals/LoadingSpinner.vue'
 
 const toast = useToast()
 const route = useRoute()
-const collection = computed(()=> Collection.value)
-const { data:Collection, error, pending,refresh } = useFetch<CollectionWithUserAndRecipes>(`/api/account/collections/${route.params.id}`)
+const collection = computed(() => Collection.value)
+const { data: Collection, error, pending, refresh } = useFetch<CollectionWithUserAndRecipes>(`/api/account/collections/${route.params.id}`)
 
 // // Had to do onMounted because the data was having hydration issues
 // onMounted(async () => {
@@ -25,7 +25,7 @@ async function removeRecipeFromCollection(recipeId: number) {
       timeout: 3000,
       description: 'You can view your saved recipes in your profile.',
       icon: 'i-heroicons-bookmark-20-solid',
-      color:'green'
+      color: 'green',
     })
     refresh()
   }
@@ -47,15 +47,14 @@ async function removeRecipeFromCollection(recipeId: number) {
       </p>
     </div>
     <div v-if="collection?.recipes?.length >= 1" class=" grid grid-cols-4 gap-5">
-     <div  v-for="recipe in collection?.recipes" :key="recipe.id"  class="relative">
-
-       <RecipeCard :recipe="recipe" />
+      <div v-for="recipe in collection?.recipes" :key="recipe.id" class="relative">
+        <RecipeCard :recipe="recipe" />
         <div class="absolute top-0 right-0">
           <UButton @click="removeRecipeFromCollection(recipe.id)">
             Remove
           </UButton>
-          </div>
-     </div>
+        </div>
+      </div>
     </div>
     <div v-else class="">
       <p class="text-5xl  mb-5">

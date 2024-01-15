@@ -1,6 +1,5 @@
 <script  setup>
 import { onMounted, ref } from 'vue'
-import BreadCrumbs from './BreadCrumbs.vue'
 
 const { signIn, signOut, session, user } = useAuth()
 const toast = useToast()
@@ -126,7 +125,6 @@ function welcomeBackUser() {
         <span class="font-extrabold lg:text-2xl">
           Don't Trust Skinny Cooks
         </span>
-  
       </div>
       <div class="lg:flex space-x-4  items-center relative hidden  ">
         <NuxtLink
@@ -196,7 +194,6 @@ function welcomeBackUser() {
       <!-- !MOBIlE MENU -->
     </div>
   </div>
-
 </template>
 
 <style>

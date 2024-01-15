@@ -1,13 +1,12 @@
 export default defineAuthHandler(async (event) => {
   try {
-    const body = await readBody(event);
-    console.log(body);
-    const collectionId = getRouterParam(event, 'id');
-    console.log(collectionId);
+    const body = await readBody(event)
+    console.log(body)
+    const collectionId = getRouterParam(event, 'id')
+    console.log(collectionId)
 
-    if (!collectionId) {
-      return createError('Missing id');
-    }
+    if (!collectionId)
+      return createError('Missing id')
 
     const existingCollection = await prisma().collection.findUnique({
       where: {
@@ -20,7 +19,7 @@ export default defineAuthHandler(async (event) => {
           },
         },
       },
-    });
+    })
 
     if (existingCollection && existingCollection.recipes.length > 0) {
       // Recipe is already connected, unconnect it
@@ -35,8 +34,9 @@ export default defineAuthHandler(async (event) => {
             },
           },
         },
-      });
-    } else {
+      })
+    }
+    else {
       // Recipe is not connected, connect it
       await prisma().collection.update({
         where: {
@@ -49,12 +49,13 @@ export default defineAuthHandler(async (event) => {
             },
           },
         },
-      });
+      })
     }
-  } catch (error) {
+  }
+  catch (error) {
     throw createError({
       statusCode: 500,
       statusMessage: 'Internal Server Error',
-    });
+    })
   }
-});
+})

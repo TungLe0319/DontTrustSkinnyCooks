@@ -7,8 +7,6 @@ import TeamAndContributors from '~/components/home/TeamAndContributors.vue'
 import RecommendedRecipes from '~/components/home/RecommendedRecipes.vue'
 import AdBannerTwo from '~/components/globals/AdBannerTwo.vue'
 import DietaryPreferences from '~/components/home/DietaryPreferences.vue'
-import Holidays from '~/components/home/Holidays.vue'
-import Cuisine from '~/components/home/Cuisine.vue'
 import FeaturedReviews from '~/components/home/FeaturedReviews.vue'
 </script>
 
@@ -21,11 +19,11 @@ import FeaturedReviews from '~/components/home/FeaturedReviews.vue'
       <FeaturedRecipes />
       <TeamAndContributors />
       <AdBannerOne />
-      <DietaryPreferences/>
+      <DietaryPreferences />
       <RecommendedRecipes />
-      <FeaturedReviews/>
+      <FeaturedReviews />
       <SpecialFeatureRecipe />
-      <AdBannerTwo  />
+      <AdBannerTwo />
     </div>
   </main>
 </template>

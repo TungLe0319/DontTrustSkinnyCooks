@@ -36,18 +36,17 @@ const recipe = ref(data.value)
 const { averageRating } = useAverageRating(recipe?.value?.reviews || [])
 
 onMounted(() => {
-  if (!recipe.value) {
+  if (!recipe.value)
     router.replace('/404') // Replace with the actual path to your 404 page
-  }
 })
 </script>
 
 <template>
-  <main   class="flex   justify-center gap-3 min-h-screen">
+  <main class="flex   justify-center gap-3 min-h-screen">
     <div v-if="pending" class="text-center w-full p-5 min-h-screen">
       <LoadingSpinner />
     </div>
-  
+
     <div v-else-if="recipe" class="w-2/3  p-5 space-y-10">
       <MainInfo :average-rating="averageRating" :recipe="recipe" />
       <hr>

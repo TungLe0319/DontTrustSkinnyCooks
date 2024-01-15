@@ -1,30 +1,22 @@
 <script lang="ts" setup>
+import SaveToCollectionModal from './SaveToCollectionModal.vue'
 import ProfileCard from '~/components/globals/ProfileCard.vue'
 import type { Collection, RecipeWithUserAndCategories } from '~/types/types'
-import SaveToCollectionModal from './SaveToCollectionModal.vue';
 
 const { recipe } = defineProps<{
   recipe: RecipeWithUserAndCategories
 
 }>()
 const { data: Collections } = useFetch<Collection[]>('/api/account/collections')
-const collections = ref(Collections.value)
 const { user } = useAuth()
 const route = useRoute()
-const toast = useToast()
-const isOpen = ref(false)
-
-
-
-
-
 </script>
 
 <template>
   <UCard
-  @click="userRecipeInteractionCount().value  += 1"
     class=" rounded shadow-md hover:bg-zinc-800 hover:text-white  transition-all duration-200 group hover:shadow-xl hover:shadow-black/30 group dark:bg-gray-800 dark:hover:bg-white dark:hover:text-gray-800 dark:hover:shadow-white/20"
     :ui="{ body: { padding: {} } }"
+    @click="userRecipeInteractionCount().value += 1"
   >
     <NuxtLink
       :to="`/recipes/${recipe.id}`" class="flex items-center mb-2 relative  w-full overflow-hidden  "
@@ -34,7 +26,6 @@ const isOpen = ref(false)
         v-if="recipe.image" :src="recipe?.image " :alt="recipe?.title"
         class="absolute w-full object-cover  shadow-black  transition-all duration-150  group-hover:grayscale rounded-t object-center "
         :class="route.name === 'profile-id' ? 'h-42' : 'h-full'"
-       
       >
       <USkeleton v-else class="h-72 w-full bg-gray-300" />
 
@@ -44,18 +35,14 @@ const isOpen = ref(false)
     </NuxtLink>
     <div class="p-5 pt-2">
       <div class="flex flex-col gap-5">
-   
-
-
-  <UTooltip :text="recipe.title" v-if="recipe.title.length > 21" >
-        <h3 class="text-xl font-extrabold group-hover:underline group-hover:underline-offset-2 truncate">
-      {{ recipe.title }}
-    </h3>
-    </UTooltip>
-    <h3 v-else class="text-xl font-extrabold group-hover:underline group-hover:underline-offset-2 truncate">
-        {{ recipe.title }}
-      </h3>
-
+        <UTooltip v-if="recipe.title.length > 21" :text="recipe.title">
+          <h3 class="text-xl font-extrabold group-hover:underline group-hover:underline-offset-2 truncate">
+            {{ recipe.title }}
+          </h3>
+        </UTooltip>
+        <h3 v-else class="text-xl font-extrabold group-hover:underline group-hover:underline-offset-2 truncate">
+          {{ recipe.title }}
+        </h3>
 
         <div class="flex gap-3">
           <UPopover mode="hover" :ui="{ width: 'max-w-72' }">
@@ -78,22 +65,19 @@ const isOpen = ref(false)
             </template>
           </UPopover>
           <UTooltip v-if="user" text="Save Recipe" :popper="{ arrow: true }">
-          
             <SaveToCollectionModal :recipe="recipe">
-   <div class="flex items-center justify-center">
-     <Icon
+              <div class="flex items-center justify-center">
+                <Icon
                   name="material-symbols:bookmark-add" class="text-xl  hover:text-primary-500 hover:cursor-pointer "
-            
                 />
-   </div>
+              </div>
             </SaveToCollectionModal>
-            
-          
           </UTooltip>
           <div class="ml-auto flex items-center gap-1 text-primary-500 hover:text-primary/70 transition-all duration-300">
-            <Icon v-if="recipe?.averageRating > 0"  v-for="i in recipe?.averageRating" :key="i" name="game-icons:fat" />
-<div v-else class="underline underline-offset-4 text-sm text-gray-900 opacity-60 group-hover:text-white">Not Rated</div>
-           
+            <Icon v-for="i in recipe?.averageRating" v-if="recipe?.averageRating > 0" :key="i" name="game-icons:fat" />
+            <div v-else class="underline underline-offset-4 text-sm text-gray-900 opacity-60 group-hover:text-white">
+              Not Rated
+            </div>
           </div>
         </div>
       </div>
@@ -126,7 +110,6 @@ const isOpen = ref(false)
         </div>
       </div>
     </div>
-  
   </UCard>
 </template>
 
