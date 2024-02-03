@@ -158,6 +158,10 @@ function shareOnFacebook() {
 
   window.open(facebookShareUrl, 'targetWindow', 'toolbar=no,location=0,status=no,menubar=no,scrollbars=yes,resizable=yes,width=600,height=250')
 }
+
+
+
+const roundedRating = computed(() => Math.ceil(averageRating * 2) / 2);
 </script>
 
 <template>
@@ -183,13 +187,13 @@ function shareOnFacebook() {
         </UButton>
       </div>
     </div>
-    <div v-if="averageRating > 0" class="flex gap-3  text-orange-400">
+    <!-- <div v-if="averageRating > 0" class="flex gap-3  text-orange-400">
       <div class="flex gap-1">
-        <Icon v-for="rating in averageRating" :key="rating" name="game-icons:fat" class="text-2xl" />
+        <Icon v-for="rating in roundedRating" :key="rating" name="game-icons:fat" class="text-2xl" />
       </div>
       <div class="dark:text-white text-gray-900 space-x-1 font-semibold">
         <span class="border-b border-spacing-2 border-orange-400 ">
-          {{ averageRating }}
+          {{  roundedRating }}
         </span>
         <span class="text-gray-500">
           ({{ recipe.reviews.length }})
@@ -198,7 +202,7 @@ function shareOnFacebook() {
     </div>
     <div v-else class=" text-gray-600 underline-offset-4 underline">
       Not Yet Rated
-    </div>
+    </div> -->
 
     <UButton variant="link" class=" text-gray-900 uppercase text-xs font-bold  underline underline-offset-4" @click="scrollToReviews">
       <span> Read Reviews</span>

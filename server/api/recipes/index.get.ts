@@ -12,19 +12,19 @@ export default defineEventHandler(async (event) => {
       },
     })
 
-    const recipesWithAverageRating = recipes.map((recipe) => {
-      const reviews = recipe.reviews || []
-      const totalRatings = reviews.length
-      const sumRatings = reviews.reduce((acc, review) => acc + (review.rating || 0), 0)
-      const averageRating = totalRatings > 0 ? sumRatings / totalRatings : 0
+ const recipesWithRoundedRating = recipes.map((recipe) => {
+  const reviews = recipe.reviews || [];
+  const totalRatings = reviews.length;
+  const sumRatings = reviews.reduce((acc, review) => acc + (review.rating || 0), 0);
+  const averageRating = totalRatings > 0 ? Math.round(sumRatings / totalRatings) : 0;
 
-      return {
-        ...recipe,
-        averageRating,
-      }
-    })
+  return {
+    ...recipe,
+    averageRating,
+  };
+});
 
-    return recipesWithAverageRating
+    return recipesWithRoundedRating
   }
   catch (error) {
     console.error('Error fetching recipes and average ratings:', error)

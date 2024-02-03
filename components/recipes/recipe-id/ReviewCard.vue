@@ -8,6 +8,7 @@ const route = useRoute()
 const { user } = useAuth()
 const editing = ref(false)
 const hovering = ref(false)
+const confirmYes = ref(false)
 const timeAgo = useTimeAgo(review.value.updatedAt!)
 const items = [
   [{
@@ -32,13 +33,38 @@ const items = [
         actions: [{
           label: 'Confirm',
           click: async () => {
-            toast.add({
-              id: `delete review ${review.value.id}`,
-              title: 'Review Deleted',
-              description: 'Your review has been deleted.',
-              color: 'green',
-              timeout: 5000,
-            })
+confirmYes.value= true
+
+if (confirmYes.value = true) {
+  
+  if (session.value?.user?.id !== review.value.userId) {
+    toast.add({
+      id: `delete review error ${review.value.id}`,
+      title: 'Error',
+      description: 'You are not authorized to delete this review',
+      icon: 'i-heroicons-exclamation-circle',
+      timeout: 2000,
+      color: 'red',
+    })
+  }
+
+  const res = await useFetch(`/api/recipes/${route.params.id}/reviews/${review.value.id}`, {
+    method: 'DELETE',
+  })
+
+  if (res) {
+       toast.add({
+                  id: `delete review ${review.value.id}`,
+                  title: 'Review Deleted',
+                  description: 'Your review has been deleted.',
+                  color: 'green',
+                  timeout: 5000,
+                })
+  }
+}
+
+
+         
           },
         }],
 
