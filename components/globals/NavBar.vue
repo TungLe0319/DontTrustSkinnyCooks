@@ -121,9 +121,9 @@ function welcomeBackUser() {
   <div class="w-full h-16 flex items-center justify-center shadow-md dark:bg-gray-800 dark:text-white  py-0 px-5 ">
     <div class="flex w-full h-full space-x-4 justify-between">
       <div class="px-5 flex space-x-4 items-center justify-center">
-        <Icon name="game-icons:fat" class="text-5xl" />
+        <Icon name="streamline-emojis:winking-face-with-tongue" class="text-5xl" />
         <span class="font-extrabold lg:text-2xl">
-          Don't Trust Skinny Cooks
+          TasteTrove
         </span>
       </div>
       <div class="lg:flex space-x-4  items-center relative hidden  ">
